@@ -1,0 +1,27 @@
+professor assumiu a responsabilidade
+
+objetivo , atender crianças de no minimo 7 e 22 anos,
+
+chamada e anotaçao de plano de aula seria mais facil em um sistema mobile , com controle de frequencia, dependendo  da frequencia o aluno é "desligado" automaticamente ou manualmente pelo professor
+
+informaçoes relevantes para ser colocado na matricula como email, nome, sexo(se for feminino é jogado para a turma de feminino), peso, altura, data de nascimento e cpf tanto do aluno quanto do responsavel(sem alteração), rg não obrigatorio , onde é autorização e exame médico(obrigatorio)
+
+autorização dos pais ate os 18 anos para matricula e rematricula
+
+filtro feito pelo professor para a matricula dos professores , onde cai na caixa de entrada do app do professor se ele foi "aceito' ou nao
+
+aviso a relação de jogos e treinos ( um mural ) onde pode informar sobre não haver treino , ou troca de professores, jogos marcados(dias, horario e tvz o time adversario)
+
+função de 2 cronometro (24 sec (alerta com 16sec), volta para os 14sec se der aro, com pausa e ) (cronometro personalizado sobre a questão do tempo de jogo com pausa)
+
+função de placar dos times
+
+registro de aula
+anotação privada do professor.
+
+rematricula puxa as informações ja salvas com opçoes de alterar alguns campos
+abrir e fechar periodo de matricula e rematricula, porem se entrarem no meio do ano conversar com o professor para ele abrir manualmente
+
+subcategorias: sub 10, sub 13 . sub 16 . sub 18 e sub feminino
+horarios:
+professores: diego e francesco
