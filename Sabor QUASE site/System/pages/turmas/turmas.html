@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turmas — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="turmas.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="ti ti-ball-basketball"></i>
+        </div>
+        <div class="logo-texto">
+          <span class="logo-nome">Escolinha de Basquete</span>
+          <span class="logo-sub">Prof. Diego &amp; Francesco</span>
+        </div>
+      </div>
+      <nav class="nav-desktop">
+        <a href="../index.html" class="nav-link">Início</a>
+        <a href="matriculas.html" class="nav-link">Matrículas</a>
+        <a href="turmas.html" class="nav-link ativo">Turmas</a>
+        <a href="chamada.html" class="nav-link">Chamada</a>
+        <a href="mural.html" class="nav-link">Mural</a>
+        <a href="cronometro.html" class="nav-link">Cronômetro</a>
+      </nav>
+      <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
+        <i class="ti ti-moon" id="icone-tema"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <div>
+      <div class="pagina-titulo">
+        <i class="ti ti-users"></i>
+        Turmas
+      </div>
+      <div class="pagina-sub">Clique em uma turma para ver os alunos e a frequência</div>
+    </div>
+
+    <!-- RESUMO -->
+    <div class="resumo-grid">
+      <div class="resumo-card">
+        <div class="resumo-num" style="color:var(--laranja)">47</div>
+        <div class="resumo-label">Alunos ativos</div>
+      </div>
+      <div class="resumo-card">
+        <div class="resumo-num" style="color:var(--azul)">5</div>
+        <div class="resumo-label">Turmas</div>
+      </div>
+      <div class="resumo-card">
+        <div class="resumo-num" style="color:var(--verde)">2</div>
+        <div class="resumo-label">Professores</div>
+      </div>
+      <div class="resumo-card">
+        <div class="resumo-num" style="color:var(--amarelo)">85%</div>
+        <div class="resumo-label">Frequência média</div>
+      </div>
+    </div>
+
+    <!-- TURMA SUB 10 -->
+    <div class="turma-card" id="turma-sub10">
+      <div class="turma-cabecalho" onclick="alternarTurma('sub10')">
+        <div class="turma-icone ic-sub10"><i class="ti ti-ball-basketball"></i></div>
+        <div class="turma-info">
+          <div class="turma-nome">Sub 10</div>
+          <div class="turma-detalhe">
+            <span><i class="ti ti-cake"></i> até 10 anos</span>
+            <span><i class="ti ti-calendar"></i> Ter e Qui · 17h–18h</span>
+            <span><i class="ti ti-user"></i> Prof. Francesco</span>
+          </div>
+        </div>
+        <span class="turma-badge">8 alunos</span>
+        <i class="ti ti-chevron-down turma-seta"></i>
+      </div>
+      <div class="turma-corpo">
+        <table class="tabela">
+          <thead><tr><th>Nome</th><th>Idade</th><th>Frequência</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Pedro Almeida</td><td>9 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 94%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Lucas Souza</td><td>8 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 88%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Gabriel Lima</td><td>10 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 79%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Enzo Ribeiro</td><td>9 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 91%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Davi Costa</td><td>7 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 96%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Miguel Santos</td><td>10 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 81%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Theo Oliveira</td><td>8 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 92%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Bernardo Rocha</td><td>9 anos</td><td><span class="freq-mini baixa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 68%</span></td><td><span class="badge badge-laranja">Atenção</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TURMA SUB 13 -->
+    <div class="turma-card" id="turma-sub13">
+      <div class="turma-cabecalho" onclick="alternarTurma('sub13')">
+        <div class="turma-icone ic-sub13"><i class="ti ti-ball-basketball"></i></div>
+        <div class="turma-info">
+          <div class="turma-nome">Sub 13</div>
+          <div class="turma-detalhe">
+            <span><i class="ti ti-cake"></i> até 13 anos</span>
+            <span><i class="ti ti-calendar"></i> Seg, Qua e Sex · 18h–19h30</span>
+            <span><i class="ti ti-user"></i> Prof. Diego</span>
+          </div>
+        </div>
+        <span class="turma-badge">12 alunos</span>
+        <i class="ti ti-chevron-down turma-seta"></i>
+      </div>
+      <div class="turma-corpo">
+        <table class="tabela">
+          <thead><tr><th>Nome</th><th>Idade</th><th>Frequência</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Rafael Mendes</td><td>13 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 90%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Bruno Carvalho</td><td>12 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 76%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>João Pedro Alves</td><td>11 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 93%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Matheus Ferreira</td><td>13 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 85%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Felipe Nunes</td><td>12 anos</td><td><span class="freq-mini baixa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 70%</span></td><td><span class="badge badge-laranja">Atenção</span></td></tr>
+            <tr><td>Gustavo Pires</td><td>11 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 89%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Vinícius Teixeira</td><td>13 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 78%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Caio Martins</td><td>12 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 95%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Diego Barros</td><td>13 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 80%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Heitor Cardoso</td><td>11 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 91%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Arthur Dias</td><td>12 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 87%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Samuel Castro</td><td>13 anos</td><td><span class="freq-mini baixa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 65%</span></td><td><span class="badge badge-vermelho">Risco</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TURMA SUB 16 -->
+    <div class="turma-card" id="turma-sub16">
+      <div class="turma-cabecalho" onclick="alternarTurma('sub16')">
+        <div class="turma-icone ic-sub16"><i class="ti ti-ball-basketball"></i></div>
+        <div class="turma-info">
+          <div class="turma-nome">Sub 16</div>
+          <div class="turma-detalhe">
+            <span><i class="ti ti-cake"></i> até 16 anos</span>
+            <span><i class="ti ti-calendar"></i> Ter e Qui · 19h–20h30</span>
+            <span><i class="ti ti-user"></i> Prof. Diego</span>
+          </div>
+        </div>
+        <span class="turma-badge">10 alunos</span>
+        <i class="ti ti-chevron-down turma-seta"></i>
+      </div>
+      <div class="turma-corpo">
+        <table class="tabela">
+          <thead><tr><th>Nome</th><th>Idade</th><th>Frequência</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Lucas Ferreira</td><td>15 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 87%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Thiago Andrade</td><td>16 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 92%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Rodrigo Pereira</td><td>15 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 77%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Murilo Gomes</td><td>14 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 90%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Eduardo Vieira</td><td>16 anos</td><td><span class="freq-mini baixa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 71%</span></td><td><span class="badge badge-laranja">Atenção</span></td></tr>
+            <tr><td>André Monteiro</td><td>15 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 94%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Leonardo Farias</td><td>14 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 82%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Otávio Ramos</td><td>16 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 88%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Igor Tavares</td><td>15 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 75%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Marcelo Duarte</td><td>16 anos</td><td><span class="freq-mini baixa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 64%</span></td><td><span class="badge badge-vermelho">Risco</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TURMA SUB 18 -->
+    <div class="turma-card" id="turma-sub18">
+      <div class="turma-cabecalho" onclick="alternarTurma('sub18')">
+        <div class="turma-icone ic-sub18"><i class="ti ti-ball-basketball"></i></div>
+        <div class="turma-info">
+          <div class="turma-nome">Sub 18</div>
+          <div class="turma-detalhe">
+            <span><i class="ti ti-cake"></i> até 18 anos</span>
+            <span><i class="ti ti-calendar"></i> Seg, Qua e Sex · 20h–21h30</span>
+            <span><i class="ti ti-user"></i> Prof. Diego</span>
+          </div>
+        </div>
+        <span class="turma-badge">9 alunos</span>
+        <i class="ti ti-chevron-down turma-seta"></i>
+      </div>
+      <div class="turma-corpo">
+        <table class="tabela">
+          <thead><tr><th>Nome</th><th>Idade</th><th>Frequência</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Renato Borges</td><td>18 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 89%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Fábio Correia</td><td>17 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 93%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Wesley Moraes</td><td>17 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 78%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Daniel Brito</td><td>18 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 86%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Cauã Lopes</td><td>17 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 80%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Henrique Souza</td><td>18 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 91%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Yago Martins</td><td>17 anos</td><td><span class="freq-mini baixa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 69%</span></td><td><span class="badge badge-laranja">Atenção</span></td></tr>
+            <tr><td>Adriano Reis</td><td>18 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 84%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Vitor Cunha</td><td>17 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 79%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TURMA SUB FEMININO -->
+    <div class="turma-card" id="turma-fem">
+      <div class="turma-cabecalho" onclick="alternarTurma('fem')">
+        <div class="turma-icone ic-fem"><i class="ti ti-ball-basketball"></i></div>
+        <div class="turma-info">
+          <div class="turma-nome">Sub Feminino</div>
+          <div class="turma-detalhe">
+            <span><i class="ti ti-cake"></i> todas as idades</span>
+            <span><i class="ti ti-calendar"></i> Seg e Qua · 17h–18h30</span>
+            <span><i class="ti ti-user"></i> Prof. Francesco</span>
+          </div>
+        </div>
+        <span class="turma-badge">8 alunas</span>
+        <i class="ti ti-chevron-down turma-seta"></i>
+      </div>
+      <div class="turma-corpo">
+        <table class="tabela">
+          <thead><tr><th>Nome</th><th>Idade</th><th>Frequência</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Ana Clara Silva</td><td>14 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 92%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Beatriz Santos</td><td>11 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 95%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Camila Rocha</td><td>16 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 81%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Júlia Almeida</td><td>9 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 90%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Larissa Costa</td><td>13 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 88%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Mariana Pires</td><td>17 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 76%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Sofia Ribeiro</td><td>12 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 93%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Valentina Souza</td><td>15 anos</td><td><span class="freq-mini baixa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 72%</span></td><td><span class="badge badge-laranja">Atenção</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="rodape">
+    Escolinha de Basquete · Prof. Diego &amp; Francesco · 2026
+  </footer>
+</body>
+<script src="turmas.js"></script>
+</html>

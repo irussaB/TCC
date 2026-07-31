@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plano de Aula — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="plano.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="ti ti-ball-basketball"></i>
+        </div>
+        <div class="logo-texto">
+          <span class="logo-nome">Escolinha de Basquete</span>
+          <span class="logo-sub">Prof. Diego &amp; Francesco</span>
+        </div>
+      </div>
+      <nav class="nav-desktop">
+        <a href="../index.html" class="nav-link">Início</a>
+        <a href="matriculas.html" class="nav-link">Matrículas</a>
+        <a href="turmas.html" class="nav-link">Turmas</a>
+        <a href="chamada.html" class="nav-link">Chamada</a>
+        <a href="mural.html" class="nav-link">Mural</a>
+        <a href="cronometro.html" class="nav-link">Cronômetro</a>
+      </nav>
+      <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
+        <i class="ti ti-moon" id="icone-tema"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <div>
+      <div class="pagina-titulo">
+        <i class="ti ti-notes"></i>
+        Plano de aula
+      </div>
+      <div class="pagina-sub">Anotações privadas do professor</div>
+    </div>
+
+    <div class="banner-privado">
+      <i class="ti ti-lock"></i>
+      Estas anotações são privadas e ficam salvas apenas neste navegador — os alunos não têm acesso a esta página.
+    </div>
+
+    <!-- NOVA ANOTAÇÃO -->
+    <div class="card">
+      <div class="card-header"><i class="ti ti-pencil-plus"></i> Nova anotação</div>
+      <div class="card-body">
+        <div class="form-linha">
+          <div class="form-grupo">
+            <label class="form-label">Título</label>
+            <input class="campo" id="nota-titulo" type="text" placeholder="Ex: Ajustes para o jogo de sábado">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Turma</label>
+            <select class="campo" id="nota-turma">
+              <option value="Geral">Geral</option>
+              <option value="Sub 10">Sub 10</option>
+              <option value="Sub 13">Sub 13</option>
+              <option value="Sub 16">Sub 16</option>
+              <option value="Sub 18">Sub 18</option>
+              <option value="Sub Feminino">Sub Feminino</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-grupo" style="margin-bottom:14px">
+          <label class="form-label">Anotação</label>
+          <textarea class="campo" id="nota-texto" placeholder="Escreva observações, ajustes táticos, lembretes..."></textarea>
+        </div>
+        <button class="btn btn-laranja" onclick="salvarNota()"><i class="ti ti-device-floppy"></i> Salvar anotação</button>
+      </div>
+    </div>
+
+    <!-- LISTA -->
+    <div class="card">
+      <div class="card-header"><i class="ti ti-list-details"></i> Minhas anotações</div>
+      <div class="card-body">
+        <div class="chip-grupo" id="chips-filtro" style="margin-bottom:16px">
+          <div class="chip selecionado" data-turma="todas" onclick="filtrarTurma('todas', this)">Todas</div>
+          <div class="chip" data-turma="Geral" onclick="filtrarTurma('Geral', this)">Geral</div>
+          <div class="chip" data-turma="Sub 10" onclick="filtrarTurma('Sub 10', this)">Sub 10</div>
+          <div class="chip" data-turma="Sub 13" onclick="filtrarTurma('Sub 13', this)">Sub 13</div>
+          <div class="chip" data-turma="Sub 16" onclick="filtrarTurma('Sub 16', this)">Sub 16</div>
+          <div class="chip" data-turma="Sub 18" onclick="filtrarTurma('Sub 18', this)">Sub 18</div>
+          <div class="chip" data-turma="Sub Feminino" onclick="filtrarTurma('Sub Feminino', this)">Sub Feminino</div>
+        </div>
+        <div id="lista-notas"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="rodape">
+    Escolinha de Basquete · Prof. Diego &amp; Francesco · 2026
+  </footer>
+</body>
+<script src="plano.js"></script>
+</html>

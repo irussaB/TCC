@@ -1,0 +1,60 @@
+    /* Botão de remover aviso */
+    .mural-remover {
+      background: none;
+      border: none;
+      color: var(--texto-mudo);
+      font-size: 18px;
+      cursor: pointer;
+      flex-shrink: 0;
+      padding: 4px;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .mural-remover:hover {
+      color: var(--vermelho);
+      background: var(--vermelho-claro);
+    }
+
+    /* Chips de tipo do aviso */
+    .chip-aviso.selecionado   { background: var(--laranja-claro); border-color: var(--laranja); color: #854F0B; }
+    .chip-jogo.selecionado    { background: var(--azul-claro);    border-color: var(--azul-medio); color: var(--azul-medio); }
+    .chip-info.selecionado    { background: var(--verde-claro);   border-color: var(--verde); color: var(--verde); }
+
+    .mural-vazio {
+      text-align: center;
+      padding: 32px 16px;
+      color: var(--texto-mudo);
+      font-size: 14px;
+    }
+
+    /* Exibição de reações no mural do professor */
+    .reacoes-resumo {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 8px;
+    }
+
+    .reacao-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 9px;
+      border-radius: 20px;
+      background: var(--cinza-claro);
+      border: 1px solid var(--borda);
+      font-size: 12px;
+      color: var(--cinza);
+    }
+
+    .reacao-chip-zero {
+      opacity: 0.38;
+    }
+
+    body.tema-time .chip-aviso.selecionado,
+    body.tema-time .chip-jogo.selecionado,
+    body.tema-time .chip-info.selecionado {
+      background: rgba(255,199,44,0.16);
+      border-color: #FFC72C;
+      color: #FFC72C;
+    }

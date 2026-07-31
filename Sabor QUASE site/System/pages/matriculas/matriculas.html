@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matrículas — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="matriculas.css">
+</head>
+<body>
+
+  <!-- CABEÇALHO -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="ti ti-ball-basketball"></i>
+        </div>
+        <div class="logo-texto">
+          <span class="logo-nome">Escolinha de Basquete</span>
+          <span class="logo-sub">Prof. Diego &amp; Francesco</span>
+        </div>
+      </div>
+      <nav class="nav-desktop">
+        <a href="../index.html" class="nav-link">Início</a>
+        <a href="matriculas.html" class="nav-link ativo">Matrículas</a>
+        <a href="turmas.html" class="nav-link">Turmas</a>
+        <a href="chamada.html" class="nav-link">Chamada</a>
+        <a href="mural.html" class="nav-link">Mural</a>
+        <a href="cronometro.html" class="nav-link">Cronômetro</a>
+      </nav>
+      <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
+        <i class="ti ti-moon" id="icone-tema"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <div>
+      <h1 class="pagina-titulo">
+        <i class="ti ti-user-check"></i>
+        Matrículas
+      </h1>
+      <p class="pagina-sub">Gerencie as solicitações de matrícula dos alunos</p>
+    </div>
+
+    <!-- ABAS DE FILTRO -->
+    <div class="abas-wrap">
+      <button class="aba-btn ativa" onclick="filtrarAba('todas', this)">
+        <i class="ti ti-list"></i> Todas
+        <span class="badge-count" id="count-todas">6</span>
+      </button>
+      <button class="aba-btn" onclick="filtrarAba('pendente', this)">
+        <i class="ti ti-clock"></i> Pendentes
+        <span class="badge-count" id="count-pendente">3</span>
+      </button>
+      <button class="aba-btn" onclick="filtrarAba('aprovada', this)">
+        <i class="ti ti-check"></i> Aprovadas
+        <span class="badge-count" id="count-aprovada">2</span>
+      </button>
+      <button class="aba-btn" onclick="filtrarAba('recusada', this)">
+        <i class="ti ti-x"></i> Recusadas
+        <span class="badge-count" id="count-recusada">1</span>
+      </button>
+    </div>
+
+    <!-- BUSCA -->
+    <div class="busca-wrap">
+      <i class="ti ti-search"></i>
+      <input class="busca-input" type="text" placeholder="Buscar por nome do aluno..." oninput="buscarAluno(this.value)">
+    </div>
+
+    <!-- LISTA -->
+    <div class="lista-matriculas" id="lista-matriculas"></div>
+
+    <div class="estado-vazio" id="estado-vazio">
+      <i class="ti ti-inbox"></i>
+      <p>Nenhuma matrícula encontrada.</p>
+    </div>
+
+  </main>
+
+  <!-- MODAL DE DETALHES -->
+  <div class="modal-overlay" id="modal" onclick="fecharModal(event)">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div>
+          <div class="modal-titulo" id="modal-nome">—</div>
+          <div class="modal-sub" id="modal-sub">—</div>
+        </div>
+        <button class="btn-fechar-modal" onclick="fecharModalBtn()">
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+
+      <div class="modal-secao">
+        <div class="modal-secao-titulo">Dados do aluno</div>
+        <div class="modal-campo">
+          <span class="modal-campo-label">Data de nascimento</span>
+          <span class="modal-campo-valor" id="md-nascimento">—</span>
+        </div>
+        <div class="modal-campo">
+          <span class="modal-campo-label">Sexo</span>
+          <span class="modal-campo-valor" id="md-sexo">—</span>
+        </div>
+        <div class="modal-campo">
+          <span class="modal-campo-label">Peso / Altura</span>
+          <span class="modal-campo-valor" id="md-fisico">—</span>
+        </div>
+        <div class="modal-campo">
+          <span class="modal-campo-label">CPF do aluno</span>
+          <span class="modal-campo-valor" id="md-cpf">—</span>
+        </div>
+        <div class="modal-campo">
+          <span class="modal-campo-label">E-mail do aluno</span>
+          <span class="modal-campo-valor" id="md-email">—</span>
+        </div>
+      </div>
+
+      <div class="modal-secao">
+        <div class="modal-secao-titulo">Responsável</div>
+        <div class="modal-campo">
+          <span class="modal-campo-label">Nome</span>
+          <span class="modal-campo-valor" id="md-resp-nome">—</span>
+        </div>
+        <div class="modal-campo">
+          <span class="modal-campo-label">Telefone</span>
+          <span class="modal-campo-valor" id="md-resp-tel">—</span>
+        </div>
+        <div class="modal-campo">
+          <span class="modal-campo-label">E-mail</span>
+          <span class="modal-campo-valor" id="md-resp-email">—</span>
+        </div>
+      </div>
+
+      <div class="modal-secao">
+        <div class="modal-secao-titulo">Turma e documentos</div>
+        <div class="modal-campo">
+          <span class="modal-campo-label">Turma sugerida</span>
+          <span class="modal-campo-valor" id="md-turma">—</span>
+        </div>
+        <div class="modal-campo">
+          <span class="modal-campo-label">Data da solicitação</span>
+          <span class="modal-campo-valor" id="md-data">—</span>
+        </div>
+        <div class="modal-docs">
+          <div class="doc-chip"><i class="ti ti-file-check"></i> Autorização dos pais</div>
+          <div class="doc-chip"><i class="ti ti-stethoscope"></i> Exame médico</div>
+        </div>
+      </div>
+
+      <div class="modal-acoes" id="modal-acoes"></div>
+    </div>
+  </div>
+
+  <!-- TOASTS -->
+  <div class="toast-wrap" id="toasts"></div>
+
+<script src="matriculas.js"></script>
+</body>
+</html>

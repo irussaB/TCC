@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercícios — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="exercicios.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="ti ti-ball-basketball"></i>
+        </div>
+        <div class="logo-texto">
+          <span class="logo-nome">Escolinha de Basquete</span>
+          <span class="logo-sub">Prof. Diego &amp; Francesco</span>
+        </div>
+      </div>
+      <nav class="nav-desktop">
+        <a href="../index.html" class="nav-link">Início</a>
+        <a href="matriculas.html" class="nav-link">Matrículas</a>
+        <a href="turmas.html" class="nav-link">Turmas</a>
+        <a href="chamada.html" class="nav-link">Chamada</a>
+        <a href="mural.html" class="nav-link">Mural</a>
+        <a href="cronometro.html" class="nav-link">Cronômetro</a>
+      </nav>
+      <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
+        <i class="ti ti-moon" id="icone-tema"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <div>
+      <div class="pagina-titulo">
+        <i class="ti ti-stretching"></i>
+        Exercícios
+      </div>
+      <div class="pagina-sub">Biblioteca de exercícios para montar os treinos</div>
+    </div>
+
+    <!-- FILTROS -->
+    <div class="chip-grupo" id="chips-filtro">
+      <div class="chip selecionado" data-cat="todos" onclick="filtrar('todos', this)">Todos</div>
+      <div class="chip" data-cat="aquecimento" onclick="filtrar('aquecimento', this)">Aquecimento</div>
+      <div class="chip" data-cat="drible" onclick="filtrar('drible', this)">Drible</div>
+      <div class="chip" data-cat="passe" onclick="filtrar('passe', this)">Passe</div>
+      <div class="chip" data-cat="arremesso" onclick="filtrar('arremesso', this)">Arremesso</div>
+      <div class="chip" data-cat="defesa" onclick="filtrar('defesa', this)">Defesa</div>
+      <div class="chip" data-cat="fisico" onclick="filtrar('fisico', this)">Físico</div>
+      <div class="chip" data-cat="tatico" onclick="filtrar('tatico', this)">Tático / Coletivo</div>
+    </div>
+
+    <!-- GRID -->
+    <div class="ex-grid" id="ex-grid">
+
+      <div class="ex-card" data-cat="aquecimento">
+        <div class="ex-topo">
+          <div class="ex-icone" style="background:var(--amarelo-dim);color:var(--amarelo)"><i class="ti ti-flame"></i></div>
+          <div class="ex-titulo">Mobilidade articular</div>
+          <span class="badge badge-aquecimento">Aquecimento</span>
+        </div>
+        <div class="ex-desc">Sequência de mobilidade de tornozelo, joelho, quadril e ombros para preparar o corpo antes do treino.</div>
+        <div class="ex-meta">
+          <span><i class="ti ti-clock"></i> 8 min</span>
+          <span><i class="ti ti-users"></i> Todas as turmas</span>
+          <span><i class="ti ti-tools-kitchen-off"></i> Sem material</span>
+        </div>
+      </div>
+
+      <div class="ex-card" data-cat="aquecimento">
+        <div class="ex-topo">
+          <div class="ex-icone" style="background:var(--amarelo-dim);color:var(--amarelo)"><i class="ti ti-run"></i></div>
+          <div class="ex-titulo">Corrida com variação de movimento</div>
+          <span class="badge badge-aquecimento">Aquecimento</span>
+        </div>
+        <div class="ex-desc">Deslocamentos de quadra inteira alternando corrida frontal, lateral, de costas e skipping para ativar o corpo.</div>
+        <div class="ex-meta">
+          <span><i class="ti ti-clock"></i> 6 min</span>
+          <span><i class="ti ti-users"></i> Todas as turmas</span>
+          <span><i class="ti ti-tools-kitchen-off"></i> Sem material</span>
+        </div>
+      </div>
+
+      <div class="ex-card" data-cat="drible">
+        <div class="ex-topo">
+          <div class="ex-icone" style="background:var(--laranja-dim);color:var(--laranja)"><i class="ti ti-disc"></i></div>
+          <div class="ex-titulo">Drible em cones — zigue-zague</div>
+          <span class="badge badge-drible">Drible</span>
+        </div>
+        <div class="ex-desc">Conduzir a bola entre cones em zigue-zague, alternando mão dominante e mão fraca, focando em controle e troca de direção.</div>
+        <div class="ex-meta">
+          <span><i class="ti ti-clock"></i> 10 min</span>
+          <span><i class="ti ti-users"></i> Sub 10 a Sub 18</span>
+          <span><i class="ti ti-cone"></i> 6 cones, 1 bola por aluno</span>
+        </div>
+      </div>
+
+      <div class="ex-card" data-cat="drible">
+        <div class="ex-topo">
+          <div class="ex-icone" style="background:var(--laranja-dim);color:var(--laranja)"><i class="ti ti-arrows-shuffle"></i></div>
+          <div class="ex-titulo">Drible duplo com finalização</div>
+          <span class="badge badge-drible">Drible</span>
+        </div>
+        <div class="ex-desc">Drible em velocidade pela quadra com uma mudança de direção (crossover ou reverso) antes de finalizar na cesta.</div>
+        <div class="ex-meta">
+          <span><i class="ti ti-clock"></i> 12 min</span>
+          <span><i class="ti ti-users"></i> Sub 13 a Sub 18</span>
+          <span><i class="ti ti-ball-basketball"></i> 1 bola por aluno</span>
+        </div>
+      </div>
+
+      <div class="ex-card" data-cat="passe">
+        <div class="ex-topo">
+          <div class="ex-icone" style="background:var(--azul-dim);color:var(--azul)"><i class="ti ti-arrows-exchange"></i></div>
+          <div class="ex-titulo">Passe em triângulo</div>
+          <span class="badge badge-passe">Passe</span>
+        </div>
+        <div class="ex-desc">Três alunos formam um triângulo e trocam passes de peito, picada e por cima da cabeça em movimento contínuo.</div>
+        <div class="ex-meta">
+          <span><i class="ti ti-clock"></i> 10 min</span>
+          <span><i class="ti ti-users"></i> Todas as turmas</span>
+          <span><i class="ti ti-ball-basketball"></i> 1 bola por trio</span>
+        </div>
+      </div>
+
+      <div class="ex-card" data-cat="passe">
+        <div class="ex-topo">
+          <div class="ex-icone" style="background:var(--azul-dim);color:var(--azul)"><i class="ti ti-walk"></i></div>
+          <div class="ex-titulo">Passe e corte para a cesta</div>
+          <span class="badge badge-passe">Passe</span>
+        </div>
+        <div class="ex-desc">Aluno passa a bola e corta para a cesta esperando o retorno, trabalhando movimentação sem bola e timing de passe.</div>
+        <div class="ex-meta">
+          <span><i class="ti ti-clock"></i> 12 min</span>
+          <span><i class="ti ti-users"></i> Sub 13 a Sub 18</span>
+          <span><i class="ti ti-ball-basketball"></i> 1 a 2 bolas</span>
+        </div>
+      </div>
+
+      <div class="ex-card" data-cat="arremesso">
+        <div class="ex-topo">
+          <div class="ex-icone" style="background:var(--verde-dim);color:var(--verde)"><i class="ti ti-target"></i></div>
+          <div class="ex-titulo">Arremesso parado — meia distância</div>
+          <span class="badge badge-arremesso">Arremesso</span>
+        </div>
+        <div class="ex-desc">Séries de arremessos parados em 5 posições ao redor do garrafão, focando na mecânica de arremesso (BEEF).</div>
+        <div class="ex-meta">
+          <span><i class="ti ti-clock"></i> 15 min</span>
+          <span><i class="ti ti-users"></i> Sub 13 a Sub 18</span>
+          <span><i class="ti ti-ball-basketball"></i> 2 a 3 bolas por cesta</span>
+        </div>
+      </div>
+
+      <div class="ex-card" data-cat="arremesso">
+        <div class="ex-topo">
+          <div class="ex-icone" style="background:var(--verde-dim);color:var(--verde)"><i class="ti ti-stairs"></i></div>
+          <div class="ex-titulo">Bandeja em progressão</div>
+          <span class="badge badge-arremesso">Arremesso</span>
+        </div>
+        <div class="ex-desc">Bandejas com os dois lados do garrafão, evoluindo de parado para drible de aproximação e depois para velocidade.</div>
+        <div class="ex-meta">
+          <span><i class="ti ti-clock"></i> 12 min</span>
+          <span><i class="ti ti-users"></i> Sub 10 a Sub 16</span>
+          <span><i class="ti ti-ball-basketball"></i> 1 bola por dupla</span>
+        </div>
+      </div>
+
+      <div class="ex-card" data-cat="arremesso">
+        <div class="ex-topo">
+          <div class="ex-icone" style="background:var(--verde-dim);color:var(--verde)"><i class="ti ti-target-arrow"></i></div>
+          <div class="ex-titulo">Lances livres em duplas</div>
+          <span class="badge badge-arremesso">Arremesso</span>
+        </div>
+        <div class="ex-desc">Em duplas, cada aluno cobra 10 lances livres enquanto o outro rebote e conta os acertos. Inverter as funções.</div>
+        <div class="ex-meta">
+          <span><i class="ti ti-clock"></i> 10 min</span>
+          <span><i class="ti ti-users"></i> Sub 13 a Sub 18</span>
+          <span><i class="ti ti-ball-basketball"></i> 1 bola por dupla</span>
+        </div>
+      </div>
+
+      <div class="ex-card" data-cat="defesa">
+        <div class="ex-topo">
+          <div class="ex-icone" style="background:var(--vermelho-dim);color:var(--vermelho)"><i class="ti ti-shield"></i></div>
+          <div class="ex-titulo">Defesa individual 1x1</div>
+          <span class="badge badge-defesa">Defesa</span>
+        </div>
+        <div class="ex-desc">Trabalho de postura defensiva, deslizamento lateral e contenção do atacante em situação de 1 contra 1 sem finalização.</div>
+        <div class="ex-meta">
+          <span><i class="ti ti-clock"></i> 12 min</span>
+          <span><i class="ti ti-users"></i> Sub 13 a Sub 18</span>
+          <span><i class="ti ti-ball-basketball"></i> 1 bola por dupla</span>
+        </div>
+      </div>
+
+      <div class="ex-card" data-cat="defesa">
+        <div class="ex-topo">
+          <div class="ex-icone" style="background:var(--vermelho-dim);color:var(--vermelho)"><i class="ti ti-shield-check"></i></div>
+          <div class="ex-titulo">Fechamento de rebote</div>
+          <span class="badge badge-defesa">Defesa</span>
+        </div>
+        <div class="ex-desc">Exercício de "box-out": o defensor se posiciona entre o atacante e a cesta para garantir a posse do rebote após o arremesso.</div>
+        <div class="ex-meta">
+          <span><i class="ti ti-clock"></i> 10 min</span>
+          <span><i class="ti ti-users"></i> Sub 13 a Sub 18</span>
+          <span><i class="ti ti-ball-basketball"></i> 1 bola por dupla</span>
+        </div>
+      </div>
+
+      <div class="ex-card" data-cat="fisico">
+        <div class="ex-topo">
+          <div class="ex-icone" style="background:var(--roxo-dim);color:var(--roxo)"><i class="ti ti-bolt"></i></div>
+          <div class="ex-titulo">Circuito de agilidade</div>
+          <span class="badge badge-fisico">Físico</span>
+        </div>
+        <div class="ex-desc">Circuito com escada de agilidade, cones e saltos para desenvolver velocidade de pés e coordenação.</div>
+        <div class="ex-meta">
+          <span><i class="ti ti-clock"></i> 10 min</span>
+          <span><i class="ti ti-users"></i> Sub 13 a Sub 18</span>
+          <span><i class="ti ti-stack-2"></i> Escada de agilidade, cones</span>
+        </div>
+      </div>
+
+      <div class="ex-card" data-cat="fisico">
+        <div class="ex-topo">
+          <div class="ex-icone" style="background:var(--roxo-dim);color:var(--roxo)"><i class="ti ti-stretching-2"></i></div>
+          <div class="ex-titulo">Fortalecimento de core</div>
+          <span class="badge badge-fisico">Físico</span>
+        </div>
+        <div class="ex-desc">Sequência de prancha, abdominal e exercícios de estabilização para fortalecer o core, reduzindo risco de lesões.</div>
+        <div class="ex-meta">
+          <span><i class="ti ti-clock"></i> 8 min</span>
+          <span><i class="ti ti-users"></i> Sub 16 a Sub 18</span>
+          <span><i class="ti ti-tools-kitchen-off"></i> Colchonete (opcional)</span>
+        </div>
+      </div>
+
+      <div class="ex-card" data-cat="tatico">
+        <div class="ex-topo">
+          <div class="ex-icone" style="background:var(--rosa-dim);color:var(--rosa)"><i class="ti ti-arrows-shuffle-2"></i></div>
+          <div class="ex-titulo">Contra-ataque 3x2</div>
+          <span class="badge badge-tatico">Tático / Coletivo</span>
+        </div>
+        <div class="ex-desc">Três atacantes contra dois defensores correm em transição, treinando decisão rápida de passe e finalização.</div>
+        <div class="ex-meta">
+          <span><i class="ti ti-clock"></i> 15 min</span>
+          <span><i class="ti ti-users"></i> Sub 13 a Sub 18</span>
+          <span><i class="ti ti-ball-basketball"></i> 2 a 3 bolas</span>
+        </div>
+      </div>
+
+      <div class="ex-card" data-cat="tatico">
+        <div class="ex-topo">
+          <div class="ex-icone" style="background:var(--rosa-dim);color:var(--rosa)"><i class="ti ti-chess"></i></div>
+          <div class="ex-titulo">Jogada ensaiada de bola parada</div>
+          <span class="badge badge-tatico">Tático / Coletivo</span>
+        </div>
+        <div class="ex-desc">Montagem e repetição de uma jogada de saída de lateral ou linha de fundo para gerar arremessos abertos.</div>
+        <div class="ex-meta">
+          <span><i class="ti ti-clock"></i> 15 min</span>
+          <span><i class="ti ti-users"></i> Sub 16 a Sub 18</span>
+          <span><i class="ti ti-ball-basketball"></i> 1 bola</span>
+        </div>
+      </div>
+
+      <div class="ex-card" data-cat="tatico">
+        <div class="ex-topo">
+          <div class="ex-icone" style="background:var(--rosa-dim);color:var(--rosa)"><i class="ti ti-users-group"></i></div>
+          <div class="ex-titulo">Jogo coletivo 4x4 / 5x5</div>
+          <span class="badge badge-tatico">Tático / Coletivo</span>
+        </div>
+        <div class="ex-desc">Jogo de quadra inteira aplicando os conceitos trabalhados no treino, com paradas para correções pontuais do professor.</div>
+        <div class="ex-meta">
+          <span><i class="ti ti-clock"></i> 20 min</span>
+          <span><i class="ti ti-users"></i> Todas as turmas</span>
+          <span><i class="ti ti-ball-basketball"></i> 1 bola</span>
+        </div>
+      </div>
+
+      <div class="ex-card" data-cat="aquecimento">
+        <div class="ex-topo">
+          <div class="ex-icone" style="background:var(--amarelo-dim);color:var(--amarelo)"><i class="ti ti-mood-smile"></i></div>
+          <div class="ex-titulo">Brincadeiras com bola (Sub 10)</div>
+          <span class="badge badge-aquecimento">Aquecimento</span>
+        </div>
+        <div class="ex-desc">Atividades lúdicas como "pega-pega com bola" e "passa-bola em círculo" para aquecer de forma divertida e desenvolver coordenação.</div>
+        <div class="ex-meta">
+          <span><i class="ti ti-clock"></i> 10 min</span>
+          <span><i class="ti ti-users"></i> Sub 10</span>
+          <span><i class="ti ti-ball-basketball"></i> Bolas variadas</span>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="rodape">
+    Escolinha de Basquete · Prof. Diego &amp; Francesco · 2026
+  </footer>
+<script src="exercicios.js"></script>
+</body>
+</html>

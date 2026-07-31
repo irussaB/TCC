@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Área do Aluno — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="aluno.css">
+</head>
+<body>
+
+  <!-- CABEÇALHO -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon"><i class="ti ti-ball-basketball"></i></div>
+        <div>
+          <div class="logo-nome">Escolinha de Basquete</div>
+          <div class="logo-sub">Área do Aluno</div>
+        </div>
+      </div>
+      <div class="header-acoes">
+        <button class="btn-tema" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
+          <i class="ti ti-moon" id="icone-tema"></i>
+        </button>
+        <button class="btn-sair" onclick="confirmarSaida()">
+          <i class="ti ti-logout"></i> Sair
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ABAS -->
+  <div class="abas-barra">
+    <div class="abas-inner">
+      <button class="aba ativa" onclick="trocarAba('perfil', this)">
+        <i class="ti ti-user"></i> <span>Meu Perfil</span>
+      </button>
+      <button class="aba" onclick="trocarAba('frequencia', this)">
+        <i class="ti ti-clipboard-check"></i> <span>Frequência</span>
+      </button>
+      <button class="aba" onclick="trocarAba('mural', this)">
+        <i class="ti ti-speakerphone"></i> <span>Mural</span>
+      </button>
+    </div>
+  </div>
+
+  <main class="main">
+
+    <!-- ══════════════════════════════════
+         ABA 1 — MEU PERFIL
+    ══════════════════════════════════ -->
+    <div id="painel-perfil" class="painel ativo">
+
+      <!-- Hero -->
+      <div class="perfil-hero">
+        <div class="perfil-avatar">LF</div>
+        <div class="perfil-info">
+          <div class="perfil-nome">Lucas Ferreira</div>
+          <div class="perfil-badges">
+            <span class="badge badge-laranja"><i class="ti ti-category"></i> Sub 16</span>
+            <span class="badge badge-verde"><i class="ti ti-check"></i> Ativo</span>
+            <span class="badge badge-azul"><i class="ti ti-user"></i> Prof. Diego</span>
+          </div>
+          <div class="perfil-meta">
+            <span class="perfil-meta-item"><i class="ti ti-calendar"></i> 15 anos · nasc. 10/03/2010</span>
+            <span class="perfil-meta-item"><i class="ti ti-id-badge"></i> Matrícula #0042</span>
+            <span class="perfil-meta-item"><i class="ti ti-clock"></i> Desde jan/2024</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats rápidos -->
+      <div class="stat-grid">
+        <div class="stat-mini">
+          <div class="stat-mini-num num-verde">87%</div>
+          <div class="stat-mini-label">Frequência</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-mini-num num-laranja">52</div>
+          <div class="stat-mini-label">Treinos presentes</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-mini-num num-vermelho">8</div>
+          <div class="stat-mini-label">Faltas</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-mini-num num-azul">5</div>
+          <div class="stat-mini-label">Jogos</div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="gap:16px">
+
+        <!-- Dados pessoais -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-id-badge-2"></i>
+            <h2>Dados pessoais</h2>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px">
+            <div class="grid-2">
+              <div class="info-linha">
+                <span class="info-label">Nome</span>
+                <span class="info-valor">Lucas Ferreira</span>
+              </div>
+              <div class="info-linha">
+                <span class="info-label">Sexo</span>
+                <span class="info-valor">Masculino</span>
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="info-linha">
+                <span class="info-label">Nascimento</span>
+                <span class="info-valor">10/03/2010</span>
+              </div>
+              <div class="info-linha">
+                <span class="info-label">Idade</span>
+                <span class="info-valor">15 anos</span>
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="info-linha">
+                <span class="info-label">Peso</span>
+                <span class="info-valor">58 kg</span>
+              </div>
+              <div class="info-linha">
+                <span class="info-label">Altura</span>
+                <span class="info-valor">172 cm</span>
+              </div>
+            </div>
+            <div class="sep"></div>
+            <div class="info-linha">
+              <span class="info-label">CPF</span>
+              <span class="info-valor">***.456.789-**</span>
+            </div>
+            <div class="info-linha">
+              <span class="info-label">Email</span>
+              <span class="info-valor">lucas.ferreira@email.com</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Responsável + Documentos -->
+        <div style="display:flex;flex-direction:column;gap:16px">
+
+          <div class="card">
+            <div class="card-header">
+              <i class="ti ti-users"></i>
+              <h2>Responsável</h2>
+            </div>
+            <div class="card-body" style="display:flex;flex-direction:column;gap:12px">
+              <div class="info-linha">
+                <span class="info-label">Nome</span>
+                <span class="info-valor">Carlos Ferreira</span>
+              </div>
+              <div class="grid-2">
+                <div class="info-linha">
+                  <span class="info-label">Telefone</span>
+                  <span class="info-valor">(14) 9 9999-0000</span>
+                </div>
+                <div class="info-linha">
+                  <span class="info-label">CPF</span>
+                  <span class="info-valor">***.123.456-**</span>
+                </div>
+              </div>
+              <div class="info-linha">
+                <span class="info-label">Email</span>
+                <span class="info-valor">carlos@email.com</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <i class="ti ti-file-certificate"></i>
+              <h2>Documentos</h2>
+            </div>
+            <div class="card-body">
+              <div class="doc-item">
+                <div class="doc-icone ok"><i class="ti ti-check"></i></div>
+                <div class="doc-info">
+                  <div class="doc-nome">Autorização dos pais</div>
+                  <div class="doc-data">Enviado em 10/01/2026</div>
+                </div>
+                <button class="btn-doc"><i class="ti ti-eye"></i> Ver</button>
+              </div>
+              <div class="doc-item">
+                <div class="doc-icone ok"><i class="ti ti-check"></i></div>
+                <div class="doc-info">
+                  <div class="doc-nome">Exame médico</div>
+                  <div class="doc-data">Enviado em 10/01/2026</div>
+                </div>
+                <button class="btn-doc"><i class="ti ti-eye"></i> Ver</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         ABA 2 — FREQUÊNCIA
+    ══════════════════════════════════ -->
+    <div id="painel-frequencia" class="painel">
+
+      <!-- Barra de frequência geral -->
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-header">
+          <i class="ti ti-chart-bar"></i>
+          <h2>Frequência geral — 2026</h2>
+          <span class="badge badge-verde">Regular</span>
+        </div>
+        <div class="card-body">
+          <div class="freq-barra-wrap">
+            <div class="freq-barra-topo">
+              <span>52 presenças de 60 treinos</span>
+              <strong>87%</strong>
+            </div>
+            <div class="barra-track">
+              <div class="barra-fill" style="width:87%"></div>
+            </div>
+            <div class="freq-limite">
+              Mínimo exigido: <span>75%</span> · Abaixo disso o aluno é desligado automaticamente.
+            </div>
+          </div>
+          <div class="sep"></div>
+          <div class="grid-3">
+            <div class="info-linha">
+              <span class="info-label">Presenças</span>
+              <span class="info-valor" style="color:var(--verde);font-weight:700;font-size:18px">52</span>
+            </div>
+            <div class="info-linha">
+              <span class="info-label">Faltas</span>
+              <span class="info-valor" style="color:var(--vermelho);font-weight:700;font-size:18px">8</span>
+            </div>
+            <div class="info-linha">
+              <span class="info-label">Treinos s/ aula</span>
+              <span class="info-valor" style="color:var(--azul);font-weight:700;font-size:18px">3</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="gap:16px">
+
+        <!-- Calendário -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-calendar-event"></i>
+            <h2>Calendário — Junho 2026</h2>
+          </div>
+          <div class="card-body">
+            <div class="cal-header">
+              <button class="cal-nav"><i class="ti ti-chevron-left"></i></button>
+              <span class="cal-mes">Junho 2026</span>
+              <button class="cal-nav"><i class="ti ti-chevron-right"></i></button>
+            </div>
+            <div class="cal-dias-semana">
+              <div class="cal-dia-sem">Dom</div>
+              <div class="cal-dia-sem">Seg</div>
+              <div class="cal-dia-sem">Ter</div>
+              <div class="cal-dia-sem">Qua</div>
+              <div class="cal-dia-sem">Qui</div>
+              <div class="cal-dia-sem">Sex</div>
+              <div class="cal-dia-sem">Sáb</div>
+            </div>
+            <div class="cal-grid" id="cal-grid">
+              <!-- gerado por JS -->
+            </div>
+            <div class="cal-legenda">
+              <div class="legenda-item">
+                <div class="legenda-dot" style="background:var(--verde-dim);border:1px solid rgba(74,222,128,0.3)"></div>
+                Presente
+              </div>
+              <div class="legenda-item">
+                <div class="legenda-dot" style="background:var(--vermelho-dim);border:1px solid rgba(248,113,113,0.3)"></div>
+                Falta
+              </div>
+              <div class="legenda-item">
+                <div class="legenda-dot" style="background:var(--azul-dim);border:1px solid rgba(96,165,250,0.3)"></div>
+                Sem treino
+              </div>
+              <div class="legenda-item">
+                <div class="legenda-dot" style="background:var(--bg-input)"></div>
+                Sem aula
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Histórico de faltas -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-list-details"></i>
+            <h2>Histórico de faltas</h2>
+          </div>
+          <div class="card-body" style="padding:0 18px">
+            <table class="tabela">
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Turma</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>03/06/2026</td><td>Sub 16 — Ter</td>
+                  <td><span class="badge badge-vermelho">Falta</span></td>
+                </tr>
+                <tr>
+                  <td>27/05/2026</td><td>Sub 16 — Ter</td>
+                  <td><span class="badge badge-vermelho">Falta</span></td>
+                </tr>
+                <tr>
+                  <td>20/05/2026</td><td>Sub 16 — Ter</td>
+                  <td><span class="badge badge-azul">Sem treino</span></td>
+                </tr>
+                <tr>
+                  <td>13/05/2026</td><td>Sub 16 — Ter</td>
+                  <td><span class="badge badge-vermelho">Falta</span></td>
+                </tr>
+                <tr>
+                  <td>06/05/2026</td><td>Sub 16 — Ter</td>
+                  <td><span class="badge badge-vermelho">Falta</span></td>
+                </tr>
+                <tr>
+                  <td>29/04/2026</td><td>Sub 16 — Ter</td>
+                  <td><span class="badge badge-vermelho">Falta</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         ABA 3 — MURAL
+    ══════════════════════════════════ -->
+    <div id="painel-mural" class="painel">
+
+      <div class="card">
+        <div class="card-header">
+          <i class="ti ti-speakerphone"></i>
+          <h2>Mural de avisos — Junho 2026</h2>
+        </div>
+        <div class="card-body" style="padding:4px 18px">
+
+          <div class="mural-item" data-aviso-id="aviso-1">
+            <div class="mural-icone" style="background:var(--vermelho-dim);color:var(--vermelho)">
+              <i class="ti ti-x"></i>
+            </div>
+            <div class="mural-corpo">
+              <div class="mural-titulo">Treino cancelado — quadra em manutenção</div>
+              <div class="mural-desc">O treino de terça-feira (10/06) está cancelado. A quadra estará em manutenção. Retomamos normalmente na quinta.</div>
+              <div class="mural-meta">
+                <span class="mural-meta-item"><i class="ti ti-calendar"></i> 10/06/2026</span>
+                <span class="mural-meta-item"><i class="ti ti-users"></i> Sub 13 e Sub 16</span>
+                <span class="mural-meta-item"><i class="ti ti-user"></i> Prof. Diego</span>
+              </div>
+              <div class="reacoes-barra" data-id="aviso-1"></div>
+            </div>
+            <span class="badge badge-vermelho" style="align-self:flex-start;flex-shrink:0">Aviso</span>
+          </div>
+
+          <div class="mural-item" data-aviso-id="aviso-2">
+            <div class="mural-icone" style="background:var(--laranja-dim);color:var(--laranja)">
+              <i class="ti ti-ball-basketball"></i>
+            </div>
+            <div class="mural-corpo">
+              <div class="mural-titulo">Jogo marcado — Colégio Pio XII</div>
+              <div class="mural-desc">Jogo amistoso contra o Colégio Pio XII. Presença obrigatória para os convocados. Confirme com o professor.</div>
+              <div class="mural-meta">
+                <span class="mural-meta-item"><i class="ti ti-calendar"></i> 14/06/2026 · Sábado</span>
+                <span class="mural-meta-item"><i class="ti ti-clock"></i> 10h00</span>
+                <span class="mural-meta-item"><i class="ti ti-map-pin"></i> Ginásio Municipal</span>
+              </div>
+              <div class="reacoes-barra" data-id="aviso-2"></div>
+            </div>
+            <span class="badge badge-laranja" style="align-self:flex-start;flex-shrink:0">Jogo</span>
+          </div>
+
+          <div class="mural-item" data-aviso-id="aviso-3">
+            <div class="mural-icone" style="background:var(--azul-dim);color:var(--azul)">
+              <i class="ti ti-refresh"></i>
+            </div>
+            <div class="mural-corpo">
+              <div class="mural-titulo">Rematrícula aberta — prazo até 20/06</div>
+              <div class="mural-desc">O período de rematrícula para o segundo semestre de 2026 está aberto. Acesse a aba Rematrícula para renovar.</div>
+              <div class="mural-meta">
+                <span class="mural-meta-item"><i class="ti ti-calendar"></i> Até 20/06/2026</span>
+                <span class="mural-meta-item"><i class="ti ti-users"></i> Todos os alunos</span>
+              </div>
+              <div class="reacoes-barra" data-id="aviso-3"></div>
+            </div>
+            <span class="badge badge-azul" style="align-self:flex-start;flex-shrink:0">Info</span>
+          </div>
+
+          <div class="mural-item" data-aviso-id="aviso-4">
+            <div class="mural-icone" style="background:rgba(74,222,128,0.12);color:var(--verde)">
+              <i class="ti ti-user-check"></i>
+            </div>
+            <div class="mural-corpo">
+              <div class="mural-titulo">Troca de professor — Sub 16 quinta-feira</div>
+              <div class="mural-desc">Na quinta-feira (12/06) o treino da Sub 16 será conduzido pelo Prof. Francesco no lugar do Prof. Diego.</div>
+              <div class="mural-meta">
+                <span class="mural-meta-item"><i class="ti ti-calendar"></i> 12/06/2026 · Quinta</span>
+                <span class="mural-meta-item"><i class="ti ti-users"></i> Sub 16</span>
+              </div>
+              <div class="reacoes-barra" data-id="aviso-4"></div>
+            </div>
+            <span class="badge badge-verde" style="align-self:flex-start;flex-shrink:0">Treino</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ABA 4 removida (Rematrícula — exclusivo do professor) -->
+  </main>
+  <!-- MODAL DE CONFIRMAÇÃO DE SAÍDA -->
+  <div class="modal-overlay" id="modal-sair">
+    <div class="modal-card">
+      <div class="modal-icone"><i class="ti ti-logout"></i></div>
+      <h3>Tem certeza que deseja sair?</h3>
+      <p>Você será redirecionado para a tela de login.</p>
+      <div class="modal-acoes">
+        <button class="modal-btn modal-btn-cancelar" onclick="fecharModalSair()">Cancelar</button>
+        <button class="modal-btn modal-btn-confirmar" onclick="window.location.href='../login.html'">Sair</button>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="aluno.js"></script>
+</html>

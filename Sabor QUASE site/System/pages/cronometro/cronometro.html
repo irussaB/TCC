@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cronômetros e Placar — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="cronometro.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="ti ti-ball-basketball"></i>
+        </div>
+        <div class="logo-texto">
+          <span class="logo-nome">Escolinha de Basquete</span>
+          <span class="logo-sub">Prof. Diego &amp; Francesco</span>
+        </div>
+      </div>
+      <nav class="nav-desktop">
+        <a href="../index.html" class="nav-link">Início</a>
+        <a href="matriculas.html" class="nav-link">Matrículas</a>
+        <a href="turmas.html" class="nav-link">Turmas</a>
+        <a href="chamada.html" class="nav-link">Chamada</a>
+        <a href="mural.html" class="nav-link">Mural</a>
+        <a href="cronometro.html" class="nav-link ativo">Cronômetro</a>
+      </nav>
+      <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
+        <i class="ti ti-moon" id="icone-tema"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <div class="pagina-titulo">
+      <i class="ti ti-clock-play"></i>
+      Cronômetros e Placar
+    </div>
+
+    <!-- LINHA 1: 24s + Tempo de Jogo -->
+    <div class="grid-2">
+
+      <!-- ─── CRONÔMETRO DE 24 SEGUNDOS ─── -->
+      <div class="card">
+        <div class="card-header">
+          <i class="ti ti-clock-bolt"></i>
+          Cronômetro de 24 segundos
+        </div>
+        <div class="card-body">
+          <div class="crono-24-display">
+            <div class="crono-24-num normal" id="crono24-num">24</div>
+            <div class="crono-24-label">segundos</div>
+          </div>
+
+          <div class="barra-prog">
+            <div class="barra-fill normal" id="crono24-barra" style="width:100%"></div>
+          </div>
+
+          <div class="btn-grupo">
+            <button class="btn btn-verde" id="btn24-start" onclick="crono24Start()">
+              <i class="ti ti-player-play"></i> Iniciar
+            </button>
+            <button class="btn btn-cinza" onclick="crono24Reset()">
+              <i class="ti ti-rotate-clockwise"></i> Reset
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TEMPO DE JOGO ─── -->
+      <div class="card">
+        <div class="card-header">
+          <i class="ti ti-clock-hour-4"></i>
+          Tempo de jogo
+        </div>
+        <div class="card-body">
+          <div class="jogo-display">
+            <div class="jogo-periodo" id="jogo-periodo-label">1º Período</div>
+            <div class="jogo-num" id="jogo-num">10:00</div>
+          </div>
+
+          <div class="btn-grupo">
+            <button class="btn btn-verde" id="btn-jogo-start" onclick="jogoStart()">
+              <i class="ti ti-player-play"></i> Iniciar
+            </button>
+            <button class="btn btn-cinza" onclick="jogoReset()">
+              <i class="ti ti-rotate-clockwise"></i> Reset
+            </button>
+          </div>
+
+          <div class="jogo-extras">
+            <button class="btn-periodo" onclick="jogoSetPeriodo(1)">1º Per.</button>
+            <button class="btn-periodo" onclick="jogoSetPeriodo(2)">2º Per.</button>
+            <button class="btn-periodo" onclick="jogoSetPeriodo(3)">3º Per.</button>
+            <button class="btn-periodo" onclick="jogoSetPeriodo(4)">4º Per.</button>
+            <button class="btn-periodo" onclick="jogoSetPeriodo(5)">Prorrog.</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- LINHA 2: PLACAR -->
+    <div class="card">
+      <div class="card-header">
+        <i class="ti ti-trophy"></i>
+        Placar
+      </div>
+      <div class="card-body">
+
+        <div class="placar-wrapper">
+
+          <!-- TIME A -->
+          <div class="placar-time">
+            <div class="placar-time-nome">
+              <i class="ti ti-shirt" style="color:var(--azul)"></i>
+              <input type="text" id="nome-a" value="Time A" maxlength="16">
+            </div>
+            <div class="placar-pontos time-a" id="placar-a">0</div>
+            <div class="placar-btns">
+              <button class="btn-pts menos" onclick="addPontos('a', -1)">−1</button>
+              <button class="btn-pts mais-1" onclick="addPontos('a', 1)">+1</button>
+              <button class="btn-pts mais-2" onclick="addPontos('a', 2)">+2</button>
+              <button class="btn-pts mais-3" onclick="addPontos('a', 3)">+3</button>
+            </div>
+          </div>
+
+          <div class="placar-vs">VS</div>
+
+          <!-- TIME B -->
+          <div class="placar-time">
+            <div class="placar-time-nome">
+              <i class="ti ti-shirt" style="color:var(--laranja)"></i>
+              <input type="text" id="nome-b" value="Time B" maxlength="16">
+            </div>
+            <div class="placar-pontos time-b" id="placar-b">0</div>
+            <div class="placar-btns">
+              <button class="btn-pts menos" onclick="addPontos('b', -1)">−1</button>
+              <button class="btn-pts mais-1" onclick="addPontos('b', 1)">+1</button>
+              <button class="btn-pts mais-2" onclick="addPontos('b', 2)">+2</button>
+              <button class="btn-pts mais-3" onclick="addPontos('b', 3)">+3</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="placar-reset-row">
+          <button class="btn btn-cinza" onclick="placarReset()">
+            <i class="ti ti-rotate-clockwise"></i> Zerar placar
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="rodape">
+    Escolinha de Basquete · Prof. Diego &amp; Francesco · 2026
+  </footer>
+</body>
+<script src="cronometro.js"></script>
+</html>

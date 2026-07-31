@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+  <!-- Botão lua/sol fixo no canto -->
+  <button class="btn-tema-login" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
+    <i class="ti ti-moon" id="icone-tema"></i>
+  </button>
+
+  <!-- ══════════════════════════════════════════
+       LADO ESQUERDO — foto de fundo com texto
+  ══════════════════════════════════════════ -->
+  <div class="lado-foto">
+    <div class="foto-conteudo">
+
+      <!-- Logo -->
+      <div class="foto-logo">
+        <div class="foto-logo-icon">
+          <i class="ti ti-ball-basketball"></i>
+        </div>
+        <div class="foto-logo-texto">
+          <span class="foto-logo-nome">Escolinha de Basquete</span>
+          <span class="foto-logo-sub">Prof. Diego &amp; Francesco</span>
+        </div>
+      </div>
+
+      <!-- Texto de chamada (canto inferior esquerdo) -->
+      <div class="foto-chamada">
+        <div class="foto-badge">
+          <i class="ti ti-ball-basketball"></i>
+          <span>Temporada 2026</span>
+        </div>
+        <h1 class="foto-titulo">
+          Desenvolva campeões<br>
+          dentro e fora <span>da quadra!</span>
+        </h1>
+        <p class="foto-desc">
+          Gerencie matrículas, chamadas, treinos e jogos.<br>
+          Tudo que o professor precisa em um só lugar.
+        </p>
+        <div class="foto-chips">
+          <span class="foto-chip"><i class="ti ti-users" style="margin-right:4px"></i> Sub 10</span>
+          <span class="foto-chip"><i class="ti ti-users" style="margin-right:4px"></i> Sub 13</span>
+          <span class="foto-chip"><i class="ti ti-users" style="margin-right:4px"></i> Sub 16</span>
+          <span class="foto-chip"><i class="ti ti-users" style="margin-right:4px"></i> Sub 18</span>
+          <span class="foto-chip"><i class="ti ti-users" style="margin-right:4px"></i> Sub Feminino</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       LADO DIREITO — formulário de login
+  ══════════════════════════════════════════ -->
+  <div class="lado-form">
+    <div class="form-card">
+
+      <!-- Avatar do professor -->
+      <div style="display:flex; justify-content:center; margin-bottom:20px;">
+        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#E88B2E,#d47a20);display:flex;align-items:center;justify-content:center;font-size:24px;color:white;">
+          <i class="ti ti-chalkboard"></i>
+        </div>
+      </div>
+
+      <!-- Tabs professor / aluno -->
+      <div class="login-tabs">
+        <button class="login-tab login-tab-ativa" id="tab-prof">
+          <i class="ti ti-chalkboard"></i> Professor
+        </button>
+        <button class="login-tab" onclick="window.location.href='login-aluno.html'">
+          <i class="ti ti-user"></i> Aluno
+        </button>
+      </div>
+
+      <h2 class="form-card-titulo">Entrar</h2>
+      <p class="form-card-sub">
+        Faça login para acessar o painel<br>da Escolinha de Basquete
+      </p>
+
+      <!-- Mensagem de erro (aparece se senha errada) -->
+      <div class="alerta-erro" id="alerta-erro">
+        <i class="ti ti-alert-circle"></i>
+        <span id="texto-erro">Email ou senha incorretos.</span>
+      </div>
+
+      <form id="form-login" onsubmit="fazerLogin(event)">
+
+        <!-- Campo e-mail -->
+        <div class="input-grupo">
+          <label class="input-label">E-mail</label>
+          <div class="input-wrapper">
+            <i class="ti ti-mail input-icone-esq"></i>
+            <input
+              class="campo"
+              type="email"
+              id="email"
+              placeholder="professor@email.com"
+              value="diego@escolinha.com"
+              autocomplete="email"
+              required
+            >
+          </div>
+        </div>
+
+        <!-- Campo senha -->
+        <div class="input-grupo">
+          <label class="input-label">Senha</label>
+          <div class="input-wrapper">
+            <i class="ti ti-lock input-icone-esq"></i>
+            <input
+              class="campo"
+              type="password"
+              id="senha"
+              placeholder="••••••••"
+              value="12345678"
+              autocomplete="current-password"
+              required
+            >
+            <!-- Botão mostrar/ocultar senha -->
+            <button type="button" class="input-icone-dir" onclick="toggleSenha()" id="btn-olho" aria-label="Mostrar senha">
+              <i class="ti ti-eye" id="icone-olho"></i>
+            </button>
+          </div>
+        </div>
+
+        <a class="link-esqueceu" href="#">Esqueci minha senha</a>
+
+        <button type="submit" class="btn-entrar">Entrar</button>
+
+      </form>
+
+      <div class="form-rodape">
+        Não tem acesso? <a href="#">Fale com o administrador</a>
+      </div>
+
+    </div>
+  </div>
+</body>
+<script src="login.js"></script>
+</html>

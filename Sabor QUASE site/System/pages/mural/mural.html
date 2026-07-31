@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mural — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="mural.css">
+</head>
+<body>
+
+  <!-- CABEÇALHO -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="ti ti-ball-basketball"></i>
+        </div>
+        <div class="logo-texto">
+          <span class="logo-nome">Escolinha de Basquete</span>
+          <span class="logo-sub">Prof. Diego &amp; Francesco</span>
+        </div>
+      </div>
+
+      <nav class="nav-desktop">
+        <a href="../index.html" class="nav-link">Início</a>
+        <a href="matriculas.html" class="nav-link">Matrículas</a>
+        <a href="turmas.html" class="nav-link">Turmas</a>
+        <a href="chamada.html" class="nav-link">Chamada</a>
+        <a href="mural.html" class="nav-link ativo">Mural</a>
+        <a href="cronometro.html" class="nav-link">Cronômetro</a>
+      </nav>
+      <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
+        <i class="ti ti-moon" id="icone-tema"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="container" style="padding-top:32px; padding-bottom:48px;">
+
+    <h1 class="form-titulo">Mural de avisos</h1>
+    <p class="form-subtitulo">Publique avisos, jogos e informações que os alunos verão na área do aluno.</p>
+
+    <!-- ── FORMULÁRIO: NOVO AVISO ── -->
+    <div class="form-secao" style="margin-top:24px;">
+      <div class="form-secao-header">
+        <i class="ti ti-edit"></i>
+        <span>Novo aviso</span>
+      </div>
+      <div class="form-corpo">
+
+        <div class="form-grupo">
+          <label class="form-label">Tipo de aviso <span class="req">*</span></label>
+          <div class="chip-grupo" id="chips-tipo">
+            <div class="chip chip-aviso selecionado" data-tag="aviso" onclick="selecionarChip(this)">
+              <i class="ti ti-alert-triangle"></i> Aviso
+            </div>
+            <div class="chip chip-jogo" data-tag="jogo" onclick="selecionarChip(this)">
+              <i class="ti ti-ball-basketball"></i> Jogo
+            </div>
+            <div class="chip chip-info" data-tag="info" onclick="selecionarChip(this)">
+              <i class="ti ti-info-circle"></i> Info
+            </div>
+          </div>
+        </div>
+
+        <div class="form-linha">
+          <div class="form-grupo">
+            <label class="form-label">Título <span class="req">*</span></label>
+            <input class="form-input" type="text" id="mural-titulo" placeholder="Ex: Treino cancelado — quadra em manutenção">
+          </div>
+        </div>
+
+        <div class="form-linha dois">
+          <div class="form-grupo">
+            <label class="form-label">Data / período <span class="req">*</span></label>
+            <input class="form-input" type="text" id="mural-data" placeholder="Ex: Sáb 14/06 · 10h · Ginásio Municipal">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Turma <span style="color:#aaa;font-size:11px">(opcional)</span></label>
+            <select class="form-select" id="mural-turma">
+              <option value="Todos os alunos">Todos os alunos</option>
+              <option value="Sub 10">Sub 10</option>
+              <option value="Sub 13">Sub 13</option>
+              <option value="Sub 16">Sub 16</option>
+              <option value="Sub 18">Sub 18</option>
+              <option value="Sub Feminino">Sub Feminino</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── AÇÕES ── -->
+    <div style="margin-top:16px;">
+      <button type="button" class="btn-primario" onclick="publicarAviso()">
+        <i class="ti ti-send" style="margin-right:6px"></i> Publicar no mural
+      </button>
+    </div>
+
+    <!-- ── LISTA DE AVISOS ── -->
+    <h2 class="secao-titulo" style="margin-top:40px;">
+      <i class="ti ti-speakerphone"></i>
+      Avisos publicados
+    </h2>
+
+    <div class="mural-lista" id="mural-lista">
+
+      <div class="mural-item mural-aviso" data-fixo="true" data-aviso-id="aviso-1">
+        <div class="mural-dot"></div>
+        <div class="mural-conteudo">
+          <p class="mural-texto">Treino cancelado — quadra em manutenção</p>
+          <span class="mural-data">Hoje · Sub 13 e Sub 16</span>
+          <div class="reacoes-resumo" data-id="aviso-1"></div>
+        </div>
+        <span class="mural-tag tag-aviso">Aviso</span>
+        <button class="mural-remover" onclick="removerAviso(this)" title="Remover aviso">
+          <i class="ti ti-trash"></i>
+        </button>
+      </div>
+
+      <div class="mural-item mural-jogo" data-fixo="true" data-aviso-id="aviso-2">
+        <div class="mural-dot"></div>
+        <div class="mural-conteudo">
+          <p class="mural-texto">Jogo marcado contra Colégio Pio XII</p>
+          <span class="mural-data">Sáb 14/06 · 10h · Ginásio Municipal</span>
+          <div class="reacoes-resumo" data-id="aviso-2"></div>
+        </div>
+        <span class="mural-tag tag-jogo">Jogo</span>
+        <button class="mural-remover" onclick="removerAviso(this)" title="Remover aviso">
+          <i class="ti ti-trash"></i>
+        </button>
+      </div>
+
+      <div class="mural-item mural-info" data-fixo="true" data-aviso-id="aviso-3">
+        <div class="mural-dot"></div>
+        <div class="mural-conteudo">
+          <p class="mural-texto">Período de rematrícula aberto até 20/06</p>
+          <span class="mural-data">Geral · Todos os alunos</span>
+          <div class="reacoes-resumo" data-id="aviso-3"></div>
+        </div>
+        <span class="mural-tag tag-info">Info</span>
+        <button class="mural-remover" onclick="removerAviso(this)" title="Remover aviso">
+          <i class="ti ti-trash"></i>
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="rodape">
+    <div class="container">
+      <p>Escolinha de Basquete · Prof. Diego &amp; Francesco · 2026</p>
+    </div>
+  </footer>
+
+  <script src="../../app.js"></script>
+  <script src="mural.js"></script>
+</body>
+</html>

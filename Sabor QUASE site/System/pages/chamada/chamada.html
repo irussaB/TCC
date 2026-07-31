@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chamada — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="chamada.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="ti ti-ball-basketball"></i>
+        </div>
+        <div class="logo-texto">
+          <span class="logo-nome">Escolinha de Basquete</span>
+          <span class="logo-sub">Prof. Diego &amp; Francesco</span>
+        </div>
+      </div>
+      <nav class="nav-desktop">
+        <a href="../index.html" class="nav-link">Início</a>
+        <a href="matriculas.html" class="nav-link">Matrículas</a>
+        <a href="turmas.html" class="nav-link">Turmas</a>
+        <a href="chamada.html" class="nav-link ativo">Chamada</a>
+        <a href="mural.html" class="nav-link">Mural</a>
+        <a href="cronometro.html" class="nav-link">Cronômetro</a>
+      </nav>
+      <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
+        <i class="ti ti-moon" id="icone-tema"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <div>
+      <div class="pagina-titulo">
+        <i class="ti ti-clipboard-check"></i>
+        Chamada
+      </div>
+      <div class="pagina-sub">Selecione a turma e a data para registrar a presença</div>
+    </div>
+
+    <!-- SELEÇÃO -->
+    <div class="card">
+      <div class="card-header"><i class="ti ti-filter"></i> Selecionar turma</div>
+      <div class="card-body">
+        <div class="chip-grupo" id="chips-turma">
+          <div class="chip selecionado" onclick="selecionarTurma('sub10', this)">Sub 10</div>
+          <div class="chip" onclick="selecionarTurma('sub13', this)">Sub 13</div>
+          <div class="chip" onclick="selecionarTurma('sub16', this)">Sub 16</div>
+          <div class="chip" onclick="selecionarTurma('sub18', this)">Sub 18</div>
+          <div class="chip" onclick="selecionarTurma('fem', this)">Sub Feminino</div>
+        </div>
+        <div class="campo-data">
+          <label>Data do treino</label>
+          <input type="date" id="data-treino">
+        </div>
+      </div>
+    </div>
+
+    <!-- RESUMO -->
+    <div class="card">
+      <div class="card-header"><i class="ti ti-chart-bar"></i> Resumo da chamada</div>
+      <div class="card-body">
+        <div class="resumo-chamada">
+          <div class="resumo-pill">
+            <div class="num" id="resumo-total" style="color:var(--azul)">0</div>
+            <div class="lbl">Alunos</div>
+          </div>
+          <div class="resumo-pill">
+            <div class="num" id="resumo-presentes" style="color:var(--verde)">0</div>
+            <div class="lbl">Presentes</div>
+          </div>
+          <div class="resumo-pill">
+            <div class="num" id="resumo-faltas" style="color:var(--vermelho)">0</div>
+            <div class="lbl">Faltas</div>
+          </div>
+          <div class="resumo-pill">
+            <div class="num" id="resumo-pct" style="color:var(--amarelo)">0%</div>
+            <div class="lbl">Presença</div>
+          </div>
+        </div>
+
+        <!-- LISTA -->
+        <div id="lista-alunos"></div>
+
+        <div class="btn-grupo">
+          <button class="btn btn-laranja" onclick="marcarTodos('presente')"><i class="ti ti-checks"></i> Marcar todos presentes</button>
+          <button class="btn btn-cinza" onclick="marcarTodos('falta')"><i class="ti ti-x"></i> Marcar todos faltas</button>
+          <button class="btn btn-laranja" onclick="salvarChamada()" style="margin-left:auto"><i class="ti ti-device-floppy"></i> Salvar chamada</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HISTÓRICO -->
+    <div class="card">
+      <div class="card-header"><i class="ti ti-history"></i> Histórico de chamadas salvas</div>
+      <div class="card-body">
+        <div id="historico"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="rodape">
+    Escolinha de Basquete · Prof. Diego &amp; Francesco · 2026
+  </footer>
+</body>
+<script src="chamada.js"></script>
+</html>

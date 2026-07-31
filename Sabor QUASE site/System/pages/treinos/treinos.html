@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Treinos — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="treinos.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="ti ti-ball-basketball"></i>
+        </div>
+        <div class="logo-texto">
+          <span class="logo-nome">Escolinha de Basquete</span>
+          <span class="logo-sub">Prof. Diego &amp; Francesco</span>
+        </div>
+      </div>
+      <nav class="nav-desktop">
+        <a href="../index.html" class="nav-link">Início</a>
+        <a href="matriculas.html" class="nav-link">Matrículas</a>
+        <a href="turmas.html" class="nav-link">Turmas</a>
+        <a href="chamada.html" class="nav-link">Chamada</a>
+        <a href="mural.html" class="nav-link">Mural</a>
+        <a href="cronometro.html" class="nav-link">Cronômetro</a>
+      </nav>
+      <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
+        <i class="ti ti-moon" id="icone-tema"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <div>
+      <div class="pagina-titulo">
+        <i class="ti ti-notebook"></i>
+        Treinos
+      </div>
+      <div class="pagina-sub">Cronograma semanal das turmas e plano dos próximos treinos</div>
+    </div>
+
+    <!-- CRONOGRAMA SEMANAL -->
+    <div class="card">
+      <div class="card-header"><i class="ti ti-calendar-week"></i> Cronograma semanal</div>
+      <div class="card-body" style="overflow-x:auto">
+        <table class="tabela">
+          <thead>
+            <tr>
+              <th>Dia</th>
+              <th>Horário</th>
+              <th>Turma</th>
+              <th>Professor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Segunda</td>
+              <td>17h00 – 18h30</td>
+              <td><span class="turma-pill pill-fem">Sub Feminino</span></td>
+              <td>Prof. Francesco</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>18h00 – 19h30</td>
+              <td><span class="turma-pill pill-sub13">Sub 13</span></td>
+              <td>Prof. Diego</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>20h00 – 21h30</td>
+              <td><span class="turma-pill pill-sub18">Sub 18</span></td>
+              <td>Prof. Diego</td>
+            </tr>
+            <tr>
+              <td>Terça</td>
+              <td>17h00 – 18h00</td>
+              <td><span class="turma-pill pill-sub10">Sub 10</span></td>
+              <td>Prof. Francesco</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>19h00 – 20h30</td>
+              <td><span class="turma-pill pill-sub16">Sub 16</span></td>
+              <td>Prof. Diego</td>
+            </tr>
+            <tr>
+              <td>Quarta</td>
+              <td>17h00 – 18h30</td>
+              <td><span class="turma-pill pill-fem">Sub Feminino</span></td>
+              <td>Prof. Francesco</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>18h00 – 19h30</td>
+              <td><span class="turma-pill pill-sub13">Sub 13</span></td>
+              <td>Prof. Diego</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>20h00 – 21h30</td>
+              <td><span class="turma-pill pill-sub18">Sub 18</span></td>
+              <td>Prof. Diego</td>
+            </tr>
+            <tr>
+              <td>Quinta</td>
+              <td>17h00 – 18h00</td>
+              <td><span class="turma-pill pill-sub10">Sub 10</span></td>
+              <td>Prof. Francesco</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>19h00 – 20h30</td>
+              <td><span class="turma-pill pill-sub16">Sub 16</span></td>
+              <td>Prof. Diego</td>
+            </tr>
+            <tr>
+              <td>Sexta</td>
+              <td>18h00 – 19h30</td>
+              <td><span class="turma-pill pill-sub13">Sub 13</span></td>
+              <td>Prof. Diego</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>20h00 – 21h30</td>
+              <td><span class="turma-pill pill-sub18">Sub 18</span></td>
+              <td>Prof. Diego</td>
+            </tr>
+            <tr>
+              <td>Sábado</td>
+              <td colspan="3"><span class="horario-vazio">Sem treino fixo · usado para jogos amistosos</span></td>
+            </tr>
+            <tr>
+              <td>Domingo</td>
+              <td colspan="3"><span class="horario-vazio">Sem treino</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PRÓXIMOS TREINOS -->
+    <div class="card">
+      <div class="card-header"><i class="ti ti-clipboard-list"></i> Próximos treinos</div>
+      <div class="card-body" style="padding-top:4px">
+
+        <div class="treino-item">
+          <div class="treino-data"><div class="dia">12</div><div class="mes">Jun</div></div>
+          <div class="treino-corpo">
+            <div class="treino-titulo">Sub 16 — Defesa e transição</div>
+            <div class="treino-meta">
+              <span><i class="ti ti-clock"></i> 19h00 – 20h30</span>
+              <span><i class="ti ti-user"></i> Prof. Diego</span>
+              <span class="badge badge-verde">Sub 16</span>
+            </div>
+            <div class="treino-blocos">
+              <div class="bloco-item"><span class="tempo">15 min</span> <i class="ti ti-flame"></i> Aquecimento e mobilidade</div>
+              <div class="bloco-item"><span class="tempo">25 min</span> <i class="ti ti-shield"></i> Defesa individual 1x1</div>
+              <div class="bloco-item"><span class="tempo">25 min</span> <i class="ti ti-arrows-shuffle"></i> Transição rápida 3x2</div>
+              <div class="bloco-item"><span class="tempo">25 min</span> <i class="ti ti-ball-basketball"></i> Coletivo</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="treino-item">
+          <div class="treino-data"><div class="dia">13</div><div class="mes">Jun</div></div>
+          <div class="treino-corpo">
+            <div class="treino-titulo">Sub 18 — Arremesso e bola parada</div>
+            <div class="treino-meta">
+              <span><i class="ti ti-clock"></i> 20h00 – 21h30</span>
+              <span><i class="ti ti-user"></i> Prof. Diego</span>
+              <span class="badge badge-roxo">Sub 18</span>
+            </div>
+            <div class="treino-blocos">
+              <div class="bloco-item"><span class="tempo">10 min</span> <i class="ti ti-flame"></i> Aquecimento</div>
+              <div class="bloco-item"><span class="tempo">30 min</span> <i class="ti ti-target-arrow"></i> Arremesso de média e longa distância</div>
+              <div class="bloco-item"><span class="tempo">20 min</span> <i class="ti ti-stairs"></i> Lances livres e jogadas ensaiadas</div>
+              <div class="bloco-item"><span class="tempo">30 min</span> <i class="ti ti-ball-basketball"></i> Jogo treino</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="treino-item">
+          <div class="treino-data"><div class="dia">14</div><div class="mes">Jun</div></div>
+          <div class="treino-corpo">
+            <div class="treino-titulo">Jogo amistoso — Colégio Pio XII</div>
+            <div class="treino-meta">
+              <span><i class="ti ti-clock"></i> 10h00</span>
+              <span><i class="ti ti-map-pin"></i> Ginásio Municipal</span>
+              <span class="badge badge-laranja">Sub 16</span>
+            </div>
+            <div class="treino-blocos">
+              <div class="bloco-item"><span class="tempo">—</span> <i class="ti ti-shirt"></i> Chegada com uniforme oficial às 9h30</div>
+              <div class="bloco-item"><span class="tempo">—</span> <i class="ti ti-trophy"></i> Jogo amistoso de 4 períodos</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="treino-item">
+          <div class="treino-data"><div class="dia">16</div><div class="mes">Jun</div></div>
+          <div class="treino-corpo">
+            <div class="treino-titulo">Sub 13 — Fundamentos de drible</div>
+            <div class="treino-meta">
+              <span><i class="ti ti-clock"></i> 18h00 – 19h30</span>
+              <span><i class="ti ti-user"></i> Prof. Diego</span>
+              <span class="badge badge-laranja">Sub 13</span>
+            </div>
+            <div class="treino-blocos">
+              <div class="bloco-item"><span class="tempo">15 min</span> <i class="ti ti-flame"></i> Aquecimento com bola</div>
+              <div class="bloco-item"><span class="tempo">30 min</span> <i class="ti ti-disc"></i> Drible em cones — mão dominante e fraca</div>
+              <div class="bloco-item"><span class="tempo">20 min</span> <i class="ti ti-run"></i> Drible em velocidade e finalização</div>
+              <div class="bloco-item"><span class="tempo">25 min</span> <i class="ti ti-ball-basketball"></i> Coletivo 4x4</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="treino-item">
+          <div class="treino-data"><div class="dia">17</div><div class="mes">Jun</div></div>
+          <div class="treino-corpo">
+            <div class="treino-titulo">Sub 10 — Coordenação e iniciação</div>
+            <div class="treino-meta">
+              <span><i class="ti ti-clock"></i> 17h00 – 18h00</span>
+              <span><i class="ti ti-user"></i> Prof. Francesco</span>
+              <span class="badge badge-azul">Sub 10</span>
+            </div>
+            <div class="treino-blocos">
+              <div class="bloco-item"><span class="tempo">10 min</span> <i class="ti ti-flame"></i> Brincadeiras de aquecimento</div>
+              <div class="bloco-item"><span class="tempo">20 min</span> <i class="ti ti-hand-stop"></i> Manuseio de bola e passes</div>
+              <div class="bloco-item"><span class="tempo">15 min</span> <i class="ti ti-target"></i> Arremesso na cestinha baixa</div>
+              <div class="bloco-item"><span class="tempo">15 min</span> <i class="ti ti-ball-basketball"></i> Jogo recreativo</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="treino-item">
+          <div class="treino-data"><div class="dia">17</div><div class="mes">Jun</div></div>
+          <div class="treino-corpo">
+            <div class="treino-titulo">Sub Feminino — Passe e movimentação sem bola</div>
+            <div class="treino-meta">
+              <span><i class="ti ti-clock"></i> 17h00 – 18h30</span>
+              <span><i class="ti ti-user"></i> Prof. Francesco</span>
+              <span class="badge badge-rosa">Sub Feminino</span>
+            </div>
+            <div class="treino-blocos">
+              <div class="bloco-item"><span class="tempo">15 min</span> <i class="ti ti-flame"></i> Aquecimento</div>
+              <div class="bloco-item"><span class="tempo">25 min</span> <i class="ti ti-arrows-exchange"></i> Passes em movimento</div>
+              <div class="bloco-item"><span class="tempo">25 min</span> <i class="ti ti-walk"></i> Cortes e desmarques</div>
+              <div class="bloco-item"><span class="tempo">25 min</span> <i class="ti ti-ball-basketball"></i> Coletivo</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="rodape">
+    Escolinha de Basquete · Prof. Diego &amp; Francesco · 2026
+  </footer>
+</body>
+<script src="treinos.js"></script>
+</html>
