@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Escolinha de Basquete</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css">
   <!-- Ícones gratuitos (Tabler Icons) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 </head>
@@ -27,11 +27,11 @@
 
       <nav class="nav-desktop">
         <a href="index.html" class="nav-link ativo">Início</a>
-        <a href="pages/matriculas.html" class="nav-link">Matrículas</a>
-        <a href="pages/turmas.html" class="nav-link">Turmas</a>
-        <a href="pages/chamada.html" class="nav-link">Chamada</a>
-        <a href="pages/mural.html" class="nav-link">Mural</a>
-        <a href="pages/cronometro.html" class="nav-link">Cronômetro</a>
+        <a href="pages/matriculas/" class="nav-link">Matrículas</a>
+        <a href="pages/turmas/" class="nav-link">Turmas</a>
+        <a href="pages/chamada/" class="nav-link">Chamada</a>
+        <a href="pages/mural/" class="nav-link">Mural</a>
+        <a href="pages/cronometro/" class="nav-link">Cronômetro</a>
       </nav>
       <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
         <i class="ti ti-moon" id="icone-tema"></i>
@@ -251,7 +251,7 @@
     </div>
   </footer>
 
-  <script src="js/app.js"></script>
+  <script src="app.js"></script>
   <script>
     // ── EASTER EGG: 5 cliques rápidos = tema do uniforme do time ──
     let cliquesTema = 0, temporizadorTema = null;
