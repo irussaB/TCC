@@ -54,6 +54,26 @@
       if (navigator.vibrate) navigator.vibrate([300, 100, 300]);
     }
 
+    // Bipe curto (aviso dos 8 segundos de saída de defesa — toca aos 16s do cronômetro de 24)
+    function tocarBipeAviso() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = 880;
+        gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.25, ctx.currentTime + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.25);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.3);
+      } catch (e) { /* navegador sem suporte a Web Audio */ }
+
+      if (navigator.vibrate) navigator.vibrate(150);
+    }
+
 
     /* ═══════════════════════════════════
        EASTER EGG — CÓDIGO KONAMI
@@ -142,6 +162,8 @@
           if (tempo24 > 0) {
             tempo24--;
             crono24Render();
+            // Aviso sonoro aos 16s (8 segundos de saída de defesa cumpridos)
+            if (tempo24 === 16) tocarBipeAviso();
           }
           if (tempo24 <= 0) {
             clearInterval(timer24);
@@ -171,6 +193,18 @@
       clearInterval(timer24);
       rodando24 = false;
       tempo24 = 24;
+      crono24Render();
+      const btn = document.getElementById('btn24-start');
+      btn.innerHTML = '<i class="ti ti-player-play"></i> Iniciar';
+      btn.style.background = 'var(--verde)';
+      btn.style.color = '#0f0f17';
+    }
+
+    // Reset para 14s — usado quando a bola pega no aro (rebote ofensivo)
+    function crono24Reset14() {
+      clearInterval(timer24);
+      rodando24 = false;
+      tempo24 = 14;
       crono24Render();
       const btn = document.getElementById('btn24-start');
       btn.innerHTML = '<i class="ti ti-player-play"></i> Iniciar';
@@ -236,7 +270,7 @@
     function jogoReset() {
       clearInterval(timerJogo);
       rodandoJogo = false;
-      tempoJogoSeg = 600;
+      tempoJogoSeg = periodoAtual === 5 ? 300 : 600; // prorrog = 5 min
       jogoRender();
       const btn = document.getElementById('btn-jogo-start');
       btn.innerHTML = '<i class="ti ti-player-play"></i> Iniciar';
@@ -311,3 +345,17 @@
         });
       });
     })();
+
+    // ── SAIR (LOGOUT DO PROFESSOR) ──────────────
+    function confirmarSaidaProfessor() {
+      document.getElementById('modal-sair-professor').classList.add('ativo');
+    }
+
+    function fecharModalSairProfessor() {
+      document.getElementById('modal-sair-professor').classList.remove('ativo');
+    }
+
+    function sairProfessorAgora() {
+      localStorage.removeItem('professor-logado');
+      window.location.href = '../login/index.html';
+    }

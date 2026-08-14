@@ -9,7 +9,7 @@
         cliquesTema = 0;
         document.body.classList.add('tema-escuro');
         const ativo = document.body.classList.toggle('tema-time');
-        document.getElementById('icone-tema').className = ativo ? 'ti ti-flame' : 'ti ti-sun';
+        document.getElementById('icone-tema').className = ativo ? 'ti ti-flame' : 'ti ti-moon';
         localStorage.setItem('tema', ativo ? 'time' : 'escuro');
         return;
       }
@@ -17,21 +17,25 @@
       if (document.body.classList.contains('tema-time')) return;
 
       const escuro = document.body.classList.toggle('tema-escuro');
-      document.getElementById('icone-tema').className = escuro ? 'ti ti-sun' : 'ti ti-moon';
+      document.getElementById('icone-tema').className = escuro ? 'ti ti-moon' : 'ti ti-sun';
       localStorage.setItem('tema', escuro ? 'escuro' : 'claro');
     }
     (function() {
       const salvo = localStorage.getItem('tema');
+      // Padrão é escuro; claro só se explicitamente salvo como 'claro'
       if (salvo === 'time') {
         document.body.classList.add('tema-escuro', 'tema-time');
-      } else if (salvo === 'escuro') {
+      } else if (salvo === 'claro') {
+        // não adiciona tema-escuro
+      } else {
         document.body.classList.add('tema-escuro');
       }
       document.addEventListener('DOMContentLoaded', function() {
         const ic = document.getElementById('icone-tema');
         if (!ic) return;
         if (salvo === 'time') ic.className = 'ti ti-flame';
-        else if (salvo === 'escuro') ic.className = 'ti ti-sun';
+        else if (salvo === 'claro') ic.className = 'ti ti-sun';
+        else ic.className = 'ti ti-moon';
       });
     })();
 

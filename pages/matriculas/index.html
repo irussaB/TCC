@@ -30,11 +30,29 @@
         <a href="../mural/index.html" class="nav-link">Mural</a>
         <a href="../cronometro/index.html" class="nav-link">Cronômetro</a>
       </nav>
-      <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
-        <i class="ti ti-moon" id="icone-tema"></i>
-      </button>
+      <div class="header-acoes-prof">
+        <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
+          <i class="ti ti-moon" id="icone-tema"></i>
+        </button>
+        <button class="btn-sair-header" onclick="confirmarSaidaProfessor()" title="Sair">
+          <i class="ti ti-logout"></i> Sair
+        </button>
+      </div>
     </div>
   </header>
+
+  <!-- MODAL DE CONFIRMAÇÃO DE SAÍDA (PROFESSOR) -->
+  <div class="modal-overlay" id="modal-sair-professor">
+    <div class="modal-card">
+      <div class="modal-icone"><i class="ti ti-logout"></i></div>
+      <h3>Tem certeza que deseja sair?</h3>
+      <p>Você será redirecionado para a tela de login.</p>
+      <div class="modal-acoes">
+        <button class="modal-btn modal-btn-cancelar" onclick="fecharModalSairProfessor()">Cancelar</button>
+        <button class="modal-btn modal-btn-confirmar" onclick="sairProfessorAgora()">Sair</button>
+      </div>
+    </div>
+  </div>
 
   <!-- MAIN -->
   <main class="main">
@@ -117,6 +135,22 @@
         <div class="modal-campo">
           <span class="modal-campo-label">E-mail do aluno</span>
           <span class="modal-campo-valor" id="md-email">—</span>
+        </div>
+        <div class="modal-campo">
+          <span class="modal-campo-label">Telefone do aluno</span>
+          <span class="modal-campo-valor" id="md-telefone">—</span>
+        </div>
+        <div class="modal-campo">
+          <span class="modal-campo-label">Endereço</span>
+          <span class="modal-campo-valor" id="md-endereco">—</span>
+        </div>
+        <div class="modal-campo">
+          <span class="modal-campo-label">Bairro</span>
+          <span class="modal-campo-valor" id="md-bairro">—</span>
+        </div>
+        <div class="modal-campo">
+          <span class="modal-campo-label">Cidade / UF</span>
+          <span class="modal-campo-valor" id="md-cidade">—</span>
         </div>
       </div>
 

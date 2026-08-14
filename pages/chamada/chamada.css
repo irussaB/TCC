@@ -192,8 +192,9 @@
       font-family: inherit;
     }
     .status-btn:hover { border-color: var(--borda-hover); }
-    .status-btn.presente.ativo { background: var(--verde-dim); border-color: var(--verde); color: var(--verde); }
-    .status-btn.falta.ativo    { background: var(--vermelho-dim); border-color: var(--vermelho); color: var(--vermelho); }
+    .status-btn.presente.ativo    { background: var(--verde-dim); border-color: var(--verde); color: var(--verde); }
+    .status-btn.falta.ativo       { background: var(--vermelho-dim); border-color: var(--vermelho); color: var(--vermelho); }
+    .status-btn.justificada.ativo { background: var(--roxo-dim); border-color: var(--roxo); color: var(--roxo); }
 
     /* RESUMO */
     .resumo-chamada {
@@ -244,6 +245,7 @@
     .hist-stats { display: flex; gap: 10px; font-size: 12px; }
     .hist-stats .ok  { color: var(--verde); }
     .hist-stats .no  { color: var(--vermelho); }
+    .hist-stats .just { color: var(--roxo); }
     .vazio { color: var(--texto-fraco); font-size: 13px; text-align: center; padding: 20px 0; }
 
     /* RODAPÉ */

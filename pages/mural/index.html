@@ -25,44 +25,83 @@
 
       <nav class="nav-desktop">
         <a href="../../index.html" class="nav-link">Início</a>
-        <a href="../matriculas/index.html" class="nav-link ativo">Matrículas</a>
+        <a href="../matriculas/index.html" class="nav-link">Matrículas</a>
         <a href="../turmas/index.html" class="nav-link">Turmas</a>
         <a href="../chamada/index.html" class="nav-link">Chamada</a>
-        <a href="../mural/index.html" class="nav-link">Mural</a>
+        <a href="../mural/index.html" class="nav-link ativo">Mural</a>
         <a href="../cronometro/index.html" class="nav-link">Cronômetro</a>
       </nav>
-      <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
-        <i class="ti ti-moon" id="icone-tema"></i>
-      </button>
+      <div class="header-acoes-prof">
+        <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
+          <i class="ti ti-moon" id="icone-tema"></i>
+        </button>
+        <button class="btn-sair-header" onclick="confirmarSaidaProfessor()" title="Sair">
+          <i class="ti ti-logout"></i> Sair
+        </button>
+      </div>
     </div>
   </header>
+
+  <!-- MODAL DE CONFIRMAÇÃO DE SAÍDA (PROFESSOR) -->
+  <div class="modal-overlay" id="modal-sair-professor">
+    <div class="modal-card">
+      <div class="modal-icone"><i class="ti ti-logout"></i></div>
+      <h3>Tem certeza que deseja sair?</h3>
+      <p>Você será redirecionado para a tela de login.</p>
+      <div class="modal-acoes">
+        <button class="modal-btn modal-btn-cancelar" onclick="fecharModalSairProfessor()">Cancelar</button>
+        <button class="modal-btn modal-btn-confirmar" onclick="sairProfessorAgora()">Sair</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE CONFIRMAÇÃO DE EXCLUSÃO DE AVISO -->
+  <div class="modal-overlay" id="modal-excluir-aviso">
+    <div class="modal-card">
+      <div class="modal-icone"><i class="ti ti-trash"></i></div>
+      <h3>Tem certeza que deseja excluir?</h3>
+      <p>Este aviso será removido do mural e não poderá ser recuperado.</p>
+      <div class="modal-acoes">
+        <button class="modal-btn modal-btn-cancelar" onclick="fecharModalExcluirAviso()">Cancelar</button>
+        <button class="modal-btn modal-btn-confirmar" onclick="excluirAvisoConfirmado()">Excluir</button>
+      </div>
+    </div>
+  </div>
 
   <!-- CONTEÚDO PRINCIPAL -->
   <main class="container" style="padding-top:32px; padding-bottom:48px;">
 
-    <h1 class="form-titulo">Mural de avisos</h1>
-    <p class="form-subtitulo">Publique avisos, jogos e informações que os alunos verão na área do aluno.</p>
+    <h1 class="form-titulo">Mural</h1>
+    <p class="form-subtitulo">Publique jogos e informações que os alunos verão na área do aluno.</p>
 
-    <!-- ── FORMULÁRIO: NOVO AVISO ── -->
+    <!-- ── FORMULÁRIO: NOVA PUBLICAÇÃO ── -->
     <div class="form-secao" style="margin-top:24px;">
       <div class="form-secao-header">
         <i class="ti ti-edit"></i>
-        <span>Novo aviso</span>
+        <span>Nova publicação</span>
       </div>
       <div class="form-corpo">
 
         <div class="form-grupo">
-          <label class="form-label">Tipo de aviso <span class="req">*</span></label>
+          <label class="form-label">Tipo de publicação <span class="req">*</span></label>
           <div class="chip-grupo" id="chips-tipo">
-            <div class="chip chip-aviso selecionado" data-tag="aviso" onclick="selecionarChip(this)">
-              <i class="ti ti-alert-triangle"></i> Aviso
-            </div>
             <div class="chip chip-jogo" data-tag="jogo" onclick="selecionarChip(this)">
               <i class="ti ti-ball-basketball"></i> Jogo
             </div>
-            <div class="chip chip-info" data-tag="info" onclick="selecionarChip(this)">
+            <div class="chip chip-info selecionado" data-tag="info" onclick="selecionarChip(this)">
               <i class="ti ti-info-circle"></i> Info
             </div>
+          </div>
+        </div>
+
+        <div class="form-linha dois">
+          <div class="form-grupo">
+            <label class="form-label">Ícone da publicação</label>
+            <div class="pub-icone-picker" id="pub-icone-picker"></div>
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Cor da publicação</label>
+            <div class="pub-cor-picker" id="pub-cor-picker"></div>
           </div>
         </div>
 
@@ -80,7 +119,7 @@
           </div>
           <div class="form-grupo">
             <label class="form-label">Turma <span style="color:#aaa;font-size:11px">(opcional)</span></label>
-            <select class="form-select" id="mural-turma">
+            <select class="form-select" id="mural-turma" onchange="atualizarListaAlunos()">
               <option value="Todos os alunos">Todos os alunos</option>
               <option value="Sub 10">Sub 10</option>
               <option value="Sub 13">Sub 13</option>
@@ -89,6 +128,18 @@
               <option value="Sub Feminino">Sub Feminino</option>
             </select>
           </div>
+        </div>
+
+        <!-- Alunos específicos da turma escolhida (em vez de enviar para a turma toda) -->
+        <div class="form-grupo" id="grupo-alunos-especificos" style="display:none;">
+          <label class="form-label" style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
+            <span>Enviar só para alunos específicos <span style="color:#aaa;font-size:11px">(opcional — deixe todos desmarcados para enviar para a turma toda)</span></span>
+            <button type="button" id="btn-marcar-todos-alunos" class="toggle-marcar-todos" onclick="alternarTodosAlunos()" aria-pressed="false">
+              <span class="toggle-trilho"><span class="toggle-bolinha"></span></span>
+              <span class="toggle-texto">Marcar todos</span>
+            </button>
+          </label>
+          <div class="chip-grupo" id="lista-alunos-especificos"></div>
         </div>
 
       </div>
@@ -109,25 +160,35 @@
 
     <div class="mural-lista" id="mural-lista">
 
-      <div class="mural-item mural-aviso" data-fixo="true" data-aviso-id="aviso-1">
-        <div class="mural-dot"></div>
+      <div class="mural-item mural-info" data-fixo="true" data-aviso-id="aviso-1">
+        <div class="mural-icone cor-vermelho"><i class="ti ti-alert-triangle"></i></div>
         <div class="mural-conteudo">
           <p class="mural-texto">Treino cancelado — quadra em manutenção</p>
           <span class="mural-data">Hoje · Sub 13 e Sub 16</span>
-          <div class="reacoes-resumo" data-id="aviso-1"></div>
         </div>
-        <span class="mural-tag tag-aviso">Aviso</span>
+        <span class="mural-tag tag-info">Info</span>
+        <button class="mural-remover" onclick="removerAviso(this)" title="Remover aviso">
+          <i class="ti ti-trash"></i>
+        </button>
+      </div>
+
+      <div class="mural-item mural-info" data-fixo="true" data-aviso-id="aviso-4">
+        <div class="mural-icone cor-amarelo"><i class="ti ti-clipboard-list"></i></div>
+        <div class="mural-conteudo">
+          <p class="mural-texto">Levar atestado médico atualizado</p>
+          <span class="mural-data">Sub 10 · Pedro Almeida, Lucas Souza</span>
+        </div>
+        <span class="mural-tag tag-info">Info</span>
         <button class="mural-remover" onclick="removerAviso(this)" title="Remover aviso">
           <i class="ti ti-trash"></i>
         </button>
       </div>
 
       <div class="mural-item mural-jogo" data-fixo="true" data-aviso-id="aviso-2">
-        <div class="mural-dot"></div>
+        <div class="mural-icone cor-laranja"><i class="ti ti-trophy"></i></div>
         <div class="mural-conteudo">
           <p class="mural-texto">Jogo marcado contra Colégio Pio XII</p>
           <span class="mural-data">Sáb 14/06 · 10h · Ginásio Municipal</span>
-          <div class="reacoes-resumo" data-id="aviso-2"></div>
         </div>
         <span class="mural-tag tag-jogo">Jogo</span>
         <button class="mural-remover" onclick="removerAviso(this)" title="Remover aviso">
@@ -136,11 +197,10 @@
       </div>
 
       <div class="mural-item mural-info" data-fixo="true" data-aviso-id="aviso-3">
-        <div class="mural-dot"></div>
+        <div class="mural-icone cor-azul"><i class="ti ti-speakerphone"></i></div>
         <div class="mural-conteudo">
           <p class="mural-texto">Período de rematrícula aberto até 20/06</p>
           <span class="mural-data">Geral · Todos os alunos</span>
-          <div class="reacoes-resumo" data-id="aviso-3"></div>
         </div>
         <span class="mural-tag tag-info">Info</span>
         <button class="mural-remover" onclick="removerAviso(this)" title="Remover aviso">

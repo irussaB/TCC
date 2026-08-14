@@ -33,6 +33,389 @@
     function alternarTurma(id) {
       document.getElementById('turma-' + id).classList.toggle('aberta');
     }
+
+    // ── CADASTRO / EDIÇÃO / EXCLUSÃO DE TURMA ────────────────────────────────
+    let turmaEmEdicao = null; // id da turma sendo editada no momento (null = criando nova)
+
+    // ── PALETA DE CORES DAS TURMAS ──────────────────────────
+    const bibliotecaCores = [
+      { chave: 'azul',     nome: 'Azul' },
+      { chave: 'laranja',  nome: 'Laranja' },
+      { chave: 'verde',    nome: 'Verde' },
+      { chave: 'roxo',     nome: 'Roxo' },
+      { chave: 'rosa',     nome: 'Rosa' },
+      { chave: 'vermelho', nome: 'Vermelho' },
+      { chave: 'amarelo',  nome: 'Amarelo' }
+    ];
+    let corSelecionada = 'laranja'; // cor escolhida no formulário no momento
+
+    function montarCorPicker() {
+      const wrap = document.getElementById('cor-picker');
+      if (!wrap) return;
+      wrap.innerHTML = bibliotecaCores.map(function(c) {
+        const sel = c.chave === corSelecionada ? ' selecionado' : '';
+        return '<button type="button" class="cor-opcao cor-opcao-' + c.chave + sel + '" data-cor="' + c.chave + '" title="' + c.nome + '" onclick="selecionarCorTurma(\'' + c.chave + '\')"><i class="ti ti-check"></i></button>';
+      }).join('');
+    }
+
+    function selecionarCorTurma(cor) {
+      corSelecionada = cor;
+      document.querySelectorAll('#cor-picker .cor-opcao').forEach(function(btn) {
+        btn.classList.toggle('selecionado', btn.dataset.cor === cor);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', montarCorPicker);
+
+    // ── BIBLIOTECA DE ÍCONES DAS TURMAS ──────────────────────────
+    const bibliotecaIcones = [
+      'ti-ball-basketball', 'ti-users', 'ti-trophy', 'ti-star',
+      'ti-shield', 'ti-crown', 'ti-flame', 'ti-bolt',
+      'ti-target', 'ti-medal', 'ti-heart', 'ti-run'
+    ];
+    let iconeSelecionado = 'ti-ball-basketball'; // ícone escolhido no formulário no momento
+
+    function montarIconePicker() {
+      const wrap = document.getElementById('icone-picker');
+      if (!wrap) return;
+      wrap.innerHTML = bibliotecaIcones.map(function(ic) {
+        const sel = ic === iconeSelecionado ? ' selecionado' : '';
+        return '<button type="button" class="icone-opcao' + sel + '" data-icone="' + ic + '" title="' + ic.replace('ti-', '') + '" onclick="selecionarIconeTurma(\'' + ic + '\')"><i class="ti ' + ic + '"></i></button>';
+      }).join('');
+    }
+
+    function selecionarIconeTurma(icone) {
+      iconeSelecionado = icone;
+      document.querySelectorAll('#icone-picker .icone-opcao').forEach(function(btn) {
+        btn.classList.toggle('selecionado', btn.dataset.icone === icone);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', montarIconePicker);
+
+    function criarTurma() {
+      const nome      = document.getElementById('turma-nome').value.trim();
+      const faixa     = document.getElementById('turma-faixa').value.trim();
+      const horario   = document.getElementById('turma-horario').value.trim();
+      const professor = document.getElementById('turma-professor').value;
+
+      if (!nome || !professor) {
+        alert('Preencha o nome da turma e escolha o professor responsável.');
+        return;
+      }
+
+      // Se estamos editando uma turma existente, apenas atualiza os dados dela
+      if (turmaEmEdicao) {
+        salvarEdicaoTurma(turmaEmEdicao, nome, faixa, horario, professor);
+        return;
+      }
+
+      const id = 'nova-' + nome.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') + '-' + Date.now();
+      const iconeGlifo = iconeSelecionado;
+      const corClasse  = 'cor-' + corSelecionada;
+
+      const card = document.createElement('div');
+      card.className = 'turma-card';
+      card.id = 'turma-' + id;
+      card.dataset.nome = nome;
+      card.dataset.faixa = faixa;
+      card.dataset.horario = horario;
+      card.dataset.professor = professor;
+      card.dataset.icone = iconeGlifo;
+      card.dataset.cor = corSelecionada;
+      card.innerHTML = `
+        <div class="turma-cabecalho" onclick="alternarTurma('${id}')">
+          <div class="turma-icone ${corClasse}"><i class="ti ${iconeGlifo}"></i></div>
+          <div class="turma-info">
+            <div class="turma-nome">${escapeHTMLTurma(nome)}</div>
+            <div class="turma-detalhe">
+              ${faixa ? `<span><i class="ti ti-cake"></i> ${escapeHTMLTurma(faixa)}</span>` : ''}
+              ${horario ? `<span><i class="ti ti-calendar"></i> ${escapeHTMLTurma(horario)}</span>` : ''}
+              <span><i class="ti ti-user"></i> Prof. ${escapeHTMLTurma(professor)}</span>
+            </div>
+          </div>
+          <span class="turma-badge">0 alunos</span>
+          <div class="turma-acoes">
+            <button type="button" class="btn-acao-turma" title="Editar turma" onclick="editarTurma(event, '${id}')"><i class="ti ti-pencil"></i></button>
+            <button type="button" class="btn-acao-turma btn-excluir" title="Excluir turma" onclick="excluirTurma(event, '${id}')"><i class="ti ti-trash"></i></button>
+          </div>
+          <i class="ti ti-chevron-down turma-seta"></i>
+        </div>
+        <div class="turma-corpo">
+          <table class="tabela">
+            <thead><tr><th>Nome</th><th>Idade</th><th>Frequência</th><th>Status</th><th>Ações</th></tr></thead>
+            <tbody>
+              <tr><td colspan="5" style="text-align:center;color:var(--texto-mudo)">Nenhum aluno matriculado ainda</td></tr>
+            </tbody>
+          </table>
+        </div>
+      `;
+
+      document.getElementById('lista-turmas').appendChild(card);
+
+      // atualiza o contador de turmas no resumo
+      const resumoTurmas = document.querySelectorAll('.resumo-num')[1];
+      if (resumoTurmas) resumoTurmas.textContent = (parseInt(resumoTurmas.textContent, 10) || 0) + 1;
+
+      limparFormularioTurma();
+    }
+
+    // ── EDITAR TURMA ──────────────────────────────────────────────────────
+    function editarTurma(evt, id) {
+      if (evt) evt.stopPropagation();
+      const card = document.getElementById('turma-' + id);
+      if (!card) return;
+
+      document.getElementById('turma-nome').value      = card.dataset.nome || '';
+      document.getElementById('turma-faixa').value     = card.dataset.faixa || '';
+      document.getElementById('turma-horario').value   = card.dataset.horario || '';
+      document.getElementById('turma-professor').value = card.dataset.professor || '';
+      selecionarIconeTurma(card.dataset.icone || 'ti-ball-basketball');
+      selecionarCorTurma(card.dataset.cor || 'laranja');
+
+      turmaEmEdicao = id;
+      atualizarModoFormulario();
+
+      const secaoForm = document.getElementById('form-turma-secao');
+      if (secaoForm) secaoForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function salvarEdicaoTurma(id, nome, faixa, horario, professor) {
+      const card = document.getElementById('turma-' + id);
+      if (!card) { cancelarEdicaoTurma(); return; }
+
+      card.dataset.nome = nome;
+      card.dataset.faixa = faixa;
+      card.dataset.horario = horario;
+      card.dataset.professor = professor;
+      card.dataset.icone = iconeSelecionado;
+      card.dataset.cor = corSelecionada;
+
+      const iconeEl = card.querySelector('.turma-icone i');
+      if (iconeEl) iconeEl.className = 'ti ' + iconeSelecionado;
+
+      const iconeWrapEl = card.querySelector('.turma-icone');
+      if (iconeWrapEl) {
+        iconeWrapEl.className = iconeWrapEl.className
+          .split(' ')
+          .filter(function(cls) { return cls === 'turma-icone' || cls.indexOf('cor-') !== 0; })
+          .concat('cor-' + corSelecionada)
+          .join(' ');
+      }
+
+      const nomeEl = card.querySelector('.turma-nome');
+      if (nomeEl) nomeEl.textContent = nome;
+
+      const detalheEl = card.querySelector('.turma-detalhe');
+      if (detalheEl) {
+        detalheEl.innerHTML = `
+          ${faixa ? `<span><i class="ti ti-cake"></i> ${escapeHTMLTurma(faixa)}</span>` : ''}
+          ${horario ? `<span><i class="ti ti-calendar"></i> ${escapeHTMLTurma(horario)}</span>` : ''}
+          <span><i class="ti ti-user"></i> Prof. ${escapeHTMLTurma(professor)}</span>
+        `;
+      }
+
+      turmaEmEdicao = null;
+      limparFormularioTurma();
+      atualizarModoFormulario();
+    }
+
+    function cancelarEdicaoTurma() {
+      turmaEmEdicao = null;
+      limparFormularioTurma();
+      atualizarModoFormulario();
+    }
+
+    function atualizarModoFormulario() {
+      const secaoForm  = document.getElementById('form-turma-secao');
+      const tituloForm = document.getElementById('form-turma-titulo');
+      const btnSalvar  = document.getElementById('btn-salvar-turma');
+      const btnCancelar= document.getElementById('btn-cancelar-edicao');
+      if (!tituloForm || !btnSalvar || !btnCancelar) return;
+
+      if (turmaEmEdicao) {
+        tituloForm.textContent = 'Editar turma';
+        btnSalvar.innerHTML = '<i class="ti ti-device-floppy" style="margin-right:6px"></i> Salvar alterações';
+        btnCancelar.style.display = 'inline-flex';
+        if (secaoForm) secaoForm.classList.add('editando');
+      } else {
+        tituloForm.textContent = 'Nova turma';
+        btnSalvar.innerHTML = '<i class="ti ti-plus" style="margin-right:6px"></i> Criar turma';
+        btnCancelar.style.display = 'none';
+        if (secaoForm) secaoForm.classList.remove('editando');
+      }
+    }
+
+    // ── EXCLUIR TURMA ─────────────────────────────────────────────────────
+    let idTurmaParaExcluir = null;
+
+    function excluirTurma(evt, id) {
+      if (evt) evt.stopPropagation();
+      const card = document.getElementById('turma-' + id);
+      if (!card) return;
+
+      const nomeEl = card.querySelector('.turma-nome');
+      const nome = card.dataset.nome || (nomeEl ? nomeEl.textContent : 'esta turma');
+
+      idTurmaParaExcluir = id;
+      const nomeSpan = document.getElementById('modal-turma-nome');
+      if (nomeSpan) nomeSpan.textContent = nome;
+
+      const modal = document.getElementById('modal-exclusao');
+      if (modal) modal.classList.add('aberto');
+    }
+
+    function fecharModalExclusao(evt) {
+      // só fecha quando o clique foi no fundo escuro, não dentro da caixa do modal
+      if (evt && evt.target.id !== 'modal-exclusao') return;
+      fecharModalExclusaoBtn();
+    }
+
+    function fecharModalExclusaoBtn() {
+      const modal = document.getElementById('modal-exclusao');
+      if (modal) modal.classList.remove('aberto');
+      idTurmaParaExcluir = null;
+    }
+
+    function confirmarExclusaoTurma() {
+      const id = idTurmaParaExcluir;
+      const card = id ? document.getElementById('turma-' + id) : null;
+      fecharModalExclusaoBtn();
+      if (!card) return;
+
+      const badge = card.querySelector('.turma-badge');
+      const numAlunos = badge ? (parseInt(badge.textContent, 10) || 0) : 0;
+
+      card.remove();
+
+      // atualiza o resumo: alunos ativos e total de turmas
+      const resumos = document.querySelectorAll('.resumo-num');
+      if (resumos[0]) resumos[0].textContent = Math.max(0, (parseInt(resumos[0].textContent, 10) || 0) - numAlunos);
+      if (resumos[1]) resumos[1].textContent = Math.max(0, (parseInt(resumos[1].textContent, 10) || 0) - 1);
+
+      // se a turma excluída era a que estava em edição, sai do modo edição
+      if (turmaEmEdicao === id) {
+        cancelarEdicaoTurma();
+      }
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('modal-exclusao');
+        if (modal && modal.classList.contains('aberto')) fecharModalExclusaoBtn();
+      }
+    });
+
+    function limparFormularioTurma() {
+      document.getElementById('turma-nome').value = '';
+      document.getElementById('turma-faixa').value = '';
+      document.getElementById('turma-horario').value = '';
+      document.getElementById('turma-professor').value = '';
+      selecionarIconeTurma('ti-ball-basketball');
+      selecionarCorTurma('laranja');
+    }
+
+    function escapeHTMLTurma(texto) {
+      const div = document.createElement('div');
+      div.textContent = texto;
+      return div.innerHTML;
+    }
+
+    // ── PERFIL DO ALUNO / MUDAR DE TURMA ────────────────────────────────
+    let linhaAlunoEmPerfil = null; // <tr> do aluno atualmente aberto no modal
+
+    function abrirPerfilAluno(botao) {
+      const linha = botao.closest('tr');
+      const cardTurmaAtual = botao.closest('.turma-card');
+      if (!linha || !cardTurmaAtual) return;
+
+      linhaAlunoEmPerfil = linha;
+
+      const celulas = linha.querySelectorAll('td');
+      const nome = celulas[0] ? celulas[0].textContent.trim() : '—';
+      const idade = celulas[1] ? celulas[1].textContent.trim() : '—';
+      const freqEl = linha.querySelector('.freq-mini');
+      const statusEl = linha.querySelector('.badge');
+
+      document.getElementById('perfil-nome').textContent = nome;
+      document.getElementById('perfil-avatar').textContent = nome.charAt(0).toUpperCase() || '?';
+      document.getElementById('perfil-turma-atual').textContent = 'Turma ' + (cardTurmaAtual.dataset.nome || '—');
+      document.getElementById('perfil-idade').textContent = idade;
+      document.getElementById('perfil-frequencia').innerHTML = freqEl ? freqEl.outerHTML : '—';
+      document.getElementById('perfil-status').innerHTML = statusEl ? statusEl.outerHTML : '—';
+
+      montarSelectTurmasPerfil(cardTurmaAtual.id);
+
+      document.getElementById('modal-perfil-aluno').classList.add('aberto');
+    }
+
+    function montarSelectTurmasPerfil(idTurmaAtual) {
+      const select = document.getElementById('perfil-turma-select');
+      if (!select) return;
+      const cards = document.querySelectorAll('#lista-turmas .turma-card');
+      select.innerHTML = Array.from(cards).map(function(card) {
+        const sel = card.id === idTurmaAtual ? ' selected' : '';
+        return '<option value="' + card.id + '"' + sel + '>' + escapeHTMLTurma(card.dataset.nome || card.id) + '</option>';
+      }).join('');
+    }
+
+    function fecharModalPerfilAluno(evt) {
+      if (evt && evt.target.id !== 'modal-perfil-aluno') return;
+      const modal = document.getElementById('modal-perfil-aluno');
+      if (modal) modal.classList.remove('aberto');
+      linhaAlunoEmPerfil = null;
+    }
+
+    function salvarPerfilAluno() {
+      if (!linhaAlunoEmPerfil) { fecharModalPerfilAluno(); return; }
+
+      const select = document.getElementById('perfil-turma-select');
+      const idNovaTurma = select ? select.value : null;
+      const cardAtual = linhaAlunoEmPerfil.closest('.turma-card');
+      const cardNovo = idNovaTurma ? document.getElementById(idNovaTurma) : null;
+
+      if (!cardNovo || !cardAtual || cardNovo.id === cardAtual.id) {
+        fecharModalPerfilAluno();
+        return;
+      }
+
+      const tbodyAtual = cardAtual.querySelector('.turma-corpo tbody');
+      const tbodyNovo = cardNovo.querySelector('.turma-corpo tbody');
+      if (!tbodyAtual || !tbodyNovo) { fecharModalPerfilAluno(); return; }
+
+      // remove eventual linha de "nenhum aluno matriculado" da turma de destino
+      const placeholderNovo = tbodyNovo.querySelector('td[colspan]');
+      if (placeholderNovo) placeholderNovo.closest('tr').remove();
+
+      // move a linha do aluno para a nova turma
+      tbodyNovo.appendChild(linhaAlunoEmPerfil);
+
+      // se a turma de origem ficou vazia, mostra o placeholder de novo
+      if (tbodyAtual.children.length === 0) {
+        tbodyAtual.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--texto-mudo)">Nenhum aluno matriculado ainda</td></tr>';
+      }
+
+      atualizarBadgeTurma(cardAtual);
+      atualizarBadgeTurma(cardNovo);
+
+      fecharModalPerfilAluno();
+    }
+
+    function atualizarBadgeTurma(card) {
+      const badge = card.querySelector('.turma-badge');
+      if (!badge) return;
+      const tbody = card.querySelector('.turma-corpo tbody');
+      const alunos = tbody ? tbody.querySelectorAll('td[colspan]').length ? 0 : tbody.children.length : 0;
+      const sufixo = card.id === 'turma-fem' ? (alunos === 1 ? ' aluna' : ' alunas') : (alunos === 1 ? ' aluno' : ' alunos');
+      badge.textContent = alunos + sufixo;
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('modal-perfil-aluno');
+        if (modal && modal.classList.contains('aberto')) fecharModalPerfilAluno();
+      }
+    });
     // ── EASTER EGG LOGO: 30 cliques = TOGURO ────────────────────────────────
     (function() {
       let cliquesLogo = 0, timerLogo = null;
@@ -69,3 +452,17 @@
         });
       });
     })();
+
+    // ── SAIR (LOGOUT DO PROFESSOR) ──────────────
+    function confirmarSaidaProfessor() {
+      document.getElementById('modal-sair-professor').classList.add('ativo');
+    }
+
+    function fecharModalSairProfessor() {
+      document.getElementById('modal-sair-professor').classList.remove('ativo');
+    }
+
+    function sairProfessorAgora() {
+      localStorage.removeItem('professor-logado');
+      window.location.href = '../login/index.html';
+    }

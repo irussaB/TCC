@@ -36,6 +36,7 @@
         id: 1, status: 'pendente',
         nome: 'Lucas Ferreira Santos', nascimento: '14/03/2014', sexo: 'Masculino',
         peso: '42 kg', altura: '158 cm', cpf: '123.456.789-00', email: 'lucas@email.com',
+        telefone: '(14) 9 9911-2233', endereco: 'Rua das Flores', numero: '120', bairro: 'Centro', cidade: 'Santa Cruz do Rio Pardo', uf: 'SP',
         respNome: 'Carlos Ferreira', respTel: '(14) 9 8833-1234', respEmail: 'carlos@email.com',
         turma: 'Sub 13', data: '10/06/2026'
       },
@@ -43,6 +44,7 @@
         id: 2, status: 'pendente',
         nome: 'Mariana Oliveira Costa', nascimento: '22/07/2012', sexo: 'Feminino',
         peso: '51 kg', altura: '163 cm', cpf: '234.567.890-11', email: 'mari@email.com',
+        telefone: '(14) 9 9822-3344', endereco: 'Avenida Brasil', numero: '540', bairro: 'Jardim América', cidade: 'Santa Cruz do Rio Pardo', uf: 'SP',
         respNome: 'Ana Oliveira', respTel: '(14) 9 9977-5566', respEmail: 'ana@email.com',
         turma: 'Sub Feminino', data: '09/06/2026'
       },
@@ -50,6 +52,7 @@
         id: 3, status: 'pendente',
         nome: 'Pedro Henrique Lima', nascimento: '05/11/2010', sexo: 'Masculino',
         peso: '58 kg', altura: '171 cm', cpf: '345.678.901-22', email: 'pedro@email.com',
+        telefone: '(14) 9 9733-4455', endereco: 'Rua São Paulo', numero: '88', bairro: 'Vila Nova', cidade: 'Santa Cruz do Rio Pardo', uf: 'SP',
         respNome: 'Roberto Lima', respTel: '(14) 9 7744-8899', respEmail: 'roberto@email.com',
         turma: 'Sub 16', data: '08/06/2026'
       },
@@ -57,6 +60,7 @@
         id: 4, status: 'aprovada',
         nome: 'Gabriel Souza Mendes', nascimento: '18/02/2016', sexo: 'Masculino',
         peso: '35 kg', altura: '142 cm', cpf: '456.789.012-33', email: 'gabriel@email.com',
+        telefone: '(14) 9 9644-5566', endereco: 'Rua das Palmeiras', numero: '210', bairro: 'Centro', cidade: 'Santa Cruz do Rio Pardo', uf: 'SP',
         respNome: 'Fátima Souza', respTel: '(14) 9 6655-4433', respEmail: 'fatima@email.com',
         turma: 'Sub 10', data: '05/06/2026'
       },
@@ -64,6 +68,7 @@
         id: 5, status: 'aprovada',
         nome: 'Beatriz Almeida Ramos', nascimento: '30/09/2011', sexo: 'Feminino',
         peso: '47 kg', altura: '160 cm', cpf: '567.890.123-44', email: 'bia@email.com',
+        telefone: '(14) 9 9555-6677', endereco: 'Rua Minas Gerais', numero: '33', bairro: 'Jardim América', cidade: 'Santa Cruz do Rio Pardo', uf: 'SP',
         respNome: 'Marcos Almeida', respTel: '(14) 9 5544-2211', respEmail: 'marcos@email.com',
         turma: 'Sub Feminino', data: '03/06/2026'
       },
@@ -71,6 +76,7 @@
         id: 6, status: 'recusada',
         nome: 'Felipe Torres Neves', nascimento: '12/06/2009', sexo: 'Masculino',
         peso: '70 kg', altura: '178 cm', cpf: '678.901.234-55', email: 'felipe@email.com',
+        telefone: '(14) 9 9466-7788', endereco: 'Rua Bahia', numero: '15', bairro: 'Vila Nova', cidade: 'Santa Cruz do Rio Pardo', uf: 'SP',
         respNome: 'Sandra Torres', respTel: '(14) 9 4433-1100', respEmail: 'sandra@email.com',
         turma: 'Sub 18', data: '01/06/2026'
       }
@@ -191,6 +197,10 @@
       document.getElementById('md-fisico').textContent    = `${m.peso} / ${m.altura}`;
       document.getElementById('md-cpf').textContent       = m.cpf;
       document.getElementById('md-email').textContent     = m.email || '—';
+      document.getElementById('md-telefone').textContent  = m.telefone || '—';
+      document.getElementById('md-endereco').textContent  = (m.endereco ? `${m.endereco}, ${m.numero || 's/n'}` : '—');
+      document.getElementById('md-bairro').textContent    = m.bairro || '—';
+      document.getElementById('md-cidade').textContent    = (m.cidade ? `${m.cidade} / ${m.uf || '—'}` : '—');
       document.getElementById('md-resp-nome').textContent  = m.respNome;
       document.getElementById('md-resp-tel').textContent   = m.respTel;
       document.getElementById('md-resp-email').textContent = m.respEmail;
@@ -262,3 +272,17 @@
         });
       });
     })();
+
+    // ── SAIR (LOGOUT DO PROFESSOR) ──────────────
+    function confirmarSaidaProfessor() {
+      document.getElementById('modal-sair-professor').classList.add('ativo');
+    }
+
+    function fecharModalSairProfessor() {
+      document.getElementById('modal-sair-professor').classList.remove('ativo');
+    }
+
+    function sairProfessorAgora() {
+      localStorage.removeItem('professor-logado');
+      window.location.href = '../login/index.html';
+    }

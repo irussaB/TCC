@@ -88,3 +88,17 @@
     }
 
     gerarCalendario();
+
+    // ── SAIR (LOGOUT) ────────────────────
+    function confirmarSaida() {
+      document.getElementById('modal-sair').classList.add('ativo');
+    }
+
+    function fecharModalSair() {
+      document.getElementById('modal-sair').classList.remove('ativo');
+    }
+
+    function sairAgora() {
+      localStorage.removeItem('aluno-logado');
+      window.location.href = '../login-aluno/index.html';
+    }

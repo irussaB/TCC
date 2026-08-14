@@ -20,6 +20,7 @@
       --azul:           #60a5fa;
       --azul-dim:       rgba(96,165,250,0.12);
       --amarelo:        #fbbf24;
+      --amarelo-dim:    rgba(251,191,36,0.14);
       --rosa:           #f472b6;
       --rosa-dim:       rgba(244,114,182,0.12);
       --roxo:           #a78bfa;
@@ -131,11 +132,13 @@
       font-size: 22px;
       flex-shrink: 0;
     }
-    .ic-sub10 { background: var(--azul-dim); color: var(--azul); }
-    .ic-sub13 { background: var(--laranja-dim); color: var(--laranja); }
-    .ic-sub16 { background: var(--verde-dim); color: var(--verde); }
-    .ic-sub18 { background: var(--roxo-dim); color: var(--roxo); }
-    .ic-fem   { background: var(--rosa-dim); color: var(--rosa); }
+    .cor-azul     { background: var(--azul-dim);     color: var(--azul); }
+    .cor-laranja  { background: var(--laranja-dim);  color: var(--laranja); }
+    .cor-verde    { background: var(--verde-dim);    color: var(--verde); }
+    .cor-roxo     { background: var(--roxo-dim);     color: var(--roxo); }
+    .cor-rosa     { background: var(--rosa-dim);     color: var(--rosa); }
+    .cor-vermelho { background: var(--vermelho-dim); color: var(--vermelho); }
+    .cor-amarelo  { background: var(--amarelo-dim);  color: var(--amarelo); }
 
     .turma-info { flex: 1; min-width: 0; }
     .turma-nome { font-size: 15px; font-weight: 700; }
@@ -217,6 +220,28 @@
     .badge-laranja  { background: var(--laranja-dim);  color: var(--laranja); }
     .badge-vermelho { background: var(--vermelho-dim); color: var(--vermelho); }
 
+    .btn-perfil-aluno {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      font-family: inherit;
+      color: var(--texto-mudo);
+      background: var(--bg-input);
+      border: 1px solid var(--borda);
+      border-radius: 8px;
+      padding: 6px 10px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+    }
+    .btn-perfil-aluno:hover {
+      border-color: var(--laranja);
+      color: var(--laranja);
+      background: var(--laranja-dim);
+    }
+
     /* RODAPÉ */
     .rodape {
       border-top: 1px solid var(--borda);
@@ -280,6 +305,103 @@
       --amarelo:        #FFC72C;
     }
 
+    /* ════════════════════════════════════
+       CORREÇÃO: formulário "Nova turma"
+       (essas classes vêm do style.css global, que só fica
+       escuro com a classe body.tema-escuro — mas nesta página
+       o tema escuro é o padrão sem nenhuma classe extra no
+       body, então o formulário ficava sempre nas cores claras
+       fixas do style.css, mesmo com o resto da página escuro)
+    ════════════════════════════════════ */
+    .form-secao {
+      background: var(--bg-card);
+      border: 1px solid var(--borda);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .form-secao.editando { border-color: var(--laranja-borda); }
+
+    .form-secao-header {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--borda);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg-card2);
+    }
+    .form-secao-header i { color: var(--laranja); font-size: 18px; }
+    .form-secao-header span { font-size: 14px; font-weight: 700; color: var(--texto); }
+
+    .form-label { color: var(--texto-mudo); }
+    .form-label .req { color: var(--vermelho); }
+
+    .form-input,
+    .form-select {
+      background-color: var(--bg-input);
+      color: var(--texto);
+      border: 1px solid var(--borda);
+    }
+    .form-input::placeholder { color: var(--texto-fraco); }
+    .form-input:focus,
+    .form-select:focus {
+      border-color: var(--laranja);
+      box-shadow: 0 0 0 3px var(--laranja-dim);
+      background-color: var(--bg-input);
+    }
+    .form-select option { background: var(--bg-card); color: var(--texto); }
+
+    .btn-primario {
+      background-color: var(--laranja);
+      color: #fff;
+    }
+    .btn-primario:hover { background-color: #d47a20; }
+
+    .form-acoes {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+    .form-acoes .btn-primario { flex: 1; margin-bottom: 0; }
+
+    .btn-cancelar-edicao {
+      padding: 14px 18px;
+      background: transparent;
+      color: var(--texto-mudo);
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-cancelar-edicao:hover { border-color: var(--borda-hover); color: var(--texto); }
+
+    /* ── AÇÕES DA TURMA (editar / excluir) ─────────── */
+    .turma-acoes { display: flex; gap: 6px; flex-shrink: 0; }
+    .btn-acao-turma {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--borda);
+      background: var(--bg-input);
+      color: var(--texto-mudo);
+      font-size: 14px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .btn-acao-turma:hover { border-color: var(--laranja); color: var(--laranja); background: var(--laranja-dim); }
+    .btn-acao-turma.btn-excluir:hover { border-color: var(--vermelho); color: var(--vermelho); background: var(--vermelho-dim); }
+
+    @media (max-width: 700px) {
+      .form-acoes { flex-direction: column; }
+      .btn-cancelar-edicao { justify-content: center; }
+    }
+
     /* Botão de tema */
     .header-acoes {
       display: flex;
@@ -306,4 +428,192 @@
       border-color: var(--laranja);
       color: var(--laranja);
       background: var(--laranja-dim);
+    }
+
+    /* ── SELETOR DE ÍCONE DA TURMA ───────────────────────────── */
+    .icone-picker {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+      gap: 8px;
+    }
+    .icone-opcao {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      border: 1px solid var(--borda);
+      background: var(--bg-input);
+      color: var(--texto-mudo);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.15s, color 0.15s, background 0.15s, transform 0.15s;
+    }
+    .icone-opcao:hover {
+      border-color: var(--laranja-borda);
+      color: var(--laranja);
+      transform: translateY(-1px);
+    }
+    .icone-opcao.selecionado {
+      border-color: var(--laranja);
+      background: var(--laranja-dim);
+      color: var(--laranja);
+      box-shadow: 0 0 0 3px var(--laranja-dim);
+    }
+
+    /* ── SELETOR DE COR DA TURMA ───────────────────────────── */
+    .cor-picker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .cor-opcao {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+      padding: 0;
+    }
+    .cor-opcao::before {
+      content: '';
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: var(--cor-swatch);
+    }
+    .cor-opcao i { display: none; color: #fff; font-size: 15px; text-shadow: 0 1px 2px rgba(0,0,0,0.35); }
+    .cor-opcao:hover { transform: translateY(-1px); }
+    .cor-opcao.selecionado {
+      border-color: var(--texto);
+      box-shadow: 0 0 0 3px var(--bg-input);
+    }
+    .cor-opcao.selecionado::before { display: none; }
+    .cor-opcao.selecionado i { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; border-radius: 50%; background: var(--cor-swatch); }
+    .cor-opcao-azul     { --cor-swatch: var(--azul); }
+    .cor-opcao-laranja  { --cor-swatch: var(--laranja); }
+    .cor-opcao-verde    { --cor-swatch: var(--verde); }
+    .cor-opcao-roxo     { --cor-swatch: var(--roxo); }
+    .cor-opcao-rosa     { --cor-swatch: var(--rosa); }
+    .cor-opcao-vermelho { --cor-swatch: var(--vermelho); }
+    .cor-opcao-amarelo  { --cor-swatch: var(--amarelo); }
+
+    /* ── MODAL DE CONFIRMAÇÃO (usado para excluir turma) ────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-overlay.aberto { display: flex; }
+
+    .modal-box {
+      background: var(--bg-card);
+      border: 1px solid var(--borda);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 420px;
+      padding: 28px;
+      animation: modal-surge 0.18s ease;
+    }
+    @keyframes modal-surge {
+      from { opacity: 0; transform: scale(0.96); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-confirmacao {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+    }
+    .modal-icone-alerta {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--vermelho-dim);
+      color: var(--vermelho);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      margin-bottom: 6px;
+    }
+    .modal-titulo-confirmacao { font-size: 18px; font-weight: 700; color: var(--texto); }
+    .modal-texto-confirmacao {
+      font-size: 13px; line-height: 1.6;
+      color: var(--texto-mudo);
+      margin-bottom: 8px;
+    }
+    .modal-texto-confirmacao strong { color: var(--texto); }
+
+    .modal-acoes { display: flex; gap: 10px; width: 100%; }
+    .modal-acoes .btn-cancelar-edicao { flex: 1; justify-content: center; }
+    .btn-confirmar-exclusao {
+      flex: 1;
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 14px 18px;
+      background: var(--vermelho);
+      color: #2a0e0e;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px; font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: opacity 0.2s;
+    }
+    .btn-confirmar-exclusao:hover { opacity: 0.88; }
+
+    @media (max-width: 480px) {
+      .modal-acoes { flex-direction: column-reverse; }
+    }
+
+    /* ── MODAL: PERFIL DO ALUNO ──────────────────────────────────────── */
+    .modal-perfil { max-width: 380px; text-align: left; }
+
+    .perfil-cabecalho {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .perfil-avatar {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: var(--laranja-dim);
+      color: var(--laranja);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .perfil-nome { font-size: 17px; font-weight: 700; color: var(--texto); }
+    .perfil-turma-atual { font-size: 12px; color: var(--texto-mudo); margin-top: 2px; }
+
+    .perfil-info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .perfil-info-item {
+      background: var(--bg-input);
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-start;
+    }
+    .perfil-info-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: var(--texto-fraco);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .perfil-info-valor { font-size: 13px; font-weight: 700; color: var(--texto); }
+
+    @media (max-width: 420px) {
+      .perfil-info-grid { grid-template-columns: 1fr; }
     }

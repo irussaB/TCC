@@ -737,6 +737,129 @@ a {
   background: rgba(232,139,46,0.12);
 }
 
+.header-acoes-prof {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 12px;
+}
+
+.btn-sair-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.08);
+  color: #ccc;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  flex-shrink: 0;
+}
+
+.btn-sair-header:hover {
+  border-color: #e35b5b;
+  color: #e35b5b;
+  background: rgba(227,91,91,0.12);
+}
+
+/* ── MODAL DE CONFIRMAÇÃO (SAIR — PROFESSOR) ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.modal-overlay.ativo {
+  display: flex;
+}
+
+.modal-card {
+  background: #181825;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 28px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  color: #f0f0f0;
+  animation: modalEntradaProf 0.2s ease;
+}
+
+@keyframes modalEntradaProf {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.modal-card .modal-icone {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(227,91,91,0.15);
+  color: #e35b5b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin: 0 auto 16px;
+}
+
+.modal-card h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+
+.modal-card p {
+  margin: 0 0 20px;
+  font-size: 13px;
+  color: #a8a8b3;
+}
+
+.modal-acoes {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.modal-btn-cancelar {
+  background: none;
+  color: #ccc;
+}
+
+.modal-btn-cancelar:hover {
+  border-color: rgba(255,255,255,0.4);
+  color: #fff;
+}
+
+.modal-btn-confirmar {
+  background: #e35b5b;
+  border-color: #e35b5b;
+  color: #fff;
+}
+
+.modal-btn-confirmar:hover {
+  background: #c94848;
+  border-color: #c94848;
+}
+
 /* ── 14. TEMA ESCURO (index + cadastro) ──────── */
 body.tema-escuro {
   background-color: #0f0f17;

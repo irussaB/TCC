@@ -23,17 +23,35 @@
       </div>
       <nav class="nav-desktop">
         <a href="../../index.html" class="nav-link">Início</a>
-        <a href="../matriculas/index.html" class="nav-link ativo">Matrículas</a>
+        <a href="../matriculas/index.html" class="nav-link">Matrículas</a>
         <a href="../turmas/index.html" class="nav-link">Turmas</a>
         <a href="../chamada/index.html" class="nav-link">Chamada</a>
         <a href="../mural/index.html" class="nav-link">Mural</a>
-        <a href="../cronometro/index.html" class="nav-link">Cronômetro</a>
+        <a href="../cronometro/index.html" class="nav-link ativo">Cronômetro</a>
       </nav>
-      <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
-        <i class="ti ti-moon" id="icone-tema"></i>
-      </button>
+      <div class="header-acoes-prof">
+        <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
+          <i class="ti ti-moon" id="icone-tema"></i>
+        </button>
+        <button class="btn-sair-header" onclick="confirmarSaidaProfessor()" title="Sair">
+          <i class="ti ti-logout"></i> Sair
+        </button>
+      </div>
     </div>
   </header>
+
+  <!-- MODAL DE CONFIRMAÇÃO DE SAÍDA (PROFESSOR) -->
+  <div class="modal-overlay" id="modal-sair-professor">
+    <div class="modal-card">
+      <div class="modal-icone"><i class="ti ti-logout"></i></div>
+      <h3>Tem certeza que deseja sair?</h3>
+      <p>Você será redirecionado para a tela de login.</p>
+      <div class="modal-acoes">
+        <button class="modal-btn modal-btn-cancelar" onclick="fecharModalSairProfessor()">Cancelar</button>
+        <button class="modal-btn modal-btn-confirmar" onclick="sairProfessorAgora()">Sair</button>
+      </div>
+    </div>
+  </div>
 
   <main class="main">
 
@@ -66,7 +84,10 @@
               <i class="ti ti-player-play"></i> Iniciar
             </button>
             <button class="btn btn-cinza" onclick="crono24Reset()">
-              <i class="ti ti-rotate-clockwise"></i> Reset
+              <i class="ti ti-rotate-clockwise"></i> Reset 24
+            </button>
+            <button class="btn btn-cinza" onclick="crono24Reset14()" title="Bola pegou no aro">
+              <i class="ti ti-rotate-clockwise"></i> Reset 14
             </button>
           </div>
         </div>
@@ -123,6 +144,8 @@
             </div>
             <div class="placar-pontos time-a" id="placar-a">0</div>
             <div class="placar-btns">
+              <button class="btn-pts menos" onclick="addPontos('a', -3)">−3</button>
+              <button class="btn-pts menos" onclick="addPontos('a', -2)">−2</button>
               <button class="btn-pts menos" onclick="addPontos('a', -1)">−1</button>
               <button class="btn-pts mais-1" onclick="addPontos('a', 1)">+1</button>
               <button class="btn-pts mais-2" onclick="addPontos('a', 2)">+2</button>
@@ -140,6 +163,8 @@
             </div>
             <div class="placar-pontos time-b" id="placar-b">0</div>
             <div class="placar-btns">
+              <button class="btn-pts menos" onclick="addPontos('b', -3)">−3</button>
+              <button class="btn-pts menos" onclick="addPontos('b', -2)">−2</button>
               <button class="btn-pts menos" onclick="addPontos('b', -1)">−1</button>
               <button class="btn-pts mais-1" onclick="addPontos('b', 1)">+1</button>
               <button class="btn-pts mais-2" onclick="addPontos('b', 2)">+2</button>

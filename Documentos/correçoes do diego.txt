@@ -1,0 +1,39 @@
+cadastro de turma com professor escolhido 
+
+na parte do mural, ter só info e jogos ( tirar o aviso ) - pq aviso = info 
+
+mural, mandar para alunos especificos tbm , ao invés da turma toda dentro da turma chamar pessoas especificas
+
+tirar do cadastro de matricula o subcategoria e professor
+
+tirar a obrigatoriedade dos campos de responsável caso ele for maior de 18 
+
+completar com os registros adequados da matricula(endereço , bairro , escola ,etc) 
+
+botões , para cadastro (TODOSSSS) 
+
+
+
+plano de aula - tabela 
+
+professor responsável
+dia  
+
+separado em 2 categorias 
+o mensal onde vai conter o primeiro exercico(voltas la em cima) o alongamento e o físico , tbm o final do treino , lance livre com suicídio 
+
+e o diário , onde vai ter como puxar o exercício que será feito no dia ( exercício já cadastrado ) 
+
+cadastro de exercício ( titulo, descrição e materiais somente) 
+
+
+
+cronometro , reset 14 (caso pegue no aro) 
+som aos 16 secs (8sec de saída da defesa) 
+botão -2 -3 de cesta
+
+
+
+tirar da parte do perfil do aluno , histórico , habilidade
+
+QUANDO CLICAR NA BOLA DE BASQUETE APARECE O MENUZINHO DAS ABAS NO CELULAR

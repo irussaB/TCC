@@ -47,49 +47,47 @@ function mostrarArquivo(input, idTexto) {
 
 // ── CÁLCULO AUTOMÁTICO DE CATEGORIA ─────────────
 
+// Calcula a idade a partir da data de nascimento (retorna null se não houver data)
+function calcularIdade(dataNascimento) {
+  if (!dataNascimento) return null;
+  const hoje      = new Date();
+  const nasc      = new Date(dataNascimento);
+  let idade       = hoje.getFullYear() - nasc.getFullYear();
+  const mesPassou = hoje.getMonth() > nasc.getMonth() ||
+                    (hoje.getMonth() === nasc.getMonth() && hoje.getDate() >= nasc.getDate());
+  if (!mesPassou) idade--;
+  return idade;
+}
+
 // Calcula a idade e define a subcategoria automaticamente
 // com base na data de nascimento e no sexo informado
 function calcularCategoria() {
   const nascimento = document.getElementById('nascimento');
   const sexo       = document.getElementById('sexo');
-  const banner     = document.getElementById('banner-turma');
-  const textoTurma = document.getElementById('texto-turma');
-  const chips      = document.querySelectorAll('#chips-sub .chip');
 
   if (!nascimento || !sexo) return; // página não tem o formulário
+
+  const idade = calcularIdade(nascimento.value);
+
+  // A obrigatoriedade dos campos do responsável depende só da idade,
+  // independentemente do sexo informado
+  atualizarObrigatoriedadeResponsavel(idade);
 
   // Se feminino, vai direto para Sub Feminino
   if (sexo.value === 'F') {
     mostrarBannerTurma('Turma: Sub Feminino (definida pelo sexo)');
-    chips.forEach(c => {
-      c.classList.remove('selecionado');
-      if (c.textContent.trim() === 'Sub Feminino') c.classList.add('selecionado');
-    });
     return;
   }
 
-  // Se masculino, calcula a idade
-  if (sexo.value === 'M' && nascimento.value) {
-    const hoje       = new Date();
-    const nasc       = new Date(nascimento.value);
-    let idade        = hoje.getFullYear() - nasc.getFullYear();
-    const mesPassou  = hoje.getMonth() > nasc.getMonth() ||
-                      (hoje.getMonth() === nasc.getMonth() && hoje.getDate() >= nasc.getDate());
-    if (!mesPassou) idade--;
-
-    // Define a subcategoria pela idade
+  // Se masculino, define a subcategoria pela idade
+  if (sexo.value === 'M' && idade !== null) {
     let categoria = '';
     if      (idade <= 10) categoria = 'Sub 10';
     else if (idade <= 13) categoria = 'Sub 13';
     else if (idade <= 16) categoria = 'Sub 16';
-    else if (idade <= 18) categoria = 'Sub 18';
-    else                  categoria = 'Sub 18'; // 19–22 ficam na Sub 18
+    else                  categoria = 'Sub 18'; // 17–22 ficam na Sub 18
 
     mostrarBannerTurma(`Turma: ${categoria} · ${idade} anos (definida pela idade)`);
-    chips.forEach(c => {
-      c.classList.remove('selecionado');
-      if (c.textContent.trim() === categoria) c.classList.add('selecionado');
-    });
   }
 }
 
@@ -102,6 +100,33 @@ function mostrarBannerTurma(texto) {
   }
 }
 
+// ── OBRIGATORIEDADE DOS CAMPOS DO RESPONSÁVEL ───
+// A partir de 18 anos, o próprio aluno pode se responsabilizar,
+// então os campos do responsável deixam de ser obrigatórios.
+function atualizarObrigatoriedadeResponsavel(idade) {
+  const secao = document.getElementById('secao-responsavel');
+  if (!secao) return; // página não tem essa seção
+
+  const maiorDeIdade = idade !== null && idade >= 18;
+  const campos = ['nome-resp', 'cpf-resp', 'telefone', 'email-resp'];
+
+  campos.forEach(id => {
+    const campo = document.getElementById(id);
+    if (!campo) return;
+    if (maiorDeIdade) campo.removeAttribute('required');
+    else              campo.setAttribute('required', '');
+  });
+
+  secao.querySelectorAll('.req').forEach(span => {
+    span.style.display = maiorDeIdade ? 'none' : 'inline';
+  });
+
+  const badge = document.getElementById('badge-responsavel');
+  if (badge) {
+    badge.textContent = maiorDeIdade ? 'Opcional (aluno maior de idade)' : 'Obrigatório até 18 anos';
+  }
+}
+
 
 // ── SALVAR RASCUNHO ──────────────────────────────
 
@@ -109,13 +134,18 @@ function mostrarBannerTurma(texto) {
 // (funciona sem banco de dados — os dados ficam no próprio navegador)
 function salvarRascunho() {
   const dados = {
-    nome:       document.getElementById('nome')?.value,
-    nascimento: document.getElementById('nascimento')?.value,
-    sexo:       document.getElementById('sexo')?.value,
-    cpfAluno:   document.getElementById('cpf-aluno')?.value,
-    emailAluno: document.getElementById('email-aluno')?.value,
-    nomeResp:   document.getElementById('nome-resp')?.value,
-    professor:  document.getElementById('professor')?.value,
+    nome:          document.getElementById('nome')?.value,
+    nascimento:    document.getElementById('nascimento')?.value,
+    sexo:          document.getElementById('sexo')?.value,
+    cpfAluno:      document.getElementById('cpf-aluno')?.value,
+    emailAluno:    document.getElementById('email-aluno')?.value,
+    telefoneAluno: document.getElementById('telefone-aluno')?.value,
+    endereco:      document.getElementById('endereco')?.value,
+    numero:        document.getElementById('numero')?.value,
+    bairro:        document.getElementById('bairro')?.value,
+    cidade:        document.getElementById('cidade')?.value,
+    uf:            document.getElementById('uf')?.value,
+    nomeResp:      document.getElementById('nome-resp')?.value,
   };
   localStorage.setItem('rascunho-cadastro', JSON.stringify(dados));
   alert('Rascunho salvo! Os dados ficam guardados neste navegador.');
@@ -128,13 +158,18 @@ function carregarRascunho() {
 
   const dados = JSON.parse(rascunho);
   if (document.getElementById('nome')) {
-    if (dados.nome)       document.getElementById('nome').value       = dados.nome;
-    if (dados.nascimento) document.getElementById('nascimento').value = dados.nascimento;
-    if (dados.sexo)       document.getElementById('sexo').value       = dados.sexo;
-    if (dados.cpfAluno)   document.getElementById('cpf-aluno').value  = dados.cpfAluno;
-    if (dados.emailAluno) document.getElementById('email-aluno').value= dados.emailAluno;
-    if (dados.nomeResp)   document.getElementById('nome-resp').value  = dados.nomeResp;
-    if (dados.professor)  document.getElementById('professor').value  = dados.professor;
+    if (dados.nome)          document.getElementById('nome').value          = dados.nome;
+    if (dados.nascimento)    document.getElementById('nascimento').value    = dados.nascimento;
+    if (dados.sexo)          document.getElementById('sexo').value          = dados.sexo;
+    if (dados.cpfAluno)      document.getElementById('cpf-aluno').value      = dados.cpfAluno;
+    if (dados.emailAluno)    document.getElementById('email-aluno').value    = dados.emailAluno;
+    if (dados.telefoneAluno) document.getElementById('telefone-aluno').value = dados.telefoneAluno;
+    if (dados.endereco)      document.getElementById('endereco').value       = dados.endereco;
+    if (dados.numero)        document.getElementById('numero').value         = dados.numero;
+    if (dados.bairro)        document.getElementById('bairro').value         = dados.bairro;
+    if (dados.cidade)        document.getElementById('cidade').value         = dados.cidade;
+    if (dados.uf)            document.getElementById('uf').value             = dados.uf;
+    if (dados.nomeResp)      document.getElementById('nome-resp').value       = dados.nomeResp;
 
     // Recalcula a categoria com os dados carregados
     calcularCategoria();

@@ -1,25 +1,153 @@
-    // ── PUBLICAR NOVO AVISO ─────────────────────
+    // ── ALUNOS POR TURMA (para mandar para pessoas específicas) ──
+    const turmaAlunos = {
+      'Sub 10': ['Pedro Almeida', 'Lucas Souza', 'Gabriel Lima', 'Enzo Ribeiro', 'Davi Costa', 'Miguel Santos', 'Theo Oliveira', 'Bernardo Rocha'],
+      'Sub 13': ['Rafael Mendes', 'Bruno Carvalho', 'João Pedro Alves', 'Matheus Ferreira', 'Felipe Nunes', 'Gustavo Pires', 'Vinícius Teixeira', 'Caio Martins', 'Diego Barros', 'Heitor Cardoso', 'Arthur Dias', 'Samuel Castro'],
+      'Sub 16': ['Lucas Ferreira', 'Thiago Andrade', 'Rodrigo Pereira', 'Murilo Gomes', 'Eduardo Vieira', 'André Monteiro', 'Leonardo Farias', 'Otávio Ramos', 'Igor Tavares', 'Marcelo Duarte'],
+      'Sub 18': ['Renato Borges', 'Fábio Correia', 'Wesley Moraes', 'Daniel Brito', 'Cauã Lopes', 'Henrique Souza', 'Yago Martins', 'Adriano Reis', 'Vitor Cunha'],
+      'Sub Feminino': ['Ana Clara Silva', 'Beatriz Santos', 'Camila Rocha', 'Júlia Almeida', 'Larissa Costa', 'Mariana Pires', 'Sofia Ribeiro', 'Valentina Souza'],
+    };
+
+    // Mostra/esconde a lista de alunos específicos conforme a turma escolhida
+    function atualizarListaAlunos() {
+      const turma = document.getElementById('mural-turma').value;
+      const grupo = document.getElementById('grupo-alunos-especificos');
+      const lista = document.getElementById('lista-alunos-especificos');
+      lista.innerHTML = '';
+
+      const alunos = turmaAlunos[turma];
+      const btnTodos = document.getElementById('btn-marcar-todos-alunos');
+      if (btnTodos) {
+        btnTodos.classList.remove('ativo');
+        btnTodos.setAttribute('aria-pressed', 'false');
+        const txt = btnTodos.querySelector('.toggle-texto');
+        if (txt) txt.textContent = 'Marcar todos';
+      }
+      if (!alunos) { grupo.style.display = 'none'; return; }
+
+      alunos.forEach(nome => {
+        const chip = document.createElement('div');
+        chip.className = 'chip';
+        chip.dataset.aluno = nome;
+        chip.textContent = nome;
+        chip.onclick = () => chip.classList.toggle('selecionado');
+        lista.appendChild(chip);
+      });
+      grupo.style.display = 'block';
+    }
+
+    // Marca/desmarca todos os alunos da lista de alunos específicos
+    function alternarTodosAlunos() {
+      const lista = document.getElementById('lista-alunos-especificos');
+      const chips = Array.from(lista.querySelectorAll('.chip'));
+      if (chips.length === 0) return;
+
+      const todosSelecionados = chips.every(c => c.classList.contains('selecionado'));
+      chips.forEach(c => c.classList.toggle('selecionado', !todosSelecionados));
+
+      const btn = document.getElementById('btn-marcar-todos-alunos');
+      if (btn) {
+        const ligado = !todosSelecionados;
+        btn.classList.toggle('ativo', ligado);
+        btn.setAttribute('aria-pressed', String(ligado));
+        const txt = btn.querySelector('.toggle-texto');
+        if (txt) txt.textContent = ligado ? 'Desmarcar todos' : 'Marcar todos';
+      }
+    }
+
+    // ── PALETA DE CORES DA PUBLICAÇÃO ──────────────────────
+    const bibliotecaCoresPublicacao = [
+      { chave: 'azul',     nome: 'Azul' },
+      { chave: 'laranja',  nome: 'Laranja' },
+      { chave: 'verde',    nome: 'Verde' },
+      { chave: 'roxo',     nome: 'Roxo' },
+      { chave: 'rosa',     nome: 'Rosa' },
+      { chave: 'vermelho', nome: 'Vermelho' },
+      { chave: 'amarelo',  nome: 'Amarelo' }
+    ];
+    let corPublicacaoSelecionada = 'laranja';
+
+    function montarCorPickerPublicacao() {
+      const wrap = document.getElementById('pub-cor-picker');
+      if (!wrap) return;
+      wrap.innerHTML = bibliotecaCoresPublicacao.map(function(c) {
+        const sel = c.chave === corPublicacaoSelecionada ? ' selecionado' : '';
+        return '<button type="button" class="pub-cor-opcao pub-cor-opcao-' + c.chave + sel + '" data-cor="' + c.chave + '" title="' + c.nome + '" onclick="selecionarCorPublicacao(\'' + c.chave + '\')"><i class="ti ti-check"></i></button>';
+      }).join('');
+    }
+
+    function selecionarCorPublicacao(cor) {
+      corPublicacaoSelecionada = cor;
+      document.querySelectorAll('#pub-cor-picker .pub-cor-opcao').forEach(function(btn) {
+        btn.classList.toggle('selecionado', btn.dataset.cor === cor);
+      });
+    }
+
+    // ── BIBLIOTECA DE ÍCONES DA PUBLICAÇÃO ─────────────────
+    const bibliotecaIconesPublicacao = [
+      'ti-ball-basketball', 'ti-trophy', 'ti-speakerphone',
+      'ti-bell', 'ti-calendar-event', 'ti-clipboard-list', 'ti-alert-triangle',
+      'ti-info-circle', 'ti-news', 'ti-flag', 'ti-users'
+    ];
+    let iconePublicacaoSelecionado = 'ti-speakerphone';
+
+    function montarIconePickerPublicacao() {
+      const wrap = document.getElementById('pub-icone-picker');
+      if (!wrap) return;
+      wrap.innerHTML = bibliotecaIconesPublicacao.map(function(ic) {
+        const sel = ic === iconePublicacaoSelecionado ? ' selecionado' : '';
+        return '<button type="button" class="pub-icone-opcao' + sel + '" data-icone="' + ic + '" title="' + ic.replace('ti-', '') + '" onclick="selecionarIconePublicacao(\'' + ic + '\')"><i class="ti ' + ic + '"></i></button>';
+      }).join('');
+    }
+
+    function selecionarIconePublicacao(icone) {
+      iconePublicacaoSelecionado = icone;
+      document.querySelectorAll('#pub-icone-picker .pub-icone-opcao').forEach(function(btn) {
+        btn.classList.toggle('selecionado', btn.dataset.icone === icone);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      montarCorPickerPublicacao();
+      montarIconePickerPublicacao();
+    });
+
+    // ── PUBLICAR NOVA PUBLICAÇÃO ─────────────────
     function publicarAviso() {
       const titulo = document.getElementById('mural-titulo').value.trim();
       const data   = document.getElementById('mural-data').value.trim();
       const turma  = document.getElementById('mural-turma').value;
       const chip   = document.querySelector('#chips-tipo .chip.selecionado');
-      const tipo   = chip ? chip.dataset.tag : 'aviso';
+      const tipo   = chip ? chip.dataset.tag : 'info';
 
       if (!titulo || !data) {
-        alert('Preencha o título e a data/período do aviso.');
+        alert('Preencha o título e a data/período da publicação.');
         return;
       }
 
-      const rotulos = { aviso: 'Aviso', jogo: 'Jogo', info: 'Info' };
+      // alunos específicos marcados (em vez de mandar para a turma toda)
+      const alunosSelecionados = Array.from(
+        document.querySelectorAll('#lista-alunos-especificos .chip.selecionado')
+      ).map(c => c.dataset.aluno);
+
+      let destinatario = turma;
+      if (alunosSelecionados.length > 0) {
+        destinatario = alunosSelecionados.join(', ');
+      }
+
+      const rotulos = { jogo: 'Jogo', info: 'Info' };
+
+      const iconeEscolhido = iconePublicacaoSelecionado;
+      const corEscolhida   = corPublicacaoSelecionada;
 
       const item = document.createElement('div');
       item.className = `mural-item mural-${tipo}`;
+      item.dataset.icone = iconeEscolhido;
+      item.dataset.cor = corEscolhida;
       item.innerHTML = `
-        <div class="mural-dot"></div>
+        <div class="mural-icone cor-${corEscolhida}"><i class="ti ${iconeEscolhido}"></i></div>
         <div class="mural-conteudo">
           <p class="mural-texto">${escapeHTML(titulo)}</p>
-          <span class="mural-data">${escapeHTML(data)} · ${escapeHTML(turma)}</span>
+          <span class="mural-data">${escapeHTML(data)} · ${escapeHTML(destinatario)}</span>
         </div>
         <span class="mural-tag tag-${tipo}">${rotulos[tipo]}</span>
         <button class="mural-remover" onclick="removerAviso(this)" title="Remover aviso">
@@ -34,8 +162,11 @@
       document.getElementById('mural-titulo').value = '';
       document.getElementById('mural-data').value = '';
       document.getElementById('mural-turma').value = 'Todos os alunos';
+      atualizarListaAlunos();
       document.querySelectorAll('#chips-tipo .chip').forEach(c => c.classList.remove('selecionado'));
-      document.querySelector('#chips-tipo .chip-aviso').classList.add('selecionado');
+      document.querySelector('#chips-tipo .chip-info').classList.add('selecionado');
+      selecionarIconePublicacao('ti-speakerphone');
+      selecionarCorPublicacao('laranja');
     }
 
     function escapeHTML(texto) {
@@ -44,11 +175,24 @@
       return div.innerHTML;
     }
 
-    // ── REMOVER AVISO ───────────────────────────
+    // ── REMOVER AVISO (COM CONFIRMAÇÃO) ─────────
+    let avisoParaExcluir = null;
+
     function removerAviso(botao) {
-      const item = botao.closest('.mural-item');
+      avisoParaExcluir = botao.closest('.mural-item');
+      document.getElementById('modal-excluir-aviso').classList.add('ativo');
+    }
+
+    function fecharModalExcluirAviso() {
+      avisoParaExcluir = null;
+      document.getElementById('modal-excluir-aviso').classList.remove('ativo');
+    }
+
+    function excluirAvisoConfirmado() {
+      if (!avisoParaExcluir) return;
       const lista = document.getElementById('mural-lista');
-      item.remove();
+      avisoParaExcluir.remove();
+      avisoParaExcluir = null;
       if (!lista.querySelector('.mural-item')) {
         const vazio = document.createElement('p');
         vazio.className = 'mural-vazio';
@@ -56,6 +200,7 @@
         vazio.textContent = 'Nenhum aviso publicado no momento.';
         lista.appendChild(vazio);
       }
+      document.getElementById('modal-excluir-aviso').classList.remove('ativo');
     }
 
     // ── TEMA CLARO / ESCURO + EASTER EGG ────────
@@ -70,7 +215,7 @@
         cliquesTema = 0;
         document.body.classList.add('tema-escuro');
         const ativo = document.body.classList.toggle('tema-time');
-        document.getElementById('icone-tema').className = ativo ? 'ti ti-flame' : 'ti ti-sun';
+        document.getElementById('icone-tema').className = ativo ? 'ti ti-flame' : 'ti ti-moon';
         localStorage.setItem('tema', ativo ? 'time' : 'escuro');
         return;
       }
@@ -78,7 +223,7 @@
       if (document.body.classList.contains('tema-time')) return;
 
       const escuro = document.body.classList.toggle('tema-escuro');
-      document.getElementById('icone-tema').className = escuro ? 'ti ti-sun' : 'ti ti-moon';
+      document.getElementById('icone-tema').className = escuro ? 'ti ti-moon' : 'ti ti-sun';
       localStorage.setItem('tema', escuro ? 'escuro' : 'claro');
     }
     (function() {
@@ -90,40 +235,11 @@
         const ic = document.getElementById('icone-tema');
         if (!ic) return;
         if (salvo === 'time') ic.className = 'ti ti-flame';
-        else if (salvo === 'claro') ic.className = 'ti ti-moon';
-        else ic.className = 'ti ti-sun';
+        else if (salvo === 'claro') ic.className = 'ti ti-sun';
+        else ic.className = 'ti ti-moon';
       });
     })();
 
-    // ── REAÇÕES: resumo para o professor ────────
-    function carregarReacoes(id) {
-      try { return JSON.parse(localStorage.getItem('reacoes_' + id)) || {}; } catch { return {}; }
-    }
-
-    function renderizarResumo(el) {
-      const id = el.dataset.id;
-      const reacoes = carregarReacoes(id);
-      const total = Object.values(reacoes).reduce((a, b) => a + b, 0);
-      el.innerHTML = '';
-      if (total === 0) {
-        el.innerHTML = '<span style="font-size:11px;color:var(--texto-mudo)">Nenhuma reação ainda</span>';
-        return;
-      }
-      Object.entries(reacoes)
-        .filter(([, qtd]) => qtd > 0)
-        .sort((a, b) => b[1] - a[1])
-        .forEach(([emoji, qtd]) => {
-          const chip = document.createElement('span');
-          chip.className = 'reacao-chip';
-          chip.innerHTML = `${emoji} <strong>${qtd}</strong>`;
-          el.appendChild(chip);
-        });
-    }
-
-    document.querySelectorAll('.reacoes-resumo').forEach(el => renderizarResumo(el));
-    window.addEventListener('focus', () => {
-      document.querySelectorAll('.reacoes-resumo').forEach(el => renderizarResumo(el));
-    });
     // ── EASTER EGG LOGO: 30 cliques = TOGURO ────────────────────────────────
     (function() {
       let cliquesLogo = 0, timerLogo = null;
@@ -160,3 +276,17 @@
         });
       });
     })();
+
+    // ── SAIR (LOGOUT DO PROFESSOR) ──────────────
+    function confirmarSaidaProfessor() {
+      document.getElementById('modal-sair-professor').classList.add('ativo');
+    }
+
+    function fecharModalSairProfessor() {
+      document.getElementById('modal-sair-professor').classList.remove('ativo');
+    }
+
+    function sairProfessorAgora() {
+      localStorage.removeItem('professor-logado');
+      window.location.href = '../login/index.html';
+    }

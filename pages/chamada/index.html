@@ -23,17 +23,35 @@
       </div>
       <nav class="nav-desktop">
         <a href="../../index.html" class="nav-link">Início</a>
-        <a href="../matriculas/index.html" class="nav-link ativo">Matrículas</a>
+        <a href="../matriculas/index.html" class="nav-link">Matrículas</a>
         <a href="../turmas/index.html" class="nav-link">Turmas</a>
-        <a href="../chamada/index.html" class="nav-link">Chamada</a>
+        <a href="../chamada/index.html" class="nav-link ativo">Chamada</a>
         <a href="../mural/index.html" class="nav-link">Mural</a>
         <a href="../cronometro/index.html" class="nav-link">Cronômetro</a>
       </nav>
-      <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
-        <i class="ti ti-moon" id="icone-tema"></i>
-      </button>
+      <div class="header-acoes-prof">
+        <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
+          <i class="ti ti-moon" id="icone-tema"></i>
+        </button>
+        <button class="btn-sair-header" onclick="confirmarSaidaProfessor()" title="Sair">
+          <i class="ti ti-logout"></i> Sair
+        </button>
+      </div>
     </div>
   </header>
+
+  <!-- MODAL DE CONFIRMAÇÃO DE SAÍDA (PROFESSOR) -->
+  <div class="modal-overlay" id="modal-sair-professor">
+    <div class="modal-card">
+      <div class="modal-icone"><i class="ti ti-logout"></i></div>
+      <h3>Tem certeza que deseja sair?</h3>
+      <p>Você será redirecionado para a tela de login.</p>
+      <div class="modal-acoes">
+        <button class="modal-btn modal-btn-cancelar" onclick="fecharModalSairProfessor()">Cancelar</button>
+        <button class="modal-btn modal-btn-confirmar" onclick="sairProfessorAgora()">Sair</button>
+      </div>
+    </div>
+  </div>
 
   <main class="main">
 
@@ -79,6 +97,10 @@
           <div class="resumo-pill">
             <div class="num" id="resumo-faltas" style="color:var(--vermelho)">0</div>
             <div class="lbl">Faltas</div>
+          </div>
+          <div class="resumo-pill">
+            <div class="num" id="resumo-justificadas" style="color:var(--roxo)">0</div>
+            <div class="lbl">Faltas justif.</div>
           </div>
           <div class="resumo-pill">
             <div class="num" id="resumo-pct" style="color:var(--amarelo)">0%</div>

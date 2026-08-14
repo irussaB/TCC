@@ -23,17 +23,35 @@
       </div>
       <nav class="nav-desktop">
         <a href="../../index.html" class="nav-link">Início</a>
-        <a href="../matriculas/index.html" class="nav-link ativo">Matrículas</a>
-        <a href="../turmas/index.html" class="nav-link">Turmas</a>
+        <a href="../matriculas/index.html" class="nav-link">Matrículas</a>
+        <a href="../turmas/index.html" class="nav-link ativo">Turmas</a>
         <a href="../chamada/index.html" class="nav-link">Chamada</a>
         <a href="../mural/index.html" class="nav-link">Mural</a>
         <a href="../cronometro/index.html" class="nav-link">Cronômetro</a>
       </nav>
-      <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
-        <i class="ti ti-moon" id="icone-tema"></i>
-      </button>
+      <div class="header-acoes-prof">
+        <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
+          <i class="ti ti-moon" id="icone-tema"></i>
+        </button>
+        <button class="btn-sair-header" onclick="confirmarSaidaProfessor()" title="Sair">
+          <i class="ti ti-logout"></i> Sair
+        </button>
+      </div>
     </div>
   </header>
+
+  <!-- MODAL DE CONFIRMAÇÃO DE SAÍDA (PROFESSOR) -->
+  <div class="modal-overlay" id="modal-sair-professor">
+    <div class="modal-card">
+      <div class="modal-icone"><i class="ti ti-logout"></i></div>
+      <h3>Tem certeza que deseja sair?</h3>
+      <p>Você será redirecionado para a tela de login.</p>
+      <div class="modal-acoes">
+        <button class="modal-btn modal-btn-cancelar" onclick="fecharModalSairProfessor()">Cancelar</button>
+        <button class="modal-btn modal-btn-confirmar" onclick="sairProfessorAgora()">Sair</button>
+      </div>
+    </div>
+  </div>
 
   <main class="main">
 
@@ -65,10 +83,72 @@
       </div>
     </div>
 
+    <!-- ── FORMULÁRIO: NOVA TURMA ── -->
+    <div class="form-secao" id="form-turma-secao" style="margin-top:24px;">
+      <div class="form-secao-header">
+        <i class="ti ti-square-rounded-plus"></i>
+        <span id="form-turma-titulo">Nova turma</span>
+      </div>
+      <div class="form-corpo">
+
+        <div class="form-linha dois">
+          <div class="form-grupo">
+            <label class="form-label">Nome da turma <span class="req">*</span></label>
+            <input class="form-input" type="text" id="turma-nome" placeholder="Ex: Sub 12">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Faixa etária</label>
+            <input class="form-input" type="text" id="turma-faixa" placeholder="Ex: até 12 anos">
+          </div>
+        </div>
+
+        <div class="form-linha dois">
+          <div class="form-grupo">
+            <label class="form-label">Dias e horário</label>
+            <input class="form-input" type="text" id="turma-horario" placeholder="Ex: Seg e Qua · 17h–18h">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Professor responsável <span class="req">*</span></label>
+            <select class="form-select" id="turma-professor">
+              <option value="">Selecione o professor</option>
+              <option value="Diego">Diego</option>
+              <option value="Francesco">Francesco</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-linha">
+          <div class="form-grupo">
+            <label class="form-label">Ícone da turma</label>
+            <div class="icone-picker" id="icone-picker"></div>
+          </div>
+        </div>
+
+        <div class="form-linha">
+          <div class="form-grupo">
+            <label class="form-label">Cor da turma</label>
+            <div class="cor-picker" id="cor-picker"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="form-acoes">
+      <button type="button" class="btn-primario" id="btn-salvar-turma" onclick="criarTurma()">
+        <i class="ti ti-plus" style="margin-right:6px"></i> Criar turma
+      </button>
+      <button type="button" class="btn-cancelar-edicao" id="btn-cancelar-edicao" style="display:none" onclick="cancelarEdicaoTurma()">
+        Cancelar
+      </button>
+    </div>
+
+    <div id="lista-turmas">
+
     <!-- TURMA SUB 10 -->
-    <div class="turma-card" id="turma-sub10">
+    <div class="turma-card" id="turma-sub10" data-nome="Sub 10" data-faixa="até 10 anos" data-horario="Ter e Qui · 17h–18h" data-professor="Francesco" data-icone="ti-ball-basketball" data-cor="azul">
       <div class="turma-cabecalho" onclick="alternarTurma('sub10')">
-        <div class="turma-icone ic-sub10"><i class="ti ti-ball-basketball"></i></div>
+        <div class="turma-icone cor-azul"><i class="ti ti-ball-basketball"></i></div>
         <div class="turma-info">
           <div class="turma-nome">Sub 10</div>
           <div class="turma-detalhe">
@@ -78,29 +158,33 @@
           </div>
         </div>
         <span class="turma-badge">8 alunos</span>
+        <div class="turma-acoes">
+          <button type="button" class="btn-acao-turma" title="Editar turma" onclick="editarTurma(event, 'sub10')"><i class="ti ti-pencil"></i></button>
+          <button type="button" class="btn-acao-turma btn-excluir" title="Excluir turma" onclick="excluirTurma(event, 'sub10')"><i class="ti ti-trash"></i></button>
+        </div>
         <i class="ti ti-chevron-down turma-seta"></i>
       </div>
       <div class="turma-corpo">
         <table class="tabela">
-          <thead><tr><th>Nome</th><th>Idade</th><th>Frequência</th><th>Status</th></tr></thead>
+          <thead><tr><th>Nome</th><th>Idade</th><th>Frequência</th><th>Status</th><th>Ações</th></tr></thead>
           <tbody>
-            <tr><td>Pedro Almeida</td><td>9 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 94%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Lucas Souza</td><td>8 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 88%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Gabriel Lima</td><td>10 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 79%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Enzo Ribeiro</td><td>9 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 91%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Davi Costa</td><td>7 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 96%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Miguel Santos</td><td>10 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 81%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Theo Oliveira</td><td>8 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 92%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Bernardo Rocha</td><td>9 anos</td><td><span class="freq-mini baixa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 68%</span></td><td><span class="badge badge-laranja">Atenção</span></td></tr>
+            <tr><td>Pedro Almeida</td><td>9 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 94%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Lucas Souza</td><td>8 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 88%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Gabriel Lima</td><td>10 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 79%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Enzo Ribeiro</td><td>9 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 91%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Davi Costa</td><td>7 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 96%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Miguel Santos</td><td>10 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 81%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Theo Oliveira</td><td>8 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 92%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Bernardo Rocha</td><td>9 anos</td><td><span class="freq-mini baixa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 68%</span></td><td><span class="badge badge-laranja">Atenção</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
           </tbody>
         </table>
       </div>
     </div>
 
     <!-- TURMA SUB 13 -->
-    <div class="turma-card" id="turma-sub13">
+    <div class="turma-card" id="turma-sub13" data-nome="Sub 13" data-faixa="até 13 anos" data-horario="Seg, Qua e Sex · 18h–19h30" data-professor="Diego" data-icone="ti-ball-basketball" data-cor="laranja">
       <div class="turma-cabecalho" onclick="alternarTurma('sub13')">
-        <div class="turma-icone ic-sub13"><i class="ti ti-ball-basketball"></i></div>
+        <div class="turma-icone cor-laranja"><i class="ti ti-ball-basketball"></i></div>
         <div class="turma-info">
           <div class="turma-nome">Sub 13</div>
           <div class="turma-detalhe">
@@ -110,33 +194,37 @@
           </div>
         </div>
         <span class="turma-badge">12 alunos</span>
+        <div class="turma-acoes">
+          <button type="button" class="btn-acao-turma" title="Editar turma" onclick="editarTurma(event, 'sub13')"><i class="ti ti-pencil"></i></button>
+          <button type="button" class="btn-acao-turma btn-excluir" title="Excluir turma" onclick="excluirTurma(event, 'sub13')"><i class="ti ti-trash"></i></button>
+        </div>
         <i class="ti ti-chevron-down turma-seta"></i>
       </div>
       <div class="turma-corpo">
         <table class="tabela">
-          <thead><tr><th>Nome</th><th>Idade</th><th>Frequência</th><th>Status</th></tr></thead>
+          <thead><tr><th>Nome</th><th>Idade</th><th>Frequência</th><th>Status</th><th>Ações</th></tr></thead>
           <tbody>
-            <tr><td>Rafael Mendes</td><td>13 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 90%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Bruno Carvalho</td><td>12 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 76%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>João Pedro Alves</td><td>11 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 93%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Matheus Ferreira</td><td>13 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 85%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Felipe Nunes</td><td>12 anos</td><td><span class="freq-mini baixa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 70%</span></td><td><span class="badge badge-laranja">Atenção</span></td></tr>
-            <tr><td>Gustavo Pires</td><td>11 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 89%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Vinícius Teixeira</td><td>13 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 78%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Caio Martins</td><td>12 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 95%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Diego Barros</td><td>13 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 80%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Heitor Cardoso</td><td>11 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 91%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Arthur Dias</td><td>12 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 87%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Samuel Castro</td><td>13 anos</td><td><span class="freq-mini baixa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 65%</span></td><td><span class="badge badge-vermelho">Risco</span></td></tr>
+            <tr><td>Rafael Mendes</td><td>13 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 90%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Bruno Carvalho</td><td>12 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 76%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>João Pedro Alves</td><td>11 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 93%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Matheus Ferreira</td><td>13 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 85%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Felipe Nunes</td><td>12 anos</td><td><span class="freq-mini baixa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 70%</span></td><td><span class="badge badge-laranja">Atenção</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Gustavo Pires</td><td>11 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 89%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Vinícius Teixeira</td><td>13 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 78%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Caio Martins</td><td>12 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 95%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Diego Barros</td><td>13 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 80%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Heitor Cardoso</td><td>11 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 91%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Arthur Dias</td><td>12 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 87%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Samuel Castro</td><td>13 anos</td><td><span class="freq-mini baixa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 65%</span></td><td><span class="badge badge-vermelho">Risco</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
           </tbody>
         </table>
       </div>
     </div>
 
     <!-- TURMA SUB 16 -->
-    <div class="turma-card" id="turma-sub16">
+    <div class="turma-card" id="turma-sub16" data-nome="Sub 16" data-faixa="até 16 anos" data-horario="Ter e Qui · 19h–20h30" data-professor="Diego" data-icone="ti-ball-basketball" data-cor="verde">
       <div class="turma-cabecalho" onclick="alternarTurma('sub16')">
-        <div class="turma-icone ic-sub16"><i class="ti ti-ball-basketball"></i></div>
+        <div class="turma-icone cor-verde"><i class="ti ti-ball-basketball"></i></div>
         <div class="turma-info">
           <div class="turma-nome">Sub 16</div>
           <div class="turma-detalhe">
@@ -146,31 +234,35 @@
           </div>
         </div>
         <span class="turma-badge">10 alunos</span>
+        <div class="turma-acoes">
+          <button type="button" class="btn-acao-turma" title="Editar turma" onclick="editarTurma(event, 'sub16')"><i class="ti ti-pencil"></i></button>
+          <button type="button" class="btn-acao-turma btn-excluir" title="Excluir turma" onclick="excluirTurma(event, 'sub16')"><i class="ti ti-trash"></i></button>
+        </div>
         <i class="ti ti-chevron-down turma-seta"></i>
       </div>
       <div class="turma-corpo">
         <table class="tabela">
-          <thead><tr><th>Nome</th><th>Idade</th><th>Frequência</th><th>Status</th></tr></thead>
+          <thead><tr><th>Nome</th><th>Idade</th><th>Frequência</th><th>Status</th><th>Ações</th></tr></thead>
           <tbody>
-            <tr><td>Lucas Ferreira</td><td>15 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 87%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Thiago Andrade</td><td>16 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 92%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Rodrigo Pereira</td><td>15 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 77%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Murilo Gomes</td><td>14 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 90%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Eduardo Vieira</td><td>16 anos</td><td><span class="freq-mini baixa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 71%</span></td><td><span class="badge badge-laranja">Atenção</span></td></tr>
-            <tr><td>André Monteiro</td><td>15 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 94%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Leonardo Farias</td><td>14 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 82%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Otávio Ramos</td><td>16 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 88%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Igor Tavares</td><td>15 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 75%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Marcelo Duarte</td><td>16 anos</td><td><span class="freq-mini baixa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 64%</span></td><td><span class="badge badge-vermelho">Risco</span></td></tr>
+            <tr><td>Lucas Ferreira</td><td>15 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 87%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Thiago Andrade</td><td>16 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 92%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Rodrigo Pereira</td><td>15 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 77%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Murilo Gomes</td><td>14 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 90%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Eduardo Vieira</td><td>16 anos</td><td><span class="freq-mini baixa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 71%</span></td><td><span class="badge badge-laranja">Atenção</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>André Monteiro</td><td>15 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 94%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Leonardo Farias</td><td>14 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 82%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Otávio Ramos</td><td>16 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 88%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Igor Tavares</td><td>15 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 75%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Marcelo Duarte</td><td>16 anos</td><td><span class="freq-mini baixa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 64%</span></td><td><span class="badge badge-vermelho">Risco</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
           </tbody>
         </table>
       </div>
     </div>
 
     <!-- TURMA SUB 18 -->
-    <div class="turma-card" id="turma-sub18">
+    <div class="turma-card" id="turma-sub18" data-nome="Sub 18" data-faixa="até 18 anos" data-horario="Seg, Qua e Sex · 20h–21h30" data-professor="Diego" data-icone="ti-ball-basketball" data-cor="roxo">
       <div class="turma-cabecalho" onclick="alternarTurma('sub18')">
-        <div class="turma-icone ic-sub18"><i class="ti ti-ball-basketball"></i></div>
+        <div class="turma-icone cor-roxo"><i class="ti ti-ball-basketball"></i></div>
         <div class="turma-info">
           <div class="turma-nome">Sub 18</div>
           <div class="turma-detalhe">
@@ -180,30 +272,34 @@
           </div>
         </div>
         <span class="turma-badge">9 alunos</span>
+        <div class="turma-acoes">
+          <button type="button" class="btn-acao-turma" title="Editar turma" onclick="editarTurma(event, 'sub18')"><i class="ti ti-pencil"></i></button>
+          <button type="button" class="btn-acao-turma btn-excluir" title="Excluir turma" onclick="excluirTurma(event, 'sub18')"><i class="ti ti-trash"></i></button>
+        </div>
         <i class="ti ti-chevron-down turma-seta"></i>
       </div>
       <div class="turma-corpo">
         <table class="tabela">
-          <thead><tr><th>Nome</th><th>Idade</th><th>Frequência</th><th>Status</th></tr></thead>
+          <thead><tr><th>Nome</th><th>Idade</th><th>Frequência</th><th>Status</th><th>Ações</th></tr></thead>
           <tbody>
-            <tr><td>Renato Borges</td><td>18 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 89%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Fábio Correia</td><td>17 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 93%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Wesley Moraes</td><td>17 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 78%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Daniel Brito</td><td>18 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 86%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Cauã Lopes</td><td>17 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 80%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Henrique Souza</td><td>18 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 91%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Yago Martins</td><td>17 anos</td><td><span class="freq-mini baixa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 69%</span></td><td><span class="badge badge-laranja">Atenção</span></td></tr>
-            <tr><td>Adriano Reis</td><td>18 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 84%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Vitor Cunha</td><td>17 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 79%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
+            <tr><td>Renato Borges</td><td>18 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 89%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Fábio Correia</td><td>17 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 93%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Wesley Moraes</td><td>17 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 78%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Daniel Brito</td><td>18 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 86%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Cauã Lopes</td><td>17 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 80%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Henrique Souza</td><td>18 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 91%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Yago Martins</td><td>17 anos</td><td><span class="freq-mini baixa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 69%</span></td><td><span class="badge badge-laranja">Atenção</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Adriano Reis</td><td>18 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 84%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Vitor Cunha</td><td>17 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 79%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
           </tbody>
         </table>
       </div>
     </div>
 
     <!-- TURMA SUB FEMININO -->
-    <div class="turma-card" id="turma-fem">
+    <div class="turma-card" id="turma-fem" data-nome="Sub Feminino" data-faixa="todas as idades" data-horario="Seg e Qua · 17h–18h30" data-professor="Francesco" data-icone="ti-ball-basketball" data-cor="rosa">
       <div class="turma-cabecalho" onclick="alternarTurma('fem')">
-        <div class="turma-icone ic-fem"><i class="ti ti-ball-basketball"></i></div>
+        <div class="turma-icone cor-rosa"><i class="ti ti-ball-basketball"></i></div>
         <div class="turma-info">
           <div class="turma-nome">Sub Feminino</div>
           <div class="turma-detalhe">
@@ -213,23 +309,29 @@
           </div>
         </div>
         <span class="turma-badge">8 alunas</span>
+        <div class="turma-acoes">
+          <button type="button" class="btn-acao-turma" title="Editar turma" onclick="editarTurma(event, 'fem')"><i class="ti ti-pencil"></i></button>
+          <button type="button" class="btn-acao-turma btn-excluir" title="Excluir turma" onclick="excluirTurma(event, 'fem')"><i class="ti ti-trash"></i></button>
+        </div>
         <i class="ti ti-chevron-down turma-seta"></i>
       </div>
       <div class="turma-corpo">
         <table class="tabela">
-          <thead><tr><th>Nome</th><th>Idade</th><th>Frequência</th><th>Status</th></tr></thead>
+          <thead><tr><th>Nome</th><th>Idade</th><th>Frequência</th><th>Status</th><th>Ações</th></tr></thead>
           <tbody>
-            <tr><td>Ana Clara Silva</td><td>14 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 92%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Beatriz Santos</td><td>11 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 95%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Camila Rocha</td><td>16 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 81%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Júlia Almeida</td><td>9 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 90%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Larissa Costa</td><td>13 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 88%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Mariana Pires</td><td>17 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 76%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Sofia Ribeiro</td><td>12 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 93%</span></td><td><span class="badge badge-verde">Ativo</span></td></tr>
-            <tr><td>Valentina Souza</td><td>15 anos</td><td><span class="freq-mini baixa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 72%</span></td><td><span class="badge badge-laranja">Atenção</span></td></tr>
+            <tr><td>Ana Clara Silva</td><td>14 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 92%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Beatriz Santos</td><td>11 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 95%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Camila Rocha</td><td>16 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 81%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Júlia Almeida</td><td>9 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 90%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Larissa Costa</td><td>13 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 88%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Mariana Pires</td><td>17 anos</td><td><span class="freq-mini media"><i class="ti ti-circle-filled" style="font-size:8px"></i> 76%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Sofia Ribeiro</td><td>12 anos</td><td><span class="freq-mini boa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 93%</span></td><td><span class="badge badge-verde">Ativo</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
+            <tr><td>Valentina Souza</td><td>15 anos</td><td><span class="freq-mini baixa"><i class="ti ti-circle-filled" style="font-size:8px"></i> 72%</span></td><td><span class="badge badge-laranja">Atenção</span></td><td><button type="button" class="btn-perfil-aluno" onclick="abrirPerfilAluno(this)" title="Ver perfil do aluno"><i class="ti ti-id-badge-2"></i> Perfil</button></td></tr>
           </tbody>
         </table>
       </div>
+    </div>
+
     </div>
 
   </main>
@@ -237,6 +339,64 @@
   <footer class="rodape">
     Escolinha de Basquete · Prof. Diego &amp; Francesco · 2026
   </footer>
+
+  <!-- MODAL: PERFIL DO ALUNO -->
+  <div class="modal-overlay" id="modal-perfil-aluno" onclick="fecharModalPerfilAluno(event)">
+    <div class="modal-box modal-perfil" onclick="event.stopPropagation()">
+      <div class="perfil-cabecalho">
+        <div class="perfil-avatar" id="perfil-avatar">A</div>
+        <div>
+          <div class="perfil-nome" id="perfil-nome">—</div>
+          <div class="perfil-turma-atual" id="perfil-turma-atual">Turma —</div>
+        </div>
+      </div>
+
+      <div class="perfil-info-grid">
+        <div class="perfil-info-item">
+          <span class="perfil-info-label"><i class="ti ti-cake"></i> Idade</span>
+          <span class="perfil-info-valor" id="perfil-idade">—</span>
+        </div>
+        <div class="perfil-info-item">
+          <span class="perfil-info-label"><i class="ti ti-chart-line"></i> Frequência</span>
+          <span class="perfil-info-valor" id="perfil-frequencia">—</span>
+        </div>
+        <div class="perfil-info-item">
+          <span class="perfil-info-label"><i class="ti ti-activity"></i> Status</span>
+          <span class="perfil-info-valor" id="perfil-status">—</span>
+        </div>
+      </div>
+
+      <div class="form-grupo" style="margin-top:18px">
+        <label class="form-label"><i class="ti ti-users" style="margin-right:4px"></i> Mudar de turma</label>
+        <select class="form-select" id="perfil-turma-select"></select>
+      </div>
+
+      <div class="modal-acoes" style="margin-top:20px">
+        <button type="button" class="btn-cancelar-edicao" onclick="fecharModalPerfilAluno()">Cancelar</button>
+        <button type="button" class="btn-primario" style="flex:1;justify-content:center" onclick="salvarPerfilAluno()">
+          <i class="ti ti-device-floppy" style="margin-right:6px"></i> Salvar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE CONFIRMAÇÃO: EXCLUIR TURMA -->
+  <div class="modal-overlay" id="modal-exclusao" onclick="fecharModalExclusao(event)">
+    <div class="modal-box modal-confirmacao">
+      <div class="modal-icone-alerta"><i class="ti ti-alert-triangle"></i></div>
+      <div class="modal-titulo-confirmacao">Excluir turma?</div>
+      <div class="modal-texto-confirmacao">
+        Tem certeza que deseja excluir a turma <strong id="modal-turma-nome">—</strong>?
+        Essa ação não pode ser desfeita e os alunos vinculados perderão o vínculo com a turma.
+      </div>
+      <div class="modal-acoes">
+        <button type="button" class="btn-cancelar-edicao" onclick="fecharModalExclusaoBtn()">Cancelar</button>
+        <button type="button" class="btn-confirmar-exclusao" onclick="confirmarExclusaoTurma()">
+          <i class="ti ti-trash" style="margin-right:6px"></i> Excluir turma
+        </button>
+      </div>
+    </div>
+  </div>
 </body>
 <script src="turmas.js"></script>
 </html>

@@ -66,6 +66,7 @@
           <div class="aluno-nome">${nome}</div>
           <div class="status-btns">
             <button class="status-btn presente ativo" onclick="marcarStatus('${nome}', 'presente', this)" title="Presente"><i class="ti ti-check"></i></button>
+            <button class="status-btn justificada" onclick="marcarStatus('${nome}', 'justificada', this)" title="Falta justificada (conta como presença)"><i class="ti ti-note"></i></button>
             <button class="status-btn falta" onclick="marcarStatus('${nome}', 'falta', this)" title="Falta"><i class="ti ti-x"></i></button>
           </div>
         </div>
@@ -96,13 +97,16 @@
     function atualizarResumo() {
       const valores = Object.values(statusAlunos);
       const total = valores.length;
-      const presentes = valores.filter(s => s === 'presente').length;
+      // Falta justificada não altera a presença do aluno nem da turma: conta como presença.
+      const justificadas = valores.filter(s => s === 'justificada').length;
+      const presentes = valores.filter(s => s === 'presente' || s === 'justificada').length;
       const faltas = total - presentes;
       const pct = total ? Math.round((presentes / total) * 100) : 0;
 
       document.getElementById('resumo-total').textContent = total;
       document.getElementById('resumo-presentes').textContent = presentes;
       document.getElementById('resumo-faltas').textContent = faltas;
+      document.getElementById('resumo-justificadas').textContent = justificadas;
       document.getElementById('resumo-pct').textContent = pct + '%';
     }
 
@@ -115,7 +119,8 @@
       }
 
       const valores = Object.values(statusAlunos);
-      const presentes = valores.filter(s => s === 'presente').length;
+      const justificadas = valores.filter(s => s === 'justificada').length;
+      const presentes = valores.filter(s => s === 'presente' || s === 'justificada').length;
       const faltas = valores.length - presentes;
 
       const registro = {
@@ -123,6 +128,7 @@
         turma: turmas[turmaAtual].nome,
         presentes: presentes,
         faltas: faltas,
+        justificadas: justificadas,
         detalhes: { ...statusAlunos }
       };
 
@@ -157,6 +163,7 @@
           <div class="hist-stats">
             <span class="ok"><i class="ti ti-check"></i> ${h.presentes}</span>
             <span class="no"><i class="ti ti-x"></i> ${h.faltas}</span>
+            ${h.justificadas ? `<span class="just"><i class="ti ti-note"></i> ${h.justificadas}</span>` : ''}
           </div>
         </div>
       `).join('');
@@ -202,3 +209,17 @@
         });
       });
     })();
+
+    // ── SAIR (LOGOUT DO PROFESSOR) ──────────────
+    function confirmarSaidaProfessor() {
+      document.getElementById('modal-sair-professor').classList.add('ativo');
+    }
+
+    function fecharModalSairProfessor() {
+      document.getElementById('modal-sair-professor').classList.remove('ativo');
+    }
+
+    function sairProfessorAgora() {
+      localStorage.removeItem('professor-logado');
+      window.location.href = '../login/index.html';
+    }

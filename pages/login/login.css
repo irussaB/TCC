@@ -268,7 +268,7 @@
     .btn-entrar {
       width: 100%;
       padding: 13px;
-      background-color: var(--azul-escuro);
+      background: linear-gradient(135deg, var(--laranja), #d47a20);
       color: white;
       border: none;
       border-radius: 10px;
@@ -276,12 +276,16 @@
       font-weight: 700;
       cursor: pointer;
       font-family: inherit;
-      transition: background 0.2s, transform 0.15s;
+      transition: opacity 0.2s, transform 0.15s;
       letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
 
     .btn-entrar:hover {
-      background-color: #2a2a4e;
+      opacity: 0.92;
       transform: translateY(-1px);
     }
 
