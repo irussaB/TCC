@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turmas — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="turmas.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon"><i class="ti ti-ball-basketball"></i></div>
+        <div class="logo-texto"><span class="logo-nome">Escolinha de Basquete</span></div>
+      </div>
+      <nav class="nav-desktop">
+        <a href="../../index.html" class="nav-link">Início</a>
+        <a href="../matriculas/index.html" class="nav-link">Matrículas</a>
+        <a href="../turmas/index.html" class="nav-link ativo">Turmas</a>
+        <a href="../chamada/index.html" class="nav-link">Chamada</a>
+      </nav>
+      <div class="header-acoes-prof">
+        <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
+          <i class="ti ti-moon" id="icone-tema"></i>
+        </button>
+        <button class="btn-sair-header" onclick="confirmarSaidaProfessor()" title="Sair">
+          <i class="ti ti-logout"></i> Sair
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="modal-overlay" id="modal-sair-professor">
+    <div class="modal-card">
+      <div class="modal-icone"><i class="ti ti-logout"></i></div>
+      <h3>Tem certeza que deseja sair?</h3>
+      <p>Você será redirecionado para a tela de login.</p>
+      <div class="modal-acoes">
+        <button class="modal-btn modal-btn-cancelar" onclick="fecharModalSairProfessor()">Cancelar</button>
+        <button class="modal-btn modal-btn-confirmar" onclick="sairProfessorAgora()">Sair</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="main">
+    <div>
+      <div class="pagina-titulo"><i class="ti ti-users"></i> Turmas</div>
+      <div class="pagina-sub">Clique em uma turma para ver e adicionar alunos</div>
+    </div>
+
+    <div class="form-secao">
+      <div class="form-secao-header"><i class="ti ti-square-rounded-plus"></i><span>Nova turma</span></div>
+      <div class="form-corpo">
+        <div class="form-linha dois">
+          <div class="form-grupo">
+            <label class="form-label">Nome da turma <span class="req">*</span></label>
+            <input class="form-input" type="text" id="turma-nome" placeholder="Ex: Sub 12">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Professor responsável <span class="req">*</span></label>
+            <select class="form-select" id="turma-professor"></select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-acoes">
+      <button type="button" class="btn-primario" onclick="criarTurma()"><i class="ti ti-plus" style="margin-right:6px"></i> Criar turma</button>
+    </div>
+
+    <div id="lista-turmas"></div>
+  </main>
+
+  <div class="modal-overlay" id="modal-alunos-turma" onclick="fecharModalAlunos(event)">
+    <div class="modal-box">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="font-size:18px;font-weight:700;" id="modal-turma-titulo">Turma</div>
+        <button class="btn-detalhes" onclick="fecharModalAlunosBtn()"><i class="ti ti-x"></i></button>
+      </div>
+
+      <div class="form-grupo">
+        <label class="form-label">Buscar aluno aprovado (sem turma ou de outra turma)</label>
+        <input class="form-input" type="text" id="busca-aluno-turma" placeholder="Digite o nome do aluno..." oninput="filtrarAlunosDisponiveis()">
+      </div>
+      <div id="lista-alunos-disponiveis" style="display:flex;flex-direction:column;gap:8px;max-height:220px;overflow-y:auto;"></div>
+
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--texto-mudo);padding-bottom:6px;border-bottom:1px solid var(--borda);margin-top:10px;">Alunos na turma</div>
+      <table class="tabela">
+        <thead><tr><th>Nome</th><th>Idade</th><th>Ações</th></tr></thead>
+        <tbody id="tbody-alunos-turma"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer class="rodape"><div class="container"><p>Escolinha de Basquete · Prof. Diego &amp; Francesco · 2026</p></div></footer>
+
+  <script src="../../app.js"></script>
+  <script src="turmas.js"></script>
+</body>
+</html>

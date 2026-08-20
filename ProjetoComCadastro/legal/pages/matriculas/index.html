@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matrículas — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon"><i class="ti ti-ball-basketball"></i></div>
+        <div class="logo-texto"><span class="logo-nome">Escolinha de Basquete</span></div>
+      </div>
+      <nav class="nav-desktop">
+        <a href="../../index.html" class="nav-link">Início</a>
+        <a href="./index.html" class="nav-link ativo">Matrículas</a>
+        <a href="../turmas/index.html" class="nav-link">Turmas</a>
+        <a href="../chamada/index.html" class="nav-link">Chamada</a>
+      </nav>
+      <div class="header-acoes-prof">
+        <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
+          <i class="ti ti-moon" id="icone-tema"></i>
+        </button>
+        <button class="btn-sair-header" onclick="confirmarSaidaProfessor()" title="Sair">
+          <i class="ti ti-logout"></i> Sair
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="modal-overlay" id="modal-sair-professor">
+    <div class="modal-card">
+      <div class="modal-icone"><i class="ti ti-logout"></i></div>
+      <h3>Tem certeza que deseja sair?</h3>
+      <p>Você será redirecionado para a tela de login.</p>
+      <div class="modal-acoes">
+        <button class="modal-btn modal-btn-cancelar" onclick="fecharModalSairProfessor()">Cancelar</button>
+        <button class="modal-btn modal-btn-confirmar" onclick="sairProfessorAgora()">Sair</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="main">
+    <div>
+      <h1 class="pagina-titulo"><i class="ti ti-user-check"></i> Matrículas</h1>
+      <p class="pagina-sub">Gerencie as solicitações de matrícula dos alunos</p>
+    </div>
+
+    <div class="abas-wrap" style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="chip selecionado" onclick="filtrarAba('todas', this)"><i class="ti ti-list"></i> Todas <span class="badge-count" id="count-todas">0</span></button>
+      <button class="chip" onclick="filtrarAba('pendente', this)"><i class="ti ti-clock"></i> Pendentes <span class="badge-count" id="count-pendente">0</span></button>
+      <button class="chip" onclick="filtrarAba('aprovada', this)"><i class="ti ti-check"></i> Aprovadas <span class="badge-count" id="count-aprovada">0</span></button>
+      <button class="chip" onclick="filtrarAba('recusada', this)"><i class="ti ti-x"></i> Recusadas <span class="badge-count" id="count-recusada">0</span></button>
+    </div>
+
+    <div class="form-grupo">
+      <input class="form-input" type="text" placeholder="Buscar por nome do aluno..." oninput="buscarAluno(this.value)">
+    </div>
+
+    <div class="lista-matriculas" id="lista-matriculas" style="display:flex;flex-direction:column;gap:12px;"></div>
+    <div class="estado-vazio" id="estado-vazio"><i class="ti ti-inbox"></i><p>Nenhuma matrícula encontrada.</p></div>
+  </main>
+
+  <div class="modal-overlay" id="modal" onclick="fecharModal(event)">
+    <div class="modal-box">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+        <div>
+          <div style="font-size:18px;font-weight:700;" id="modal-nome">—</div>
+          <div style="font-size:13px;color:var(--texto-mudo);margin-top:2px;" id="modal-sub">—</div>
+        </div>
+        <button class="btn-detalhes" onclick="fecharModalBtn()"><i class="ti ti-x"></i></button>
+      </div>
+
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--texto-mudo);padding-bottom:6px;border-bottom:1px solid var(--borda);margin-bottom:10px;">Dados do aluno</div>
+        <div class="modal-campo" style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;"><span style="color:var(--texto-mudo)">Nascimento</span><span id="md-nascimento">—</span></div>
+        <div class="modal-campo" style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;"><span style="color:var(--texto-mudo)">Sexo</span><span id="md-sexo">—</span></div>
+        <div class="modal-campo" style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;"><span style="color:var(--texto-mudo)">Peso / Altura</span><span id="md-fisico">—</span></div>
+        <div class="modal-campo" style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;"><span style="color:var(--texto-mudo)">CPF</span><span id="md-cpf">—</span></div>
+        <div class="modal-campo" style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;"><span style="color:var(--texto-mudo)">E-mail</span><span id="md-email">—</span></div>
+        <div class="modal-campo" style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;"><span style="color:var(--texto-mudo)">Telefone</span><span id="md-telefone">—</span></div>
+        <div class="modal-campo" style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;"><span style="color:var(--texto-mudo)">Endereço</span><span id="md-endereco">—</span></div>
+        <div class="modal-campo" style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;"><span style="color:var(--texto-mudo)">Cidade/UF</span><span id="md-cidade">—</span></div>
+      </div>
+
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--texto-mudo);padding-bottom:6px;border-bottom:1px solid var(--borda);margin-bottom:10px;">Responsável</div>
+        <div class="modal-campo" style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;"><span style="color:var(--texto-mudo)">Nome</span><span id="md-resp-nome">—</span></div>
+        <div class="modal-campo" style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;"><span style="color:var(--texto-mudo)">Telefone</span><span id="md-resp-tel">—</span></div>
+        <div class="modal-campo" style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;"><span style="color:var(--texto-mudo)">E-mail</span><span id="md-resp-email">—</span></div>
+      </div>
+
+      <div style="display:flex;gap:10px;" id="modal-acoes"></div>
+    </div>
+  </div>
+
+  <div class="toast-wrap" id="toasts"></div>
+
+  <footer class="rodape"><div class="container"><p>Escolinha de Basquete · Prof. Diego &amp; Francesco · 2026</p></div></footer>
+
+  <script src="../../app.js"></script>
+  <script src="matriculas.js"></script>
+</body>
+</html>

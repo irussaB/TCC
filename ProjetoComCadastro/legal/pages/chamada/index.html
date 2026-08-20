@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chamada — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="chamada.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon"><i class="ti ti-ball-basketball"></i></div>
+        <div class="logo-texto"><span class="logo-nome">Escolinha de Basquete</span></div>
+      </div>
+      <nav class="nav-desktop">
+        <a href="../../index.html" class="nav-link">Início</a>
+        <a href="../matriculas/index.html" class="nav-link">Matrículas</a>
+        <a href="../turmas/index.html" class="nav-link">Turmas</a>
+        <a href="../chamada/index.html" class="nav-link ativo">Chamada</a>
+      </nav>
+      <div class="header-acoes-prof">
+        <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
+          <i class="ti ti-moon" id="icone-tema"></i>
+        </button>
+        <button class="btn-sair-header" onclick="confirmarSaidaProfessor()" title="Sair">
+          <i class="ti ti-logout"></i> Sair
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="modal-overlay" id="modal-sair-professor">
+    <div class="modal-card">
+      <div class="modal-icone"><i class="ti ti-logout"></i></div>
+      <h3>Tem certeza que deseja sair?</h3>
+      <p>Você será redirecionado para a tela de login.</p>
+      <div class="modal-acoes">
+        <button class="modal-btn modal-btn-cancelar" onclick="fecharModalSairProfessor()">Cancelar</button>
+        <button class="modal-btn modal-btn-confirmar" onclick="sairProfessorAgora()">Sair</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="main">
+    <div>
+      <div class="pagina-titulo"><i class="ti ti-clipboard-check"></i> Chamada</div>
+      <div class="pagina-sub">Selecione a turma e a data para registrar a presença</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><i class="ti ti-filter"></i> Selecionar turma</div>
+      <div class="card-body">
+        <div class="chip-grupo" id="chips-turma"></div>
+        <div class="form-grupo" style="margin-top:16px;max-width:220px;">
+          <label class="form-label">Data do treino</label>
+          <input class="form-input" type="date" id="data-treino">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><i class="ti ti-chart-bar"></i> Resumo da chamada</div>
+      <div class="card-body">
+        <div class="resumo-grid">
+          <div class="resumo-card"><div class="resumo-num" id="resumo-total" style="color:var(--azul)">0</div><div class="resumo-label">Alunos</div></div>
+          <div class="resumo-card"><div class="resumo-num" id="resumo-presentes" style="color:var(--verde)">0</div><div class="resumo-label">Presentes</div></div>
+          <div class="resumo-card"><div class="resumo-num" id="resumo-faltas" style="color:var(--vermelho)">0</div><div class="resumo-label">Faltas</div></div>
+          <div class="resumo-card"><div class="resumo-num" id="resumo-pct" style="color:var(--amarelo)">0%</div><div class="resumo-label">Presença</div></div>
+        </div>
+
+        <div id="lista-alunos" style="margin-top:16px;"></div>
+
+        <div class="btn-grupo">
+          <button class="btn btn-laranja" onclick="marcarTodos('presente')"><i class="ti ti-checks"></i> Marcar todos presentes</button>
+          <button class="btn btn-cinza" onclick="marcarTodos('falta')"><i class="ti ti-x"></i> Marcar todos faltas</button>
+          <button class="btn btn-laranja" onclick="salvarChamada()" style="margin-left:auto"><i class="ti ti-device-floppy"></i> Salvar chamada</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><i class="ti ti-history"></i> Histórico de chamadas salvas</div>
+      <div class="card-body"><div id="historico"></div></div>
+    </div>
+  </main>
+
+  <div class="modal-overlay" id="modal-hist-detalhe" onclick="fecharModalHist(event)">
+    <div class="modal-box">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="font-size:18px;font-weight:700;" id="hist-titulo">Chamada</div>
+        <button class="btn-detalhes" onclick="fecharModalHistBtn()"><i class="ti ti-x"></i></button>
+      </div>
+      <div id="hist-lista" style="display:flex;flex-direction:column;gap:8px;"></div>
+    </div>
+  </div>
+
+  <footer class="rodape"><div class="container"><p>Escolinha de Basquete · Prof. Diego &amp; Francesco · 2026</p></div></footer>
+
+  <script src="../../app.js"></script>
+  <script src="chamada.js"></script>
+</body>
+</html>

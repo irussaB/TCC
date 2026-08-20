@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nova Matrícula — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon"><i class="ti ti-ball-basketball"></i></div>
+        <div class="logo-texto"><span class="logo-nome">Escolinha de Basquete</span></div>
+      </div>
+      <nav class="nav-desktop">
+        <a href="../../index.html" class="nav-link">Início</a>
+      </nav>
+      <div class="header-acoes-prof">
+        <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
+          <i class="ti ti-moon" id="icone-tema"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container form-pagina">
+    <h1 class="form-titulo">Nova Matrícula</h1>
+    <p class="form-subtitulo">Preencha todos os campos. O professor irá revisar e aprovar.</p>
+
+    <div class="banner-info">
+      <i class="ti ti-info-circle"></i>
+      <p>Idade mínima: 7 anos · máxima: 22 anos. Documentos obrigatórios: autorização dos pais e exame médico.</p>
+    </div>
+
+    <form id="form-cadastro">
+
+      <div class="form-secao">
+        <div class="form-secao-header"><i class="ti ti-user"></i><span>Dados do aluno</span><span class="obrigatorio">Obrigatório</span></div>
+        <div class="form-corpo">
+
+          <div class="form-linha">
+            <div class="form-grupo">
+              <label class="form-label">Nome completo <span class="req">*</span></label>
+              <input class="form-input" type="text" id="nome" required>
+            </div>
+          </div>
+
+          <div class="form-linha dois">
+            <div class="form-grupo">
+              <label class="form-label">Data de nascimento <span class="req">*</span></label>
+              <input class="form-input" type="date" id="nascimento" required onchange="calcularCategoria()">
+            </div>
+            <div class="form-grupo">
+              <label class="form-label">Sexo <span class="req">*</span></label>
+              <select class="form-select" id="sexo" required onchange="calcularCategoria()">
+                <option value="">Selecione</option>
+                <option value="M">Masculino</option>
+                <option value="F">Feminino</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="banner-turma" id="banner-turma">
+            <i class="ti ti-check"></i>
+            <span id="texto-turma">Turma definida automaticamente</span>
+          </div>
+
+          <div class="form-linha dois">
+            <div class="form-grupo">
+              <label class="form-label">Peso (kg) <span class="req">*</span></label>
+              <input class="form-input" type="number" id="peso" min="20" max="200" required>
+            </div>
+            <div class="form-grupo">
+              <label class="form-label">Altura (cm) <span class="req">*</span></label>
+              <input class="form-input" type="number" id="altura" min="100" max="250" required>
+            </div>
+          </div>
+
+          <div class="form-linha dois">
+            <div class="form-grupo">
+              <label class="form-label">CPF do aluno <span class="req">*</span></label>
+              <input class="form-input" type="text" id="cpf-aluno" maxlength="14" required oninput="mascaraCPF(this)">
+            </div>
+            <div class="form-grupo">
+              <label class="form-label">RG <span class="req">*</span></label>
+              <input class="form-input" type="text" id="rg" required>
+            </div>
+          </div>
+
+          <div class="form-linha dois">
+            <div class="form-grupo">
+              <label class="form-label">Email do aluno <span class="req">*</span></label>
+              <input class="form-input" type="email" id="email-aluno" placeholder="email@exemplo.com" required oninput="validarEmailCampo(this)" onblur="validarEmailCampo(this)">
+            </div>
+            <div class="form-grupo">
+              <label class="form-label">Telefone do aluno <span class="req">*</span></label>
+              <input class="form-input" type="tel" id="telefone-aluno" maxlength="16" required oninput="mascaraTelefone(this)">
+            </div>
+          </div>
+
+          <div class="form-linha dois">
+            <div class="form-grupo">
+              <label class="form-label">CEP <span class="req">*</span></label>
+              <input class="form-input" type="text" id="cep" maxlength="9" required oninput="mascaraCEP(this)" onblur="buscarCEP('cep', {endereco:'endereco', bairro:'bairro', cidade:'cidade', uf:'uf', numero:'numero'})">
+            </div>
+            <div class="form-grupo">
+              <label class="form-label">Número <span class="req">*</span></label>
+              <input class="form-input" type="text" id="numero" required>
+            </div>
+          </div>
+
+          <div class="form-linha dois">
+            <div class="form-grupo">
+              <label class="form-label">Endereço <span class="req">*</span></label>
+              <input class="form-input" type="text" id="endereco" required>
+            </div>
+            <div class="form-grupo">
+              <label class="form-label">Bairro <span class="req">*</span></label>
+              <input class="form-input" type="text" id="bairro" required>
+            </div>
+          </div>
+
+          <div class="form-linha dois">
+            <div class="form-grupo">
+              <label class="form-label">Cidade <span class="req">*</span></label>
+              <input class="form-input" type="text" id="cidade" required>
+            </div>
+            <div class="form-grupo">
+              <label class="form-label">UF <span class="req">*</span></label>
+              <select class="form-select" id="uf" required>
+                <option value="">Selecione</option>
+                <option>AC</option><option>AL</option><option>AP</option><option>AM</option><option>BA</option>
+                <option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option>
+                <option>MT</option><option>MS</option><option>MG</option><option>PA</option><option>PB</option>
+                <option>PR</option><option>PE</option><option>PI</option><option>RJ</option><option>RN</option>
+                <option>RS</option><option>RO</option><option>RR</option><option>SC</option><option>SP</option>
+                <option>SE</option><option>TO</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-secao" id="secao-responsavel">
+        <div class="form-secao-header"><i class="ti ti-users"></i><span>Responsável</span><span class="obrigatorio">Obrigatório</span></div>
+        <div class="form-corpo">
+          <div class="form-linha">
+            <div class="form-grupo">
+              <label class="form-label">Nome do responsável <span class="req">*</span></label>
+              <input class="form-input" type="text" id="nome-resp" required>
+            </div>
+          </div>
+          <div class="form-linha dois">
+            <div class="form-grupo">
+              <label class="form-label">CPF do responsável <span class="req">*</span></label>
+              <input class="form-input" type="text" id="cpf-resp" maxlength="14" required oninput="mascaraCPF(this)">
+            </div>
+            <div class="form-grupo">
+              <label class="form-label">Telefone <span class="req">*</span></label>
+              <input class="form-input" type="tel" id="telefone" maxlength="16" required oninput="mascaraTelefone(this)">
+            </div>
+          </div>
+          <div class="form-linha">
+            <div class="form-grupo">
+              <label class="form-label">Email do responsável <span class="req">*</span></label>
+              <input class="form-input" type="email" id="email-resp" required oninput="validarEmailCampo(this)" onblur="validarEmailCampo(this)">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-secao">
+        <div class="form-secao-header"><i class="ti ti-file-certificate"></i><span>Documentos</span><span class="obrigatorio">Obrigatório</span></div>
+        <div class="form-corpo">
+          <div class="form-grupo">
+            <label class="form-label">Autorização dos pais / responsável <span class="req">*</span></label>
+            <div class="upload-box" onclick="document.getElementById('arquivo-autorizacao').click()">
+              <i class="ti ti-upload"></i>
+              <p>Arraste o arquivo aqui ou <span>clique para enviar</span></p>
+            </div>
+            <input type="file" id="arquivo-autorizacao" accept=".pdf,.jpg,.jpeg,.png" style="display:none" onchange="mostrarArquivo(this, 'nome-autorizacao')">
+            <p id="nome-autorizacao" style="font-size:12px;color:var(--verde);margin-top:4px"></p>
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Exame médico <span class="req">*</span></label>
+            <div class="upload-box" onclick="document.getElementById('arquivo-medico').click()">
+              <i class="ti ti-stethoscope"></i>
+              <p>Arraste o arquivo aqui ou <span>clique para enviar</span></p>
+            </div>
+            <input type="file" id="arquivo-medico" accept=".pdf,.jpg,.jpeg,.png" style="display:none" onchange="mostrarArquivo(this, 'nome-medico')">
+            <p id="nome-medico" style="font-size:12px;color:var(--verde);margin-top:4px"></p>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primario"><i class="ti ti-send" style="margin-right:6px"></i> Enviar para análise do professor</button>
+    </form>
+
+    <div id="tela-confirmacao" style="display:none; text-align:center; padding: 60px 20px; max-width: 480px; margin: 0 auto;">
+      <div style="width:72px;height:72px;background:var(--verde-dim);border:2px solid var(--verde);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:32px;color:var(--verde);">
+        <i class="ti ti-check"></i>
+      </div>
+      <h2 style="font-size:22px;font-weight:800;margin-bottom:10px">Matrícula enviada!</h2>
+      <p style="font-size:15px;color:var(--texto-mudo);line-height:1.6;margin-bottom:28px">
+        Sua solicitação foi enviada com sucesso. O professor irá revisar e você será notificado pelo e-mail informado.
+      </p>
+      <a href="../../index.html" class="btn-primario" style="display:inline-flex;width:auto;padding:13px 28px;">
+        <i class="ti ti-home" style="margin-right:8px"></i> Voltar ao início
+      </a>
+    </div>
+  </main>
+
+  <footer class="rodape"><div class="container"><p>Escolinha de Basquete · Prof. Diego &amp; Francesco · 2026</p></div></footer>
+
+  <script src="../../app.js"></script>
+  <script src="cadastro.js"></script>
+</body>
+</html>

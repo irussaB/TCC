@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escolinha de Basquete</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon"><i class="ti ti-ball-basketball"></i></div>
+        <div class="logo-texto"><span class="logo-nome">Escolinha de Basquete</span></div>
+      </div>
+
+      <nav class="nav-desktop">
+        <a href="index.html" class="nav-link ativo">Início</a>
+        <a href="pages/matriculas/index.html" class="nav-link">Matrículas</a>
+        <a href="pages/turmas/index.html" class="nav-link">Turmas</a>
+        <a href="pages/chamada/index.html" class="nav-link">Chamada</a>
+      </nav>
+
+      <div class="header-acoes-prof">
+        <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
+          <i class="ti ti-moon" id="icone-tema"></i>
+        </button>
+        <button class="btn-sair-header" onclick="confirmarSaidaProfessor()" title="Sair">
+          <i class="ti ti-logout"></i> Sair
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="modal-overlay" id="modal-sair-professor">
+    <div class="modal-card">
+      <div class="modal-icone"><i class="ti ti-logout"></i></div>
+      <h3>Tem certeza que deseja sair?</h3>
+      <p>Você será redirecionado para a tela de login.</p>
+      <div class="modal-acoes">
+        <button class="modal-btn modal-btn-cancelar" onclick="fecharModalSairProfessor()">Cancelar</button>
+        <button class="modal-btn modal-btn-confirmar" onclick="sairProfessorAgora()">Sair</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge"><i class="ti ti-ball-basketball"></i><span>Temporada 2026</span></div>
+      <h1 class="hero-titulo">Painel do Professor</h1>
+      <p class="hero-sub">Gerencie alunos, turmas e chamadas em um só lugar.</p>
+
+      <div class="hero-stats">
+        <div class="stat-card"><span class="stat-numero" id="stat-alunos">0</span><span class="stat-label">Alunos ativos</span></div>
+        <div class="stat-card"><span class="stat-numero" id="stat-turmas">0</span><span class="stat-label">Turmas</span></div>
+        <div class="stat-card"><span class="stat-numero" id="stat-pendentes">0</span><span class="stat-label">Matrículas pendentes</span></div>
+        <div class="stat-card"><span class="stat-numero" id="stat-professores">0</span><span class="stat-label">Professores</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao container">
+    <h2 class="secao-titulo"><i class="ti ti-layout-grid"></i> Menu principal</h2>
+
+    <div class="menu-grid">
+      <a href="pages/nova-matricula/index.html" class="menu-card">
+        <div class="menu-icone icone-laranja"><i class="ti ti-user-plus"></i></div>
+        <div class="menu-info"><h3>Nova matrícula</h3><p>Cadastro público de novos alunos</p></div>
+        <i class="ti ti-chevron-right menu-seta"></i>
+      </a>
+
+      <a href="pages/matriculas/index.html" class="menu-card">
+        <div class="menu-icone icone-laranja"><i class="ti ti-clipboard-check"></i></div>
+        <div class="menu-info"><h3>Matrículas</h3><p>Aprove ou recuse solicitações de matrícula</p></div>
+        <i class="ti ti-chevron-right menu-seta"></i>
+      </a>
+
+      <a href="pages/turmas/index.html" class="menu-card">
+        <div class="menu-icone icone-azul"><i class="ti ti-users"></i></div>
+        <div class="menu-info"><h3>Turmas</h3><p>Gerencie suas turmas e alunos</p></div>
+        <i class="ti ti-chevron-right menu-seta"></i>
+      </a>
+
+      <a href="pages/chamada/index.html" class="menu-card menu-card-largo">
+        <div class="menu-icone icone-verde"><i class="ti ti-clipboard-check"></i></div>
+        <div class="menu-info"><h3>Chamada</h3><p>Frequência e controle de presença</p></div>
+        <i class="ti ti-chevron-right menu-seta"></i>
+      </a>
+    </div>
+  </section>
+
+  <footer class="rodape"><div class="container"><p>Escolinha de Basquete · Prof. Diego &amp; Francesco · 2026</p></div></footer>
+
+  <script src="app.js"></script>
+  <script>
+    const apiUrlAlunos = 'http://localhost/legal/api/ALUNOS/';
+    const apiUrlProfessores = 'http://localhost/legal/api/PROFESSORES/';
+    const apiUrlTurmas = 'http://localhost/legal/api/TURMAS/';
+    const apiUrlMatriculas = 'http://localhost/legal/api/MATRICULAS/';
+
+    function carregarResumo() {
+      Promise.all([
+        fetch(`${apiUrlAlunos}SALUNOS.php`).then(r => r.json()).catch(() => []),
+        fetch(`${apiUrlProfessores}SPROFESSORES.php`).then(r => r.json()).catch(() => []),
+        fetch(`${apiUrlTurmas}STURMAS.php`).then(r => r.json()).catch(() => []),
+        fetch(`${apiUrlMatriculas}SMATRICULAS.php`).then(r => r.json()).catch(() => []),
+      ]).then(([alunos, professores, turmas, matriculas]) => {
+        document.getElementById('stat-alunos').textContent = matriculas.filter(m => m.status === 'aprovada').length;
+        document.getElementById('stat-professores').textContent = professores.length;
+        document.getElementById('stat-turmas').textContent = turmas.length;
+        document.getElementById('stat-pendentes').textContent = matriculas.filter(m => m.status === 'pendente').length;
+      });
+    }
+
+    window.onload = carregarResumo;
+  </script>
+</body>
+</html>
