@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cronômetro e Placar — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon"><i class="ti ti-ball-basketball"></i></div>
+        <div class="logo-texto"><span class="logo-nome">Escolinha de Basquete</span></div>
+      </div>
+      <nav class="nav-desktop">
+        <a href="../menu/index.html" class="nav-link">Início</a>
+        <a href="../matriculas/index.html" class="nav-link">Matrículas</a>
+        <a href="../turmas/index.html" class="nav-link">Turmas</a>
+        <a href="../chamada/index.html" class="nav-link">Chamada</a>
+      </nav>
+      <div class="header-acoes-prof">
+        <button class="btn-menu-icone" onclick="abrirMenuDropdown()"><i class="ti ti-menu-2"></i></button>
+        <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()"><i class="ti ti-moon" id="icone-tema"></i></button>
+        <button class="btn-sair-header" onclick="confirmarSaidaProfessor()"><i class="ti ti-logout"></i> Sair</button>
+      </div>
+    </div>
+    <div class="menu-dropdown" id="menu-dropdown">
+      <a href="../categorias/index.html"><i class="ti ti-category"></i> Categorias e Exercícios</a>
+      <a href="../cronometro/index.html"><i class="ti ti-stopwatch"></i> Cronômetro e Placar</a>
+      <a href="../planos-mensais/index.html"><i class="ti ti-calendar-month"></i> Planos Mensais</a>
+      <a href="../planos-diarios/index.html"><i class="ti ti-calendar-event"></i> Planos Diários</a>
+      <a href="../horarios/index.html"><i class="ti ti-clock"></i> Horários de Treino</a>
+      <a href="../configuracao/index.html"><i class="ti ti-settings"></i> Configuração</a>
+    </div>
+  </header>
+
+  <div class="modal-overlay" id="modal-sair-professor">
+    <div class="modal-card">
+      <div class="modal-icone"><i class="ti ti-logout"></i></div>
+      <h3>Tem certeza que deseja sair?</h3>
+      <p>Você será redirecionado para a tela de login.</p>
+      <div class="modal-acoes">
+        <button class="modal-btn modal-btn-cancelar" onclick="fecharModalSairProfessor()">Cancelar</button>
+        <button class="modal-btn modal-btn-confirmar" onclick="sairProfessorAgora()">Sair</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="tela-cheia-btn" onclick="alternarTelaCheia()" title="Tela cheia">
+    <i class="ti ti-maximize" id="icone-fullscreen"></i>
+  </button>
+
+  <main class="main">
+    <div>
+      <div class="pagina-titulo"><i class="ti ti-stopwatch"></i> Cronômetro e Placar</div>
+      <div class="pagina-sub">Controle o tempo de posse, tempo de jogo e a pontuação</div>
+    </div>
+
+    <div class="crono-grid">
+      <!-- CRONÔMETRO POSSE -->
+      <div class="crono-card">
+        <h3>Posse de bola</h3>
+        <div class="crono-display" id="crono-posse">24</div>
+        <div class="crono-botoes">
+          <button class="btn btn-laranja" id="btn-posse-start" onclick="togglePosse()"><i class="ti ti-player-play"></i> Start</button>
+          <button class="btn btn-cinza" onclick="resetPosse(24, true)"><i class="ti ti-refresh"></i> Reset 24s</button>
+          <button class="btn btn-cinza" id="btn-posse-14" onclick="resetPosse(14, true)" disabled><i class="ti ti-refresh"></i> 14s</button>
+        </div>
+      </div>
+
+      <!-- CRONÔMETRO JOGO -->
+      <div class="crono-card">
+        <h3>Tempo de jogo</h3>
+        <div class="crono-display" id="crono-jogo">10:00</div>
+        <div style="display:flex;gap:8px;justify-content:center;align-items:center;margin-bottom:12px;">
+          <label style="font-size:12px;color:var(--texto-mudo);">Minutos iniciais:</label>
+          <select class="form-select" id="jogo-minutos" style="width:80px" onchange="alterarMinutosJogo()">
+            <option>5</option><option>6</option><option>7</option><option>8</option><option>9</option>
+            <option selected>10</option>
+            <option>11</option><option>12</option><option>13</option><option>14</option><option>15</option>
+          </select>
+        </div>
+        <div class="crono-botoes">
+          <button class="btn btn-laranja" id="btn-jogo-start" onclick="toggleJogo()"><i class="ti ti-player-play"></i> Start</button>
+          <button class="btn btn-cinza" onclick="resetJogo()"><i class="ti ti-refresh"></i> Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLACAR -->
+    <div class="crono-card" style="margin-top:20px;">
+      <h3>Placar</h3>
+      <div class="placar-grid">
+        <div class="placar-time">
+          <input type="text" id="time-1-nome" value="Time 1" oninput="atualizarNomeTime(1)">
+          <div class="placar-pontos" id="time-1-pontos">0</div>
+          <div class="placar-botoes">
+            <button class="add" onclick="alterarPontos(1, 1)">+1</button>
+            <button class="add" onclick="alterarPontos(1, 2)">+2</button>
+            <button class="add" onclick="alterarPontos(1, 3)">+3</button>
+            <button class="sub" onclick="alterarPontos(1, -1)">-1</button>
+            <button class="sub" onclick="alterarPontos(1, -2)">-2</button>
+            <button class="sub" onclick="alterarPontos(1, -3)">-3</button>
+          </div>
+        </div>
+        <div class="placar-time">
+          <input type="text" id="time-2-nome" value="Time 2" oninput="atualizarNomeTime(2)">
+          <div class="placar-pontos" id="time-2-pontos">0</div>
+          <div class="placar-botoes">
+            <button class="add" onclick="alterarPontos(2, 1)">+1</button>
+            <button class="add" onclick="alterarPontos(2, 2)">+2</button>
+            <button class="add" onclick="alterarPontos(2, 3)">+3</button>
+            <button class="sub" onclick="alterarPontos(2, -1)">-1</button>
+            <button class="sub" onclick="alterarPontos(2, -2)">-2</button>
+            <button class="sub" onclick="alterarPontos(2, -3)">-3</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="rodape"><div class="container"><p>Escolinha de Basquete · Prof. Diego &amp; Francesco · 2026</p></div></footer>
+
+  <script src="../../app.js"></script>
+  <script src="cronometro.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil do Aluno — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon"><i class="ti ti-ball-basketball"></i></div>
+        <div class="logo-texto"><span class="logo-nome">Escolinha de Basquete</span></div>
+      </div>
+      <nav class="nav-desktop">
+        <a href="../menu/index.html" class="nav-link">Início</a>
+        <a href="../matriculas/index.html" class="nav-link">Matrículas</a>
+        <a href="../turmas/index.html" class="nav-link">Turmas</a>
+        <a href="../chamada/index.html" class="nav-link">Chamada</a>
+      </nav>
+      <div class="header-acoes-prof">
+        <button class="btn-menu-icone" onclick="abrirMenuDropdown()"><i class="ti ti-menu-2"></i></button>
+        <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()"><i class="ti ti-moon" id="icone-tema"></i></button>
+        <button class="btn-sair-header" onclick="confirmarSaidaProfessor()"><i class="ti ti-logout"></i> Sair</button>
+      </div>
+    </div>
+    <div class="menu-dropdown" id="menu-dropdown">
+      <a href="../categorias/index.html"><i class="ti ti-category"></i> Categorias e Exercícios</a>
+      <a href="../cronometro/index.html"><i class="ti ti-stopwatch"></i> Cronômetro e Placar</a>
+      <a href="../planos-mensais/index.html"><i class="ti ti-calendar-month"></i> Planos Mensais</a>
+      <a href="../planos-diarios/index.html"><i class="ti ti-calendar-event"></i> Planos Diários</a>
+      <a href="../horarios/index.html"><i class="ti ti-clock"></i> Horários de Treino</a>
+      <a href="../configuracao/index.html"><i class="ti ti-settings"></i> Configuração</a>
+    </div>
+  </header>
+
+  <main class="main">
+    <button class="btn-detalhes" onclick="history.back()" style="width:fit-content"><i class="ti ti-arrow-left"></i> Voltar</button>
+
+    <div class="perfil-hero">
+      <div class="perfil-avatar" id="perfil-avatar">?</div>
+      <div class="perfil-info">
+        <h2 id="perfil-nome">—</h2>
+        <p id="perfil-sub">—</p>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <!-- DADOS PESSOAIS -->
+      <div class="card">
+        <div class="card-header"><i class="ti ti-user"></i> Dados pessoais</div>
+        <div class="card-body" id="dados-pessoais"></div>
+      </div>
+
+      <!-- CONTATO -->
+      <div class="card">
+        <div class="card-header"><i class="ti ti-phone"></i> Contato de emergência</div>
+        <div class="card-body" id="dados-contato"></div>
+      </div>
+
+      <!-- TURMAS -->
+      <div class="card">
+        <div class="card-header"><i class="ti ti-users"></i> Turmas</div>
+        <div class="card-body" id="dados-turmas"></div>
+      </div>
+
+      <!-- DOCUMENTOS -->
+      <div class="card">
+        <div class="card-header"><i class="ti ti-file"></i> Documentos</div>
+        <div class="card-body" id="dados-documentos"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="rodape"><div class="container"><p>Escolinha de Basquete · Prof. Diego &amp; Francesco · 2026</p></div></footer>
+
+  <script src="../../app.js"></script>
+  <script src="perfil-aluno.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configuração — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon"><i class="ti ti-ball-basketball"></i></div>
+        <div class="logo-texto"><span class="logo-nome">Escolinha de Basquete</span></div>
+      </div>
+      <nav class="nav-desktop">
+        <a href="../menu/index.html" class="nav-link">Início</a>
+        <a href="../matriculas/index.html" class="nav-link">Matrículas</a>
+        <a href="../turmas/index.html" class="nav-link">Turmas</a>
+        <a href="../chamada/index.html" class="nav-link">Chamada</a>
+      </nav>
+      <div class="header-acoes-prof">
+        <button class="btn-menu-icone" onclick="abrirMenuDropdown()"><i class="ti ti-menu-2"></i></button>
+        <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()"><i class="ti ti-moon" id="icone-tema"></i></button>
+        <button class="btn-sair-header" onclick="confirmarSaidaProfessor()"><i class="ti ti-logout"></i> Sair</button>
+      </div>
+    </div>
+    <div class="menu-dropdown" id="menu-dropdown">
+      <a href="../categorias/index.html"><i class="ti ti-category"></i> Categorias e Exercícios</a>
+      <a href="../cronometro/index.html"><i class="ti ti-stopwatch"></i> Cronômetro e Placar</a>
+      <a href="../planos-mensais/index.html"><i class="ti ti-calendar-month"></i> Planos Mensais</a>
+      <a href="../planos-diarios/index.html"><i class="ti ti-calendar-event"></i> Planos Diários</a>
+      <a href="../horarios/index.html"><i class="ti ti-clock"></i> Horários de Treino</a>
+      <a href="../configuracao/index.html"><i class="ti ti-settings"></i> Configuração</a>
+    </div>
+  </header>
+
+  <div class="modal-overlay" id="modal-sair-professor">
+    <div class="modal-card">
+      <div class="modal-icone"><i class="ti ti-logout"></i></div>
+      <h3>Tem certeza que deseja sair?</h3>
+      <p>Você será redirecionado para a tela de login.</p>
+      <div class="modal-acoes">
+        <button class="modal-btn modal-btn-cancelar" onclick="fecharModalSairProfessor()">Cancelar</button>
+        <button class="modal-btn modal-btn-confirmar" onclick="sairProfessorAgora()">Sair</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="main">
+    <div>
+      <div class="pagina-titulo"><i class="ti ti-settings"></i> Configuração</div>
+      <div class="pagina-sub">Ajustes gerais do sistema</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><i class="ti ti-info-circle"></i> Sistema</div>
+      <div class="card-body">
+        <p style="font-size:14px;line-height:1.7;color:var(--texto-mudo)">
+          Esta tela está reservada para futuras configurações administrativas, como:
+        </p>
+        <ul style="font-size:14px;color:var(--texto-mudo);margin-top:10px;padding-left:20px;line-height:1.9">
+          <li>Cadastro de novos professores</li>
+          <li>Alteração de dados da escolinha</li>
+          <li>Gerenciamento de backup do banco de dados</li>
+          <li>Configurações de criptografia de senha</li>
+          <li>Verificação de CPF, e-mail e telefone</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><i class="ti ti-palette"></i> Aparência</div>
+      <div class="card-body">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-weight:600;font-size:14px;">Tema claro / escuro</div>
+            <div style="font-size:12px;color:var(--texto-mudo);">Alterna as cores da interface</div>
+          </div>
+          <button class="btn btn-laranja" onclick="alternarTema()"><i class="ti ti-palette"></i> Alternar</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="rodape"><div class="container"><p>Escolinha de Basquete · Prof. Diego &amp; Francesco · 2026</p></div></footer>
+
+  <script src="../../app.js"></script>
+</body>
+</html>

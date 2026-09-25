@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planos Mensais — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon"><i class="ti ti-ball-basketball"></i></div>
+        <div class="logo-texto"><span class="logo-nome">Escolinha de Basquete</span></div>
+      </div>
+      <nav class="nav-desktop">
+        <a href="../menu/index.html" class="nav-link">Início</a>
+        <a href="../matriculas/index.html" class="nav-link">Matrículas</a>
+        <a href="../turmas/index.html" class="nav-link">Turmas</a>
+        <a href="../chamada/index.html" class="nav-link">Chamada</a>
+      </nav>
+      <div class="header-acoes-prof">
+        <button class="btn-menu-icone" onclick="abrirMenuDropdown()"><i class="ti ti-menu-2"></i></button>
+        <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()"><i class="ti ti-moon" id="icone-tema"></i></button>
+        <button class="btn-sair-header" onclick="confirmarSaidaProfessor()"><i class="ti ti-logout"></i> Sair</button>
+      </div>
+    </div>
+    <div class="menu-dropdown" id="menu-dropdown">
+      <a href="../categorias/index.html"><i class="ti ti-category"></i> Categorias e Exercícios</a>
+      <a href="../cronometro/index.html"><i class="ti ti-stopwatch"></i> Cronômetro e Placar</a>
+      <a href="../planos-mensais/index.html"><i class="ti ti-calendar-month"></i> Planos Mensais</a>
+      <a href="../planos-diarios/index.html"><i class="ti ti-calendar-event"></i> Planos Diários</a>
+      <a href="../horarios/index.html"><i class="ti ti-clock"></i> Horários de Treino</a>
+      <a href="../configuracao/index.html"><i class="ti ti-settings"></i> Configuração</a>
+    </div>
+  </header>
+
+  <div class="modal-overlay" id="modal-sair-professor">
+    <div class="modal-card">
+      <div class="modal-icone"><i class="ti ti-logout"></i></div>
+      <h3>Tem certeza que deseja sair?</h3>
+      <p>Você será redirecionado para a tela de login.</p>
+      <div class="modal-acoes">
+        <button class="modal-btn modal-btn-cancelar" onclick="fecharModalSairProfessor()">Cancelar</button>
+        <button class="modal-btn modal-btn-confirmar" onclick="sairProfessorAgora()">Sair</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="main">
+    <div>
+      <div class="pagina-titulo"><i class="ti ti-calendar-month"></i> Planos Mensais</div>
+      <div class="pagina-sub">Monte planos de treino com exercícios de corrida, físico e finalização</div>
+    </div>
+
+    <div class="form-secao">
+      <div class="form-secao-header"><i class="ti ti-plus"></i><span id="form-plano-titulo">Novo plano mensal</span></div>
+      <div class="form-corpo">
+        <div class="form-linha">
+          <div class="form-grupo">
+            <label class="form-label">Nome do plano <span class="req">*</span></label>
+            <input class="form-input" type="text" id="plano-nome" placeholder="Ex: Plano Base — Sub 16">
+          </div>
+        </div>
+
+        <div class="form-grupo">
+          <label class="form-label">Exercícios de corrida</label>
+          <div id="lista-campo-1" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px;"></div>
+          <button type="button" class="btn-detalhes" onclick="abrirSelecaoExercicios(1)"><i class="ti ti-plus"></i> Adicionar exercício</button>
+        </div>
+
+        <div class="form-grupo">
+          <label class="form-label">Exercícios físicos</label>
+          <div id="lista-campo-2" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px;"></div>
+          <button type="button" class="btn-detalhes" onclick="abrirSelecaoExercicios(2)"><i class="ti ti-plus"></i> Adicionar exercício</button>
+        </div>
+
+        <div class="form-grupo">
+          <label class="form-label">Exercícios de finalização</label>
+          <div id="lista-campo-3" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px;"></div>
+          <button type="button" class="btn-detalhes" onclick="abrirSelecaoExercicios(3)"><i class="ti ti-plus"></i> Adicionar exercício</button>
+        </div>
+
+        <div class="form-grupo">
+          <label class="form-label">Observações (opcional)</label>
+          <textarea class="form-input" id="plano-obs" rows="3"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-acoes">
+      <button class="btn-primario" id="btn-plano" onclick="salvarPlano()"><i class="ti ti-device-floppy" style="margin-right:6px"></i> Salvar plano</button>
+      <button class="btn-secundario" id="btn-cancelar-plano" style="display:none;width:auto" onclick="cancelarEdicao()">Cancelar</button>
+    </div>
+
+    <div>
+      <h3 style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Planos cadastrados</h3>
+      <div id="lista-planos"></div>
+      <div class="estado-vazio" id="vazio-planos"><i class="ti ti-inbox"></i><p>Nenhum plano cadastrado.</p></div>
+    </div>
+  </main>
+
+  <!-- MODAL SELEÇÃO EXERCÍCIOS -->
+  <div class="modal-overlay" id="modal-exercicios" onclick="fecharSelecaoExercicios(event)">
+    <div class="modal-box" style="max-width:600px">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="font-size:18px;font-weight:700;">Selecionar exercício</div>
+        <button class="btn-detalhes" onclick="fecharSelecaoExerciciosBtn()"><i class="ti ti-x"></i></button>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <button class="chip selecionado" onclick="filtrarSelEx('todas', this)">Todos</button>
+        <div id="filtros-sel-ex" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+      </div>
+      <div id="lista-sel-ex" style="display:flex;flex-direction:column;gap:6px;max-height:340px;overflow-y:auto;"></div>
+    </div>
+  </div>
+
+  <footer class="rodape"><div class="container"><p>Escolinha de Basquete · Prof. Diego &amp; Francesco · 2026</p></div></footer>
+
+  <script src="../../app.js"></script>
+  <script src="planos-mensais.js"></script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Categorias e Exercícios — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon"><i class="ti ti-ball-basketball"></i></div>
+        <div class="logo-texto"><span class="logo-nome">Escolinha de Basquete</span></div>
+      </div>
+      <nav class="nav-desktop">
+        <a href="../menu/index.html" class="nav-link">Início</a>
+        <a href="../matriculas/index.html" class="nav-link">Matrículas</a>
+        <a href="../turmas/index.html" class="nav-link">Turmas</a>
+        <a href="../chamada/index.html" class="nav-link">Chamada</a>
+      </nav>
+      <div class="header-acoes-prof">
+        <button class="btn-menu-icone" onclick="abrirMenuDropdown()"><i class="ti ti-menu-2"></i></button>
+        <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()"><i class="ti ti-moon" id="icone-tema"></i></button>
+        <button class="btn-sair-header" onclick="confirmarSaidaProfessor()"><i class="ti ti-logout"></i> Sair</button>
+      </div>
+    </div>
+    <div class="menu-dropdown" id="menu-dropdown">
+      <a href="../categorias/index.html"><i class="ti ti-category"></i> Categorias e Exercícios</a>
+      <a href="../cronometro/index.html"><i class="ti ti-stopwatch"></i> Cronômetro e Placar</a>
+      <a href="../planos-mensais/index.html"><i class="ti ti-calendar-month"></i> Planos Mensais</a>
+      <a href="../planos-diarios/index.html"><i class="ti ti-calendar-event"></i> Planos Diários</a>
+      <a href="../horarios/index.html"><i class="ti ti-clock"></i> Horários de Treino</a>
+      <a href="../configuracao/index.html"><i class="ti ti-settings"></i> Configuração</a>
+    </div>
+  </header>
+
+  <div class="modal-overlay" id="modal-sair-professor">
+    <div class="modal-card">
+      <div class="modal-icone"><i class="ti ti-logout"></i></div>
+      <h3>Tem certeza que deseja sair?</h3>
+      <p>Você será redirecionado para a tela de login.</p>
+      <div class="modal-acoes">
+        <button class="modal-btn modal-btn-cancelar" onclick="fecharModalSairProfessor()">Cancelar</button>
+        <button class="modal-btn modal-btn-confirmar" onclick="sairProfessorAgora()">Sair</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="main">
+    <div>
+      <div class="pagina-titulo"><i class="ti ti-category"></i> Categorias e Exercícios</div>
+      <div class="pagina-sub">Cadastre categorias e exercícios utilizados nos planos</div>
+    </div>
+
+    <!-- CATEGORIAS -->
+    <div class="form-secao">
+      <div class="form-secao-header"><i class="ti ti-tag"></i><span id="form-cat-titulo">Nova categoria</span></div>
+      <div class="form-corpo">
+        <div class="form-linha">
+          <div class="form-grupo">
+            <label class="form-label">Nome da categoria <span class="req">*</span></label>
+            <input class="form-input" type="text" id="cat-nome" placeholder="Ex: Corrida">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-acoes">
+      <button class="btn-primario" id="btn-cat" onclick="salvarCategoria()"><i class="ti ti-plus" style="margin-right:6px"></i> Criar categoria</button>
+      <button class="btn-secundario" id="btn-cancelar-cat" style="display:none;width:auto" onclick="cancelarEdicaoCategoria()">Cancelar</button>
+    </div>
+
+    <div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+        <h3 style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Categorias</h3>
+        <button class="btn-detalhes" id="btn-editar-cat" onclick="modoEditarCategoria()"><i class="ti ti-pencil"></i> Editar</button>
+        <button class="btn-recusar" id="btn-excluir-cat" onclick="modoExcluirCategoria()"><i class="ti ti-trash"></i> Excluir</button>
+      </div>
+      <div class="categorias-lista" id="categorias-lista"></div>
+    </div>
+
+    <hr style="border:none;border-top:1px solid var(--borda);margin:24px 0;">
+
+    <!-- EXERCÍCIOS -->
+    <div class="form-secao">
+      <div class="form-secao-header"><i class="ti ti-barbell"></i><span id="form-ex-titulo">Novo exercício</span></div>
+      <div class="form-corpo">
+        <div class="form-linha">
+          <div class="form-grupo">
+            <label class="form-label">Nome do exercício <span class="req">*</span></label>
+            <input class="form-input" type="text" id="ex-nome">
+          </div>
+        </div>
+        <div class="form-linha">
+          <div class="form-grupo">
+            <label class="form-label">Objetivo / Descrição <span class="req">*</span></label>
+            <textarea class="form-input" id="ex-descricao" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="form-linha">
+          <div class="form-grupo">
+            <label class="form-label">Categoria <span class="req">*</span></label>
+            <select class="form-select" id="ex-categoria"></select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-acoes">
+      <button class="btn-primario" id="btn-ex" onclick="salvarExercicio()"><i class="ti ti-plus" style="margin-right:6px"></i> Criar exercício</button>
+      <button class="btn-secundario" id="btn-cancelar-ex" style="display:none;width:auto" onclick="cancelarEdicaoExercicio()">Cancelar</button>
+    </div>
+
+    <div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+        <h3 style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Exercícios</h3>
+        <button class="btn-detalhes" id="btn-editar-ex" onclick="modoEditarExercicio()"><i class="ti ti-pencil"></i> Editar</button>
+        <button class="btn-recusar" id="btn-excluir-ex" onclick="modoExcluirExercicio()"><i class="ti ti-trash"></i> Excluir</button>
+      </div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+        <button class="chip selecionado" onclick="filtrarExercicios('todas', this)">Todos</button>
+        <div id="filtros-categorias" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+      </div>
+
+      <div class="exercicios-grid" id="exercicios-grid"></div>
+      <div class="estado-vazio" id="vazio-ex"><i class="ti ti-inbox"></i><p>Nenhum exercício cadastrado.</p></div>
+    </div>
+  </main>
+
+  <footer class="rodape"><div class="container"><p>Escolinha de Basquete · Prof. Diego &amp; Francesco · 2026</p></div></footer>
+
+  <script src="../../app.js"></script>
+  <script src="categorias.js"></script>
+</body>
+</html>

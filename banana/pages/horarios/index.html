@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horários de Treino — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon"><i class="ti ti-ball-basketball"></i></div>
+        <div class="logo-texto"><span class="logo-nome">Escolinha de Basquete</span></div>
+      </div>
+      <nav class="nav-desktop">
+        <a href="../menu/index.html" class="nav-link">Início</a>
+        <a href="../matriculas/index.html" class="nav-link">Matrículas</a>
+        <a href="../turmas/index.html" class="nav-link">Turmas</a>
+        <a href="../chamada/index.html" class="nav-link">Chamada</a>
+      </nav>
+      <div class="header-acoes-prof">
+        <button class="btn-menu-icone" onclick="abrirMenuDropdown()"><i class="ti ti-menu-2"></i></button>
+        <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()"><i class="ti ti-moon" id="icone-tema"></i></button>
+        <button class="btn-sair-header" onclick="confirmarSaidaProfessor()"><i class="ti ti-logout"></i> Sair</button>
+      </div>
+    </div>
+    <div class="menu-dropdown" id="menu-dropdown">
+      <a href="../categorias/index.html"><i class="ti ti-category"></i> Categorias e Exercícios</a>
+      <a href="../cronometro/index.html"><i class="ti ti-stopwatch"></i> Cronômetro e Placar</a>
+      <a href="../planos-mensais/index.html"><i class="ti ti-calendar-month"></i> Planos Mensais</a>
+      <a href="../planos-diarios/index.html"><i class="ti ti-calendar-event"></i> Planos Diários</a>
+      <a href="../horarios/index.html"><i class="ti ti-clock"></i> Horários de Treino</a>
+      <a href="../configuracao/index.html"><i class="ti ti-settings"></i> Configuração</a>
+    </div>
+  </header>
+
+  <div class="modal-overlay" id="modal-sair-professor">
+    <div class="modal-card">
+      <div class="modal-icone"><i class="ti ti-logout"></i></div>
+      <h3>Tem certeza que deseja sair?</h3>
+      <p>Você será redirecionado para a tela de login.</p>
+      <div class="modal-acoes">
+        <button class="modal-btn modal-btn-cancelar" onclick="fecharModalSairProfessor()">Cancelar</button>
+        <button class="modal-btn modal-btn-confirmar" onclick="sairProfessorAgora()">Sair</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="main">
+    <div>
+      <div class="pagina-titulo"><i class="ti ti-clock"></i> Horários de Treino</div>
+      <div class="pagina-sub">Defina os dias e horários das turmas</div>
+    </div>
+
+    <div class="form-secao">
+      <div class="form-secao-header"><i class="ti ti-plus"></i><span id="form-hor-titulo">Novo horário</span></div>
+      <div class="form-corpo">
+        <div class="form-linha dois">
+          <div class="form-grupo">
+            <label class="form-label">Turma <span class="req">*</span></label>
+            <select class="form-select" id="hor-turma"></select>
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Dia da semana <span class="req">*</span></label>
+            <select class="form-select" id="hor-dia">
+              <option value="">Selecione</option>
+              <option value="0">Domingo</option>
+              <option value="1">Segunda</option>
+              <option value="2">Terça</option>
+              <option value="3">Quarta</option>
+              <option value="4">Quinta</option>
+              <option value="5">Sexta</option>
+              <option value="6">Sábado</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-linha dois">
+          <div class="form-grupo">
+            <label class="form-label">Início <span class="req">*</span></label>
+            <input class="form-input" type="time" id="hor-inicio" required>
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Fim <span class="req">*</span></label>
+            <input class="form-input" type="time" id="hor-fim" required>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-acoes">
+      <button class="btn-primario" id="btn-hor" onclick="salvarHorario()"><i class="ti ti-plus" style="margin-right:6px"></i> Criar horário</button>
+      <button class="btn-secundario" id="btn-cancelar-hor" style="display:none;width:auto" onclick="cancelarEdicao()">Cancelar</button>
+    </div>
+
+    <div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+        <h3 style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Horários cadastrados</h3>
+        <button class="btn-detalhes" onclick="modoEditar()"><i class="ti ti-pencil"></i> Editar</button>
+        <button class="btn-recusar" onclick="modoExcluir()"><i class="ti ti-trash"></i> Excluir</button>
+      </div>
+      <div id="lista-horarios" style="display:flex;flex-direction:column;gap:8px;"></div>
+      <div class="estado-vazio" id="vazio-hor"><i class="ti ti-inbox"></i><p>Nenhum horário cadastrado.</p></div>
+    </div>
+  </main>
+
+  <footer class="rodape"><div class="container"><p>Escolinha de Basquete · Prof. Diego &amp; Francesco · 2026</p></div></footer>
+
+  <script src="../../app.js"></script>
+  <script src="horarios.js"></script>
+</body>
+</html>

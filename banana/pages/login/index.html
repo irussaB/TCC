@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login do Professor — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body class="pagina-login-publica">
+
+  <button class="btn-tema-login" id="btn-tema" onclick="alternarTema()" title="Alternar tema">
+    <i class="ti ti-moon" id="icone-tema"></i>
+  </button>
+
+  <div class="lado-foto">
+    <div class="foto-conteudo">
+      <div class="foto-logo">
+        <div class="foto-logo-icon"><i class="ti ti-ball-basketball"></i></div>
+        <div class="foto-logo-texto">
+          <span class="foto-logo-nome">Escolinha de Basquete</span>
+          <span class="foto-logo-sub">Prof. Diego &amp; Francesco</span>
+        </div>
+      </div>
+      <div class="foto-chamada">
+        <div class="foto-badge"><i class="ti ti-ball-basketball"></i><span>Temporada 2026</span></div>
+        <h1 class="foto-titulo">Desenvolva campeões<br>dentro e fora <span>da quadra!</span></h1>
+        <p class="foto-desc">Gerencie matrículas, chamadas, treinos e jogos.<br>Tudo em um só lugar.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="lado-form">
+    <div class="form-card">
+      <div class="form-avatar"><i class="ti ti-chalkboard"></i></div>
+
+      <div class="tabs">
+        <button class="tab ativa"><i class="ti ti-chalkboard"></i> Professor</button>
+        <button class="tab" onclick="window.location.href='../../index.html'"><i class="ti ti-user"></i> Aluno</button>
+      </div>
+
+      <h2 class="form-card-titulo">Área do Professor</h2>
+      <p class="form-card-sub">Entre com suas credenciais<br>para acessar o painel</p>
+
+      <div class="alerta-erro" id="alerta-erro">
+        <i class="ti ti-alert-circle"></i>
+        <span id="texto-erro">E-mail ou senha incorretos.</span>
+      </div>
+
+      <form id="form-login" onsubmit="fazerLogin(event)">
+        <div class="input-grupo">
+          <label class="input-label">E-mail</label>
+          <div class="input-wrapper">
+            <i class="ti ti-mail input-icone-esq"></i>
+            <input class="campo" type="email" id="email" placeholder="professor@email.com" autocomplete="email" required>
+          </div>
+        </div>
+        <div class="input-grupo">
+          <label class="input-label">Senha</label>
+          <div class="input-wrapper">
+            <i class="ti ti-lock input-icone-esq"></i>
+            <input class="campo" type="password" id="senha" placeholder="••••••••" autocomplete="current-password" required>
+            <button type="button" class="input-icone-dir" onclick="toggleSenha()">
+              <i class="ti ti-eye" id="icone-olho"></i>
+            </button>
+          </div>
+        </div>
+        <a class="link-esqueceu" href="#" onclick="alert('Recuperação de senha em desenvolvimento.'); return false;">Esqueci minha senha</a>
+        <button type="submit" class="btn-entrar">
+          <i class="ti ti-login"></i> Entrar
+        </button>
+      </form>
+
+      <div class="form-rodape">
+        Não tem acesso? <a href="#" onclick="alert('Entre em contato com o administrador.'); return false;">Fale com o administrador</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../app.js"></script>
+  <script src="login.js"></script>
+</body>
+</html>

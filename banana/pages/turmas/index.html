@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turmas — Escolinha de Basquete</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon"><i class="ti ti-ball-basketball"></i></div>
+        <div class="logo-texto"><span class="logo-nome">Escolinha de Basquete</span></div>
+      </div>
+      <nav class="nav-desktop">
+        <a href="../menu/index.html" class="nav-link">Início</a>
+        <a href="../matriculas/index.html" class="nav-link">Matrículas</a>
+        <a href="index.html" class="nav-link ativo">Turmas</a>
+        <a href="../chamada/index.html" class="nav-link">Chamada</a>
+      </nav>
+      <div class="header-acoes-prof">
+        <button class="btn-menu-icone" onclick="abrirMenuDropdown()"><i class="ti ti-menu-2"></i></button>
+        <button class="btn-tema-header" id="btn-tema" onclick="alternarTema()"><i class="ti ti-moon" id="icone-tema"></i></button>
+        <button class="btn-sair-header" onclick="confirmarSaidaProfessor()"><i class="ti ti-logout"></i> Sair</button>
+      </div>
+    </div>
+    <div class="menu-dropdown" id="menu-dropdown">
+      <a href="../categorias/index.html"><i class="ti ti-category"></i> Categorias e Exercícios</a>
+      <a href="../cronometro/index.html"><i class="ti ti-stopwatch"></i> Cronômetro e Placar</a>
+      <a href="../planos-mensais/index.html"><i class="ti ti-calendar-month"></i> Planos Mensais</a>
+      <a href="../planos-diarios/index.html"><i class="ti ti-calendar-event"></i> Planos Diários</a>
+      <a href="../horarios/index.html"><i class="ti ti-clock"></i> Horários de Treino</a>
+      <a href="../configuracao/index.html"><i class="ti ti-settings"></i> Configuração</a>
+    </div>
+  </header>
+
+  <div class="modal-overlay" id="modal-sair-professor">
+    <div class="modal-card">
+      <div class="modal-icone"><i class="ti ti-logout"></i></div>
+      <h3>Tem certeza que deseja sair?</h3>
+      <p>Você será redirecionado para a tela de login.</p>
+      <div class="modal-acoes">
+        <button class="modal-btn modal-btn-cancelar" onclick="fecharModalSairProfessor()">Cancelar</button>
+        <button class="modal-btn modal-btn-confirmar" onclick="sairProfessorAgora()">Sair</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="main">
+    <div>
+      <div class="pagina-titulo"><i class="ti ti-users"></i> Turmas</div>
+      <div class="pagina-sub">Clique em uma turma para ver e adicionar alunos</div>
+    </div>
+
+    <div class="form-secao">
+      <div class="form-secao-header"><i class="ti ti-square-rounded-plus"></i><span id="form-turma-titulo">Nova turma</span></div>
+      <div class="form-corpo">
+        <div class="form-linha dois">
+          <div class="form-grupo">
+            <label class="form-label">Nome da turma <span class="req">*</span></label>
+            <input class="form-input" type="text" id="turma-nome" placeholder="Ex: Sub 16">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Professor responsável <span class="req">*</span></label>
+            <select class="form-select" id="turma-professor"></select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-acoes">
+      <button type="button" class="btn-primario" id="btn-turma" onclick="salvarTurma()"><i class="ti ti-plus" style="margin-right:6px"></i> Criar turma</button>
+      <button type="button" class="btn-secundario" id="btn-cancelar-edicao" style="display:none;width:auto" onclick="cancelarEdicao()">Cancelar</button>
+    </div>
+
+    <div id="lista-turmas" style="display:flex;flex-direction:column;gap:12px;"></div>
+  </main>
+
+  <!-- MODAL ALUNOS DA TURMA -->
+  <div class="modal-overlay" id="modal-alunos-turma" onclick="fecharModalAlunos(event)">
+    <div class="modal-box" style="max-width:640px">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="font-size:18px;font-weight:700;" id="modal-turma-titulo">Turma</div>
+        <button class="btn-detalhes" onclick="fecharModalAlunosBtn()"><i class="ti ti-x"></i></button>
+      </div>
+
+      <div class="form-grupo">
+        <label class="form-label">Buscar aluno aprovado</label>
+        <input class="form-input" type="text" id="busca-aluno-turma" placeholder="Digite o nome do aluno..." oninput="filtrarAlunosDisponiveis()">
+      </div>
+      <div id="lista-alunos-disponiveis" style="display:flex;flex-direction:column;gap:8px;max-height:220px;overflow-y:auto;"></div>
+
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--texto-mudo);padding-bottom:6px;border-bottom:1px solid var(--borda);margin-top:10px;">Alunos na turma</div>
+      <table class="tabela">
+        <thead><tr><th>Nome</th><th>Idade</th><th>Ações</th></tr></thead>
+        <tbody id="tbody-alunos-turma"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- MODAL CONFIRMAÇÃO DELETE -->
+  <div class="modal-overlay" id="modal-confirmar-delete" onclick="fecharModalDelete(event)">
+    <div class="modal-card">
+      <div class="modal-icone"><i class="ti ti-trash"></i></div>
+      <h3>Apagar turma?</h3>
+      <p>Esta ação não pode ser desfeita. Todos os vínculos com alunos e horários serão removidos.</p>
+      <div class="modal-acoes">
+        <button class="modal-btn modal-btn-cancelar" onclick="fecharModalDeleteBtn()">Cancelar</button>
+        <button class="modal-btn modal-btn-confirmar" onclick="confirmarDelete()">Apagar</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="rodape"><div class="container"><p>Escolinha de Basquete · Prof. Diego &amp; Francesco · 2026</p></div></footer>
+
+  <script src="../../app.js"></script>
+  <script src="turmas.js"></script>
+</body>
+</html>
